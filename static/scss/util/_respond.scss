@@ -1,0 +1,29 @@
+$respond-small: 320px;
+$respond-large: 1000px;
+$respond-largest: 1200px;
+
+@mixin respond-to($media) {
+  @if $media == small {
+    @media only screen and (max-width: $respond-small) { @content; }
+  }
+  @else if $media == medium {
+    @media only screen and (min-width: $respond-small + 1) and (max-width: $respond-large - 1) { @content; }
+  }
+  @else if $media == wide {
+    @media only screen and (min-width: $respond-large) and (max-width: $respond-largest - 1) { @content; }
+  }
+  @else if $media == widest {
+    @media only screen and (min-width: $respond-largest) { @content; }
+  }
+  @else if $media == high-ratio {
+    @media (-webkit-min-device-pixel-ratio: 1.5),
+    (-moz-min-device-pixel-ratio: 1.5),
+    (-o-min-device-pixel-ratio: 1.5),
+    (min-device-pixel-ratio: 1.5),
+    (min-resolution: 144dpi) { @content; }
+  }
+  @else {
+    @media only screen and (min-width: $media) { @content; }
+  }
+}
+

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Point.im</title>
+
+    <link rel="icon" href="img/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+
+    <meta name="MobileOptimized" content="176"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <script type="text/javascript" src="js/lib/require.js" data-main="js/main"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      {% if env.user.is_authorized() %}
+      <div class="popup-container">
+        <div class="popup popup-newpost">
+          <form action="/post" method="post" enctype="multipart/form-data">
+            <div class="row header-row">
+              <label class="private-label">
+                <input type="checkbox" name="private"/>
+                <div class="label"><span>Приватный<span></div>
+              </label>
+              <h3>Новый пост</h3>
+            </div>
+            <div class="row tags-row">
+              <textarea id="tags-input" name="tags" placeholder="Теги"></textarea>
+            </div>
+            <div class="row text-row">
+              <textarea id="text-input" name="text" placeholder="Текст"></textarea>
+            </div>
+            <div class="row buttons-row">
+              <div class="upload">
+                <input type="file" multiple="multiple" name="file"/>
+                <span class="number">0</span>
+              </div>
+              <div class="buttons">
+                <input type="button" class="btn btn-cancel" value="Отмена"/>
+                <input type="submit" class="btn" value="Отправить"/>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      {% endif %}
+      <div class="screen-hint">Потяните за левый край экрана, чтобы открыть меню.</div>
+      <div class="main-inner">
+
+        {% if env.user.is_authorized() %}
+        <div class="sidebar">
+          <div class="clearfix">
+            <a href="/" class="logo">
+              <!--[if IE]>
+              <img src="img/logo.png" alt="Point.im"/>
+              <![endif]-->
+              <!--[if !IE]> -->
+              <img src="img/logo.svg" alt="Point.im"/>
+              <!-- <![endif]-->
+            </a>
+            <a class="btn-newpost" title="Написать"></a>
+          </div>
+
+          <div class="menu">
+            <a class="recent" href="/recent">Лента</a>
+            <a class="blog active" href="/">Блог</a>
+            <a class="comments" href="/comments">Комментарии</a>
+            <a class="messages" href="/messages">Сообщения</a>
+            <a class="bookmarks" href="/bookmarks">Закладки</a>
+            <a class="search" href="/search">Поиск</a>
+          </div>
+
+          <div class="menu profile-menu">
+            <a class="profile" href="/profile">Профиль</a>
+            <a class="logout" href="/logout">Выйти</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="sidebar">
+          <div class="clearfix">
+            <a href="/" class="logo">
+              <!--[if IE]>
+              <img src="img/logo.png" alt="Point.im"/>
+              <![endif]-->
+              <!--[if !IE]> -->
+              <img src="img/logo.svg" alt="Point.im"/>
+              <!-- <![endif]-->
+            </a>
+          </div>
+
+          {% set recaptcha_theme="light" %}
+          {% include "/auth/_login-form.html" with context %}
+        </div>
+        {% endif %}
+
+        <div class="sidebar-handle"></div>
+        <div class="content">
+          <div class="content-inner">
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

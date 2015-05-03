@@ -1,0 +1,153 @@
+.login-wrap {
+  margin: 0;
+  padding: 10px;
+  @include box-sizing("border-box");
+
+  .links {
+    @include clearfix;
+    margin-bottom: 20pt;
+  }
+
+  .reg-link,
+  .login-link {
+    display: block;
+    font-size: 1.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .reg-link {
+    float: left;
+    color: #35587c;
+  }
+
+  .login-link {
+    float: right;
+    color: lighten(#35587c, 20%);
+  }
+
+  &.login {
+    .reg-link {
+      color: lighten(#35587c, 20%);
+    }
+
+    .login-link {
+      color: #35587c;
+    }
+  }
+
+  .reg-form,
+  .login-form {
+    float: left;
+    width: 50%;
+    height: 100%;
+    @include box-sizing("border-box");
+    @include transition(opacity .25s ease);
+  }
+
+  .login-form {
+    @include opacity(0);
+
+    .remember {
+      float: right;
+      margin: 1.2em 0;
+    }
+  }
+
+  .forms-wrap {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .forms {
+    position: relative;
+    width: 200%;
+    @include transform(translateX(0));
+    @include transition(transform .5s ease);
+  }
+
+  &.login {
+    .forms {
+      @include transform(translateX(-50%));
+    }
+
+    .reg-form {
+      @include opacity(0);
+    }
+
+    .login-form {
+      @include opacity(1);
+    }
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    margin: 10pt 0;
+    padding: 10pt;
+    border: 0;
+  }
+
+  .submit {
+    width: auto;
+    float: right;
+    background: lighten(#35587c, 20%);
+    text-transform: uppercase;
+    font-size: 1.2em;
+    text-align: left;
+
+    &:before {
+      @extend .fa-send;
+      margin-right: 1em;
+    }
+
+    &:hover {
+      background: #35587c;
+    }
+  }
+
+  .recaptcha {
+    padding: 0;
+    overflow: hidden;
+    max-height: 0;
+    @include transition(max-height .25s ease);
+
+    &.open {
+      max-height: 100pt;
+    }
+
+    & > div {
+      margin-bottom: 10pt;
+    }
+
+    div {
+      width: 100% !important;
+    }
+
+    iframe {
+      float: right;
+    }
+  }
+
+  .ulogin {
+    @include clearfix;
+    float: right;
+    margin: 20pt 0 0 0;
+
+    i {
+      margin: .25em;
+      font-size: 1.6em;
+      font-style: normal;
+      color: lighten(#35587c, 20%);
+      cursor: pointer;
+      @include transition(color .25s ease);
+
+      &:hover {
+        color: #35587c;
+        opacity: 1 !important;
+      }
+    }
+  }
+}

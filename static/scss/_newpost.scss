@@ -1,0 +1,152 @@
+@import "util/clearfix";
+@import "util/respond";
+
+.main.newpost {
+  @include popup-open;
+
+  .popup-newpost {
+    display: block;
+  }
+}
+
+.popup-newpost {
+  .header-row {
+    @include clearfix;
+  }
+
+  h3 {
+    margin: 0 2em 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .private-label {
+    display: block;
+    float: right;
+    color: #35587c;
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      left: -9999px;
+    }
+
+    & .label {
+      position: relative;
+      width: auto;
+      margin: 0;
+      color: #a0a0a0;
+
+      &:before {
+        @extend .fa;
+        @extend .fa-unlock-alt;
+        position: relative;
+        top: .1em;
+        margin: 0 .25em;
+        font-size: 1.5em;
+      }
+
+      span {
+        display: none;
+      }
+    }
+
+    input:checked + .label {
+      color: #35587c;
+
+      &:before {
+        @extend .fa-lock;
+      }
+    }
+  }
+
+  @include respond-to(200pt) {
+    h3 {
+      margin: 0 6em 0 0;
+    }
+
+    .private-label .label span {
+      display: inline;
+    }
+  }
+
+  .row {
+    margin: 4px 0;
+
+    textarea {
+      width: 100%;
+    }
+  }
+
+  .tags-row {
+    position: relative;
+
+    &:before {
+      position: absolute;
+      @extend .fa;
+      @extend .fa-tags;
+      padding: .65em .5em;
+      font-size: 1.2em;
+      color: #a0a0a0;
+    }
+
+    textarea {
+      min-height: 1.5em;
+      height: 1.5em;
+      padding-left: 2.5em;
+    }
+  }
+
+  #text-input {
+    min-height: 10em;
+  }
+
+  .buttons-row {
+    @include clearfix;
+  }
+
+  .upload {
+    float: left;
+    position: relative;
+    min-width: 3em;
+    height: 3em;
+    padding: 0 .5em;
+
+    &:before {
+      @extend .fa;
+      @extend .fa-camera;
+      display: block;
+      float: left;
+      font-size: 1.5em;
+      line-height: 2em;
+      color: #a0a0a0;
+    }
+
+    input {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      @include opacity(0);
+      cursor: pointer;
+    }
+
+    .number {
+      font-size: 1em;
+      color: #a0a0a0;
+      line-height: 3em;
+      margin-left: .5em;
+
+      &.positive {
+        color: #35587c;
+      }
+    }
+  }
+
+  .buttons {
+    float: right;
+  }
+}

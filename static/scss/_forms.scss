@@ -1,0 +1,73 @@
+@import "util/respond";
+@import "util/clearfix";
+
+.row {
+  margin-bottom: 1em;
+  @include clearfix;
+
+  .label {
+    display: block;
+    padding: .5em 0;
+  }
+
+  .label + .value {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="date"],
+    input[type="datetime"],
+    textarea {
+      width: 100%;
+    }
+  }
+
+  .value label {
+    display: inline-block;
+    padding: .5em;
+  }
+
+  .descr {
+    margin: 0 10px;
+    font-style: italic;
+    color: #a0a0a0;
+  }
+
+  @include respond-to(360pt) {
+    .label {
+      float: left;
+      width: 10em;
+      padding: .5em;
+    }
+
+    .label + .value {
+      margin-left: 11em;
+    }
+
+    .column {
+      float: left;
+
+      .label {
+        width: auto;
+      }
+
+      .label + .value {
+        margin: 0;
+      }
+
+      &:first-child {
+        .label {
+          width: 10em;
+        }
+
+        .label + .value {
+          margin-left: 11em;;
+        }
+      }
+    }
+  }
+
+  input[type="submit"] {
+    display: block;
+    float: right;
+  }
+}

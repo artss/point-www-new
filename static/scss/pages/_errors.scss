@@ -1,0 +1,24 @@
+.error-page {
+  margin: 4em 2em;
+
+  .error-image {
+    display: block;
+    width: 200px;
+  }
+
+  .error-content {
+    h1 {
+      margin: 1em 0;
+    }
+  }
+
+  @include respond-to(960px) {
+    .error-image {
+      float: left;
+    }
+
+    .error-content {
+      margin-left: 240px;
+    }
+  }
+}

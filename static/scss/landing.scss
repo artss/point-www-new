@@ -1,0 +1,361 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "util/respond";
+@import "util/clearfix";
+@import "typography";
+@import "fa";
+@import "inputs";
+@import "login-form";
+
+html {
+  height: 100%;
+}
+
+body {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+  @include box-sizing("border-box");
+  background: 100%;
+}
+
+header {
+  .logo {
+    display: block;
+    float: left;
+    width: 40pt;
+    height: 40pt;
+    padding: 6pt 4pt;
+    background: #eff2f5;
+
+    img {
+      display: inline-block;
+      width: 40pt;
+    }
+  }
+
+  .slogan {
+    display: table;
+    height: 60pt;
+    margin: 0 0 0 54pt;
+
+    .slogan-inner {
+      display: table-cell;
+      height: 100%;
+      vertical-align: middle;
+
+      a {
+        position: relative;
+        font-size: 3em;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+
+        &:hover,
+        &:active,
+        &:visited {
+          color: #35587c;
+        }
+
+        span {
+          position: absolute;
+          left: 0;
+          top: 100%;
+          white-space: nowrap;
+          font-size: .25em;
+          font-weight: normal;
+          color: #d0d0d0;
+          text-transform: uppercase;
+          line-height: 1em;
+        }
+      }
+    }
+  }
+}
+
+content {
+  @include clearfix;
+}
+
+.wrap {
+  @include clearfix;
+
+}
+
+.about {
+  margin: 4em 0;
+
+  p {
+    margin: 1em 0;
+    font-size: 1.1em;
+    line-height: 1.4em;
+  }
+}
+
+.devices {
+  margin: 5pt -5pt;
+  @include clearfix;
+
+  & > div {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+
+    @for $i from 0 through 4 {
+      @include respond-to(#{240 + $i * 24}px) {
+        font-size: #{1.2 + $i * 0.0625}em;
+      }
+    }
+
+    @for $i from 0 through 4 {
+      @include respond-to(#{480 + $i * 24}px) {
+        font-size: #{1.2 + $i * 0.0625}em;
+      }
+    }
+
+    @for $i from 0 through 9 {
+      @include respond-to(#{600 + $i * 24}px) {
+        font-size: #{1.2 + $i * 0.0625}em;
+      }
+    }
+
+    .inner {
+      position: relative;
+      margin: 5pt;
+      padding: 10pt;
+    }
+
+    img {
+      display: block;
+      float: left;
+      width: 4em;
+    }
+
+    h2 {
+      margin-left: 4em;
+      padding-left: 10pt;
+      font-size: inherit;
+      font-weight: normal;
+      text-transform: uppercase;
+      color: #ffffff;
+      @include clearfix;
+    }
+
+    .descr {
+      margin: 1em 0;
+      font-size: $typography-font-size * 1.1;
+      color: rgba(0,0,0,.75);
+      @include text-shadow(0 1px 0 rgba(255,255,255,.375));
+    }
+
+    @include respond-to(480px) {
+      float: left;
+      width: 50%;
+
+      h2 {
+        height: 4em;
+      }
+
+      .descr {
+        height: 5em;
+      }
+    }
+
+    @include respond-to(600px) {
+      width: 33.3%;
+    }
+
+    @include respond-to(1200px) {
+      &:last-child {
+        .inner {
+        z-index: 1;
+
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          left: 50%;
+          width: 60%;
+          background: inherit;
+        }
+
+        &:before {
+          top: 0;
+          height: 50.1%;
+          @include transform(skewX(15deg));
+        }
+
+        &:after {
+          top: 49.9%;
+          height: 50.1%;
+          @include transform(skewX(-15deg));
+        }
+      }
+      }
+    }
+  }
+
+  .browser {
+    .inner { background: #a2ccea; }
+
+    img { width: 4em; }
+    h2 { margin-left: 4em; }
+  }
+
+  .im {
+    .inner { background: #f4db62; }
+
+    img { width: 3em; }
+    h2 { margin-left: 3em; }
+  }
+
+  .mobile {
+    .inner { background: #84c971; }
+
+    img { width: 2em; }
+    h2 { margin-left: 2em; }
+
+  }
+}
+
+.login-wrap {
+  @include clearfix;
+  background: #606060;
+
+  .reg-link,
+  .login-link {
+    display: block;
+    font-size: 1.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .reg-link {
+    float: left;
+    color: #f0f0f0;
+  }
+
+  .login-link {
+    float: right;
+    color: #a0a0a0;
+  }
+
+  &.login {
+    .reg-link {
+      color: #a0a0a0;
+    }
+
+    .login-link {
+      color: #f0f0f0;
+    }
+  }
+
+  .login-form {
+    .remember {
+      float: left;
+      margin: 1.2em 10pt;
+      color: #d0d0d0;
+    }
+  }
+
+  .submit {
+    background: lighten(#35587c, 20%);
+
+    &:hover {
+      background: lighten(#35587c, 30%);
+    }
+  }
+
+  .ulogin {
+    i {
+      color: #d0d0d0;
+
+      &:hover {
+        color: #f0f0f0;
+      }
+    }
+  }
+}
+
+@include respond-to(480px) {
+  .login-wrap {
+  }
+}
+
+@include respond-to(600px) {
+  .login-wrap {
+    float: right;
+    width: 66.2%;
+  }
+}
+
+@include respond-to(960px) {
+  .login-wrap {
+    float: right;
+    width: 32.5%;
+  }
+}
+
+@include respond-to(1200px) {
+  .wrap {
+    float: left;
+    width: 65%;
+  }
+
+  .login-wrap {
+    width: 30%;
+    min-height: 290pt;
+    margin-top: 4em;
+  }
+}
+
+footer {
+  height: 100pt;
+  margin: 2em 0;
+  @include box-sizing("border-box");
+
+  @include respond-to(1200px) {
+    width: 65%;
+  }
+
+  .menu {
+    @include clearfix;
+    @include box-sizing("border-box");
+    padding: 0;
+
+    & > div {
+      display: block;
+      float: left;
+      @include box-sizing("border-box");
+      margin: 1em 0;
+      padding: 10pt;
+      min-width: 10em;
+
+      @include respond-to(480px) {
+        width: 50%;
+      }
+
+      @include respond-to(600px) {
+        width: 33.3%;
+      }
+    }
+
+    a {
+      display: block;
+      float: left;
+      clear: both;
+      padding: .25em 0;
+      text-decoration: none;
+    }
+  }
+
+  .copyright {
+    margin: 2em 10pt;
+    color: #a0a0a0;
+  }
+}
+

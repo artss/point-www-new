@@ -1,0 +1,22 @@
+{
+  "unused": true,
+  "noarg": true,
+  "trailing": true,
+  "indent": 2,
+  "forin": true,
+  "noempty": true,
+  "quotmark": "double",
+  "node": true,
+  "undef": true,
+  "expr": true,
+  "bitwise": true,
+  "newcap": true,
+  "immed": true,
+  "browser": true,
+  "es3": true,
+  "nonbsp": true,
+  "freeze": true,
+  "-W065": false,
+  "-W024": false,
+  "predef": ["define", "describe", "it"]
+}

@@ -1,0 +1,5 @@
+*.pyc
+venv
+.vimrc
+.idea
+.sass-cache

@@ -1,0 +1,23 @@
+.profile-tabs .tabs-content {
+  padding: 20pt 10px 10px 10px;
+}
+
+.profile-info-page {
+  #login-input, #name-input, #location-input {
+    max-width: 50em;
+  }
+
+  #birthdate-input {
+    max-width: 10em;
+  }
+
+  #about-input {
+    min-height: 10em;
+  }
+}
+
+.profile-www-page {
+  #usercss, #blogcss {
+    min-height: 10em;
+  }
+}

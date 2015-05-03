@@ -1,0 +1,217 @@
+@import "util/clearfix";
+@import "login-form";
+
+$sidebar-width: 240px;
+$sidebar-background: #ffffff;
+$sidebar-font-color: #606060;
+$sidebar-handle-background: #f0f0f0;
+
+.sidebar {
+  position: absolute;
+  z-index: 3;
+  width: $sidebar-width;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition: all 0.25s ease 0s;
+  visibility: hidden;
+  transform: translate(-100%, 0px, 0px);
+  transform: translate3d(-100%, 0px, 0px);
+  background: $sidebar-background;
+  color: $sidebar-font-color;
+
+  .logo {
+    float: left;
+    padding: 10px;
+
+    img {
+      display: block;
+      width: 40px;
+    }
+  }
+
+  .btn-newpost {
+    display: block;
+    float: right;
+    width: 60px;
+    height: 60px;
+    border: 0;
+    padding: 0;
+    text-align: center;
+    line-height: 60px;
+    font-size: 2em;
+    color: $sidebar-background;
+    background-color: darken($sidebar-background, 10%);
+    cursor: pointer;
+    @include transition(background-color, .25s ease);
+
+    &:before {
+      @extend .fa;
+      @extend .fa-plus;
+    }
+
+    &:hover {
+      background-color: darken($sidebar-background, 15%);
+    }
+  }
+
+  .menu {
+    width: 100%;
+    margin: 20px 0 0 0;
+
+    &.profile-menu {
+      position: absolute;
+      bottom: 0;
+    }
+
+    a {
+      display: block;
+      padding: 0 10px;
+      line-height: 26pt;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #a0a0a0;
+      @include transition(color .5s ease, background .5s ease);
+
+      &:hover {
+        color: #35587c;
+      }
+
+      &:before {
+        @extend .fa;
+        width: 2em;
+        font-size: 1.2em;
+      }
+
+      &.recent:before { @extend .fa-list; }
+      &.blog:before { @extend .fa-home; }
+      &.comments:before { @extend .fa-comments; }
+      &.messages:before { @extend .fa-envelope; }
+      &.bookmarks:before { @extend .fa-star; }
+      &.search:before { @extend .fa-search; }
+      &.profile:before { @extend .fa-sliders; }
+      &.logout:before { @extend .fa-power-off; }
+
+      &:active, &.active {
+        color: #35587c;
+        background: #f0f0f0;
+      }
+
+      &.logout {
+        #margin-top: 10px;
+        color: #d0d0d0;
+      }
+    }
+  }
+}
+
+.main.sidebar-open {
+  .main-inner {
+    &:after {
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      transition: opacity 0.25s ease 0s;
+    }
+
+    transform: translate($sidebar-width, 0px, 0px);
+    transform: translate3d($sidebar-width, 0px, 0px);
+  }
+
+  .sidebar {
+    transition: transform 0.25s ease 0s;
+    visibility: visible;
+  }
+}
+
+.content {
+  padding-left: 10px;
+}
+
+.sidebar-handle {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background: $sidebar-handle-background;
+  border-right: solid 1px darken($sidebar-handle-background, 10%);
+  cursor: pointer;
+}
+
+.screen-hint {
+  display: none;
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  @include box-sizing("border-box");
+  padding: 4em 20px;
+  font-size: 2em;
+  line-height: 1.25em;
+  color: #ffffff;
+  @include text-shadow(0 0 5px rgba(0,0,0,.5));
+  background: rgba(0,0,0,.5);
+}
+
+body.touch-device {
+  .content {
+    padding-left: 0;
+  }
+
+  .sidebar-handle {
+    display: none;
+  }
+
+  .screen-hint {
+    display: block;
+  }
+}
+
+@include respond-to(600pt) {
+  .main.sidebar-open {
+    .main-inner {
+      transform: none;
+
+      &:after {
+        opacity: 0;
+      }
+    }
+  }
+
+  .sidebar {
+    left: 0;
+    transform: none;
+    visibility: visible;
+    background: transparent;
+
+    /*.btn-newpost {
+      background: #e8e8e8;
+      color: #ffffff;
+    }*/
+  }
+
+  .content {
+    margin-left: $sidebar-width;
+    padding-left: 10px;
+  }
+
+  .sidebar-handle {
+    display: none;
+  }
+
+  .screen-hint {
+    display: none;
+  }
+}
+
+@include respond-to(1200px) {
+  .sidebar {
+    left: 50%;
+    margin-left: -640px;
+  }
+}
+
