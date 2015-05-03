@@ -3,3 +3,4 @@ venv
 .vimrc
 .idea
 .sass-cache
+settings_local.py
