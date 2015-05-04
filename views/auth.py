@@ -3,15 +3,15 @@ from point.core.user import User, UserNotFound, UserExists, \
                             AddressNotFound
 from point.app import users
 from point.util.env import env
-from point.util.www import check_referer
 from point.util.redispool import RedisPool
 from geweb.http import Response
 from geweb.session import Session
 from geweb.exceptions import NotFound, Forbidden
 from geweb.template import render
+from geweb.route import route
 from geweb.util import csrf
 from point.util import parse_date, validate_nickname
-from point.util.www import catch_errors, get_referer
+#from point.util.www import catch_errors, get_referer
 from user import WebUser
 from point.util.imgproc import make_avatar
 from random import randint
@@ -19,6 +19,8 @@ import json
 import urllib2
 from datetime import datetime, timedelta
 from recaptcha.client import captcha
+
+from wwwutil import check_referer, get_referer
 
 try:
     import re2 as re
@@ -29,7 +31,14 @@ import settings
 
 ULOGIN_FIELDS = ['email', 'nickname', 'bdate', 'sex', 'city', 'country', 'photo_big']
 
-#@csrf
+@route('/login', methods=['GET'])
+def login_form():
+    return render('/auth/login.html', referer=get_referer(),
+                                      fields=ULOGIN_FIELDS)
+
+@csrf
+@check_referer
+@route('/login', methods=['POST'])
 def login():
     if env.user.id:
         return Response().redirect('%s://%s.%s/' % \
@@ -37,9 +46,6 @@ def login():
                                     env.user.login, settings.domain))
 
     referer = get_referer()
-
-    if env.request.method == 'GET':
-        return render('/auth/login.html', referer=referer, fields=ULOGIN_FIELDS)
 
     try:
         login = env.request.args('login')
@@ -53,19 +59,14 @@ def login():
         else:
             return Response(redirect=referer)
     except (KeyError, NotAuthorized):
-        if env.request.is_xhr:
-            return Response(json.dumps({'error': 'credentials'}),
-                            mimetype='application/json')
-        else:
-            return render('/auth/login.html', errors=['credentials'],
-                                         referer=referer, fields=ULOGIN_FIELDS)
+        return Response(template='/auth/login.html', errors=['credentials'],
+                                                     referer=referer,
+                                                     fields=ULOGIN_FIELDS)
 
     return Response(redirect=referer)
 
+@route(r'/login/(?P<key>[0-9a-f]{40})')
 def login_key(key):
-    if env.request.method != 'GET':
-        raise Forbidden
-
     if env.user.id:
         env.user.logout()
 
@@ -84,7 +85,7 @@ def login_key(key):
 
 @csrf
 @check_referer
-
+@route('/logout', methods=['POST'])
 def logout():
     env.user.logout()
     return Response(redirect=env.request.referer)
@@ -175,7 +176,6 @@ def _gender(value):
         return False
     return None
 
-@catch_errors
 def register():
     #raise Forbidden
     if env.user.id:
@@ -309,7 +309,6 @@ def register():
 
     return Response(redirect=get_referer())
 
-@catch_errors
 def ulogin():
     if env.user.id:
         raise AlreadyAuthorized
