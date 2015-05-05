@@ -11,7 +11,6 @@ from geweb.template import render
 from geweb.route import route
 from geweb.util import csrf
 from point.util import parse_date, validate_nickname
-#from point.util.www import catch_errors, get_referer
 from user import WebUser
 from point.util.imgproc import make_avatar
 from random import randint
@@ -20,7 +19,7 @@ import urllib2
 from datetime import datetime, timedelta
 from recaptcha.client import captcha
 
-from wwwutil import check_referer, get_referer
+from wwwutil import check_referer, referer
 
 try:
     import re2 as re
@@ -33,8 +32,8 @@ ULOGIN_FIELDS = ['email', 'nickname', 'bdate', 'sex', 'city', 'country', 'photo_
 
 @route('/login', methods=['GET'])
 def login_form():
-    return render('/auth/login.html', referer=get_referer(),
-                                      fields=ULOGIN_FIELDS)
+    return Response(template='/auth/login.html', referer=referer(),
+                                                 fields=ULOGIN_FIELDS)
 
 @csrf
 @check_referer
@@ -45,7 +44,7 @@ def login():
                                    (env.request.protocol,
                                     env.user.login, settings.domain))
 
-    referer = get_referer()
+    ref = referer()
 
     try:
         login = env.request.args('login')
@@ -57,10 +56,10 @@ def login():
             return Response(json.dumps({'ok': True}),
                             mimetype='application/json')
         else:
-            return Response(redirect=referer)
+            return Response(redirect=ref)
     except (KeyError, NotAuthorized):
         return Response(template='/auth/login.html', errors=['credentials'],
-                                                     referer=referer,
+                                                     referer=ref,
                                                      fields=ULOGIN_FIELDS)
 
     return Response(redirect=referer)
@@ -88,7 +87,7 @@ def login_key(key):
 @route('/logout', methods=['POST'])
 def logout():
     env.user.logout()
-    return Response(redirect=env.request.referer)
+    return Response(redirect=referer())
 
 def remember():
     if env.request.method != 'POST':

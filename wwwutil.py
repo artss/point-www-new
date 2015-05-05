@@ -28,7 +28,7 @@ def check_referer(fn):
         return fn(*args, **kwargs)
     return _fn
 
-def get_referer():
+def referer():
     try:
         referer = env.request.args('referer')
     except KeyError:
