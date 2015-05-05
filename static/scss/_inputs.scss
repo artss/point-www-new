@@ -46,7 +46,7 @@ textarea {
 .btn {
   border: 0;
   padding: 1em 2em;
-  font-weight: bold;
+  font-weight: normal;
   color: #ffffff;
   background-color: #606060;
   @include transition(background-color .5s ease);

@@ -79,7 +79,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 17, ../scss/_typography.scss */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "droid sans", Arial, sans-serif;
   font-size: 10pt;
   line-height: 1.4em;
   color: #475059;
@@ -2975,7 +2975,7 @@ textarea {
   -o-transition: box-shadow 0.5s ease, border-color 0.5s ease;
   transition: box-shadow 0.5s ease, border-color 0.5s ease;
   background: #ffffff;
-  font-family: Arial, sans-serif;
+  font-family: "droid sans", Arial, sans-serif;
   font-size: 10pt;
 }
 
@@ -3012,7 +3012,7 @@ textarea {
 .btn {
   border: 0;
   padding: 1em 2em;
-  font-weight: bold;
+  font-weight: normal;
   color: #ffffff;
   background-color: #606060;
   -webkit-transition: background-color 0.5s ease;
