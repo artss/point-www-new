@@ -63,12 +63,17 @@ class DomainOwnerMiddleware(Middleware):
 
 class AjaxResponseMiddleware(Middleware):
     class AjaxResponse(Response):
+        def render_headers(self):
+            if env.request.is_xhr:
+                self.mimetype = 'application/json'
+            return super(AjaxResponseMiddleware.AjaxResponse, self).render_headers()
+
         def render(self):
-            if env.request.is_xhr and self.template:
-                return json.dumps({
-                    'template': self.template,
-                    'data': self.data
-                })
+            if env.request.is_xhr:
+                resp = {'data': self.data}
+                if self.template:
+                    resp['template'] = self.template
+                return json.dumps(resp)
 
             return super(AjaxResponseMiddleware.AjaxResponse, self).render()
 

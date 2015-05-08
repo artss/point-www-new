@@ -53,16 +53,15 @@ def login():
             raise NotAuthorized
         env.user.authenticate(login, password)
         if env.request.is_xhr:
-            return Response(json.dumps({'ok': True}),
-                            mimetype='application/json')
+            return Response(ok=True)
         else:
             return Response(redirect=ref)
     except (KeyError, NotAuthorized):
-        return Response(template='/auth/login.html', errors=['credentials'],
-                                                     referer=ref,
-                                                     fields=ULOGIN_FIELDS)
-
-    return Response(redirect=referer)
+        return Response(template='/auth/login.html',
+                        code=NotAuthorized.code,
+                        message=NotAuthorized.message,
+                        errors=['credentials'],
+                        referer=ref, fields=ULOGIN_FIELDS)
 
 @route(r'/login/(?P<key>[0-9a-f]{40})')
 def login_key(key):
