@@ -1,20 +1,20 @@
-define(["jquery"], function ($) {
-  var wrap = $(".login-wrap");
+define(['reg-form', 'login-form', 'jquery'], function (RegForm, LoginForm, $) {
+  var wrap = $('.login-wrap');
 
-  wrap.find(".reg-link").click(function (evt) {
+  wrap.find('.reg-link').click(function (evt) {
     evt.preventDefault();
-    wrap.removeClass("login");
+    wrap.removeClass('login');
   });
 
-  wrap.find(".login-link").click(function (evt) {
+  wrap.find('.login-link').click(function (evt) {
     evt.preventDefault();
-    wrap.addClass("login");
+    wrap.addClass('login');
   });
 
-  var recaptcha = wrap.find(".recaptcha");
+  var regForm = new RegForm({el: wrap.find('.reg-form')[0]});
+  regForm.render();
 
-  wrap.find(".reg-form input").focus(function () {
-    if (recaptcha.hasClass("open")) return;
-    recaptcha.addClass("open");
-  });
+  var loginForm = new LoginForm({el: wrap.find('.login-form')[0]});
+  loginForm.render();
 });
+

@@ -1,15 +1,16 @@
 require.config({
-  baseUrl: "js",
+  baseUrl: 'js',
 
   shim: {
-    "lib/jquery.autosize": {
-      deps: ["jquery"]
-    }
+    'lib/jquery.autosize': {
+      deps: ['jquery']
+    },
   },
 
   paths: {
-    "jquery": "lib/jquery",
-    "backbone": "lib/backbone",
-    "underscore": "lib/underscore"
+    'jquery': 'lib/jquery',
+    'backbone': 'lib/backbone',
+    'swig': 'lib/swig',
+    'underscore': 'lib/underscore'
   }
 });

@@ -82,12 +82,17 @@
     }
   }
 
-  input {
+  .input-container {
     display: block;
     width: 100%;
-    margin: 10pt 0;
-    padding: 10pt;
-    border: 0;
+
+    input {
+      display: block;
+      width: 100%;
+      margin: 10pt 0;
+      padding: 10pt;
+      border: 0;
+    }
   }
 
   .submit {
@@ -105,6 +110,26 @@
 
     &:hover {
       background: #35587c;
+    }
+
+    &[disabled] {
+      background: lighten(#35587c, 30%);
+      color: lighten(#35587c, 40%);
+    }
+
+    .loading {
+      display: none;
+    }
+
+    &.loading {
+      text-transform: none;
+
+      .label {
+        display: none;
+      }
+      .loading {
+        display: inline;
+      }
     }
   }
 
