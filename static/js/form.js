@@ -69,18 +69,21 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
       this.$(':input').prop('disabled', true);
       this.$submit.addClass('loading');
 
-      this.model.url = this.$el.attr('action');
-      this.model.save()
-        .always(function() {
-          this.$(':input').prop('disabled', false);
-          this.$submit.removeClass('loading');
-        }.bind(this))
-        .success(function() {
-          console.log('-- success', arguments);
-        })
-        .error(function() {
-          console.log('-- error', arguments);
-        });
+      $.ajax({
+        url: this.$el.attr('action'),
+        type: this.$el.attr('method').toUpperCase(),
+        data: this.model.toJSON()
+      })
+      .always(function() {
+        this.$(':input').prop('disabled', false);
+        this.$submit.removeClass('loading');
+      }.bind(this))
+      .success(function() {
+        console.log('-- success', arguments);
+      })
+      .error(function() {
+        console.log('-- error', arguments);
+      });
     },
 
     remove: function() {
