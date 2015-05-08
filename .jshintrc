@@ -5,7 +5,7 @@
   "indent": 2,
   "forin": true,
   "noempty": true,
-  "quotmark": "double",
+  "quotmark": "single",
   "node": true,
   "undef": true,
   "expr": true,
