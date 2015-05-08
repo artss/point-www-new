@@ -3,6 +3,8 @@ try:
 except ImportError:
     import re
 
+import json
+from geweb.http import Response
 from geweb.middleware import Middleware
 from geweb.exceptions import Forbidden
 import geweb.db.pgsql as db
@@ -52,9 +54,25 @@ def domain_owner(domain):
     raise UserNotFound
 
 class DomainOwnerMiddleware(Middleware):
-    def process_request(self, request):
+    @staticmethod
+    def process_request(request):
         try:
             env.owner = domain_owner(request.host)
         except UserNotFound:
             env.owner = None
+
+class AjaxResponseMiddleware(Middleware):
+    class AjaxResponse(Response):
+        def render(self):
+            if env.request.is_xhr and self.template:
+                return json.dumps({
+                    'template': self.template,
+                    'data': self.data
+                })
+
+            return super(AjaxResponseMiddleware.AjaxResponse, self).render()
+
+    @staticmethod
+    def process_response(response):
+        response.__class__ = AjaxResponseMiddleware.AjaxResponse
 

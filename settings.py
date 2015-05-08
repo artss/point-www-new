@@ -72,7 +72,8 @@ session_socket = storage_socket
 middleware = [
     'geweb.session.SessionMiddleware',
     'user.UserMiddleware',
-    'wwwutil.DomainOwnerMiddleware'
+    'wwwutil.DomainOwnerMiddleware',
+    'wwwutil.AjaxResponseMiddleware'
 ]
 
 page_limit = 20
