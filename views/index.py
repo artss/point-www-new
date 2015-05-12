@@ -4,7 +4,7 @@ from geweb.http import Response
 
 import settings
 
-@route(r'/', host=settings.domain)
+@route('/', host=settings.domain)
 def index():
     if env.user.is_authorized():
         return Response(redirect='%s://%s.%s' % (env.request.protocol,

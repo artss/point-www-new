@@ -82,16 +82,43 @@
     }
   }
 
+  .input-error-label {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    z-index: 1;
+    @include box-sizing("border-box");
+    max-width: 100%;
+    background: #ffffd0;
+    color: #880000;
+    padding: .5em 10pt;
+    overflow: hidden;
+    @include transition(top .5s ease, height .5s ease);
+
+    &:empty {
+      display: none;
+    }
+  }
+
   .input-container {
+    position: relative;
     display: block;
     width: 100%;
 
     input {
+      position: relative;
+      z-index: 2;
       display: block;
       width: 100%;
       margin: 10pt 0;
       padding: 10pt;
       border: 0;
+    }
+
+    &.error .input-error-label {
+      top: 100%;
+      height: auto;
     }
   }
 

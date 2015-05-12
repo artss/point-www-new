@@ -78,6 +78,7 @@ textarea {
   &[disabled] {
     background-color: #a0a0a0;
     color: #808080;
+    cursor: default;
   }
 }
 

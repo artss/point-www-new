@@ -3067,19 +3067,51 @@ dl dd {
   opacity: 1;
 }
 /* line 85, ../scss/_login-form.scss */
+.login-wrap .input-error-label {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0%;
+  z-index: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 100%;
+  background: #ffffd0;
+  color: #880000;
+  padding: .5em 10pt;
+  overflow: hidden;
+  -webkit-transition: top 0.5s ease, height 0.5s ease;
+  -moz-transition: top 0.5s ease, height 0.5s ease;
+  -o-transition: top 0.5s ease, height 0.5s ease;
+  transition: top 0.5s ease, height 0.5s ease;
+}
+/* line 99, ../scss/_login-form.scss */
+.login-wrap .input-error-label:empty {
+  display: none;
+}
+/* line 104, ../scss/_login-form.scss */
 .login-wrap .input-container {
+  position: relative;
   display: block;
   width: 100%;
 }
-/* line 89, ../scss/_login-form.scss */
+/* line 109, ../scss/_login-form.scss */
 .login-wrap .input-container input {
+  position: relative;
+  z-index: 2;
   display: block;
   width: 100%;
   margin: 10pt 0;
   padding: 10pt;
   border: 0;
 }
-/* line 98, ../scss/_login-form.scss */
+/* line 119, ../scss/_login-form.scss */
+.login-wrap .input-container.error .input-error-label {
+  top: 100%;
+  height: auto;
+}
+/* line 125, ../scss/_login-form.scss */
 .login-wrap .submit {
   width: auto;
   float: right;
@@ -3088,36 +3120,36 @@ dl dd {
   font-size: 1.2em;
   text-align: left;
 }
-/* line 106, ../scss/_login-form.scss */
+/* line 133, ../scss/_login-form.scss */
 .login-wrap .submit:before {
   margin-right: 1em;
 }
-/* line 111, ../scss/_login-form.scss */
+/* line 138, ../scss/_login-form.scss */
 .login-wrap .submit:hover {
   background: #35587c;
 }
-/* line 115, ../scss/_login-form.scss */
+/* line 142, ../scss/_login-form.scss */
 .login-wrap .submit[disabled] {
   background: #81a4c9;
   color: #a5bed8;
 }
-/* line 120, ../scss/_login-form.scss */
+/* line 147, ../scss/_login-form.scss */
 .login-wrap .submit .loading {
   display: none;
 }
-/* line 124, ../scss/_login-form.scss */
+/* line 151, ../scss/_login-form.scss */
 .login-wrap .submit.loading {
   text-transform: none;
 }
-/* line 127, ../scss/_login-form.scss */
+/* line 154, ../scss/_login-form.scss */
 .login-wrap .submit.loading .label {
   display: none;
 }
-/* line 130, ../scss/_login-form.scss */
+/* line 157, ../scss/_login-form.scss */
 .login-wrap .submit.loading .loading {
   display: inline;
 }
-/* line 136, ../scss/_login-form.scss */
+/* line 163, ../scss/_login-form.scss */
 .login-wrap .recaptcha {
   padding: 0;
   overflow: hidden;
@@ -3127,23 +3159,23 @@ dl dd {
   -o-transition: max-height 0.25s ease;
   transition: max-height 0.25s ease;
 }
-/* line 142, ../scss/_login-form.scss */
+/* line 169, ../scss/_login-form.scss */
 .login-wrap .recaptcha.open {
   max-height: 100pt;
 }
-/* line 146, ../scss/_login-form.scss */
+/* line 173, ../scss/_login-form.scss */
 .login-wrap .recaptcha > div {
   margin-bottom: 10pt;
 }
-/* line 150, ../scss/_login-form.scss */
+/* line 177, ../scss/_login-form.scss */
 .login-wrap .recaptcha div {
   width: 100% !important;
 }
-/* line 154, ../scss/_login-form.scss */
+/* line 181, ../scss/_login-form.scss */
 .login-wrap .recaptcha iframe {
   float: right;
 }
-/* line 159, ../scss/_login-form.scss */
+/* line 186, ../scss/_login-form.scss */
 .login-wrap .ulogin {
   *zoom: 1;
   float: right;
@@ -3158,7 +3190,7 @@ dl dd {
 .login-wrap .ulogin:after {
   clear: both;
 }
-/* line 164, ../scss/_login-form.scss */
+/* line 191, ../scss/_login-form.scss */
 .login-wrap .ulogin i {
   margin: .25em;
   font-size: 1.6em;
@@ -3170,7 +3202,7 @@ dl dd {
   -o-transition: color 0.25s ease;
   transition: color 0.25s ease;
 }
-/* line 172, ../scss/_login-form.scss */
+/* line 199, ../scss/_login-form.scss */
 .login-wrap .ulogin i:hover {
   color: #35587c;
   opacity: 1 !important;
@@ -3684,16 +3716,17 @@ textarea {
 .btn[disabled] {
   background-color: #a0a0a0;
   color: #808080;
+  cursor: default;
 }
 
-/* line 84, ../scss/_inputs.scss */
+/* line 85, ../scss/_inputs.scss */
 .btn-cancel {
   padding: 1em;
   font-weight: normal;
   background: transparent;
   color: #35587c;
 }
-/* line 90, ../scss/_inputs.scss */
+/* line 91, ../scss/_inputs.scss */
 .btn-cancel:hover, .btn-cancel:active {
   background: inherit;
 }

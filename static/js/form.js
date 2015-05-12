@@ -28,6 +28,11 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
       this.updateValidation();
     },
 
+    focus: function(field) {
+      var $field = _.isString(field) ? this.$('[name="' + field + '"]') : $(field);
+      $field.focus();
+    },
+
     validate: function(fields) {
       var validation = this.model.validate();
       return _.isEmpty(fields) ? validation : _.pick(validation, fields);
@@ -35,16 +40,12 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
 
     validateField: function(evt) {
       var $target = $(evt.target);
-      var $container = $target.closest('.js-input-container');
-      if ($container.length === 0) {
-        $container = $target;
-      }
 
       var name = $target.attr('name');
       this.model.set(name, $target.val());
       var validation = this.validate(name);
 
-      $container.toggleClass('error', !_.isEmpty(validation));
+      this.setValidation($target, _.isEmpty(validation));
     },
 
     validateFieldDelayed: _.debounce(function() {
@@ -57,6 +58,18 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
 
     isValid: function() {
       return this.model.isValid.apply(this.model, arguments);
+    },
+
+    setValidation: function(field, status, message) {
+      var $field = _.isString(field) ? this.$('[name="' + field + '"]') : $(field);
+      var $container = $field.closest('.js-input-container');
+      if ($container.length === 0) {
+        $container = $field;
+      }
+
+      $container.find('.js-input-error-label').html(message || $field.data('error'));
+
+      $container.toggleClass('error', !status);
     },
 
     submit: function(evt) {
@@ -74,16 +87,19 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
         type: this.$el.attr('method').toUpperCase(),
         data: this.model.toJSON()
       })
+
       .always(function() {
         this.$(':input').prop('disabled', false);
         this.$submit.removeClass('loading');
       }.bind(this))
-      .success(function() {
-        console.log('-- success', arguments);
-      })
-      .error(function() {
-        console.log('-- error', arguments);
-      });
+
+      .success(function(data) {
+        this.trigger('success', data.data);
+      }.bind(this))
+
+      .error(function(xhr) {
+        this.trigger('error', xhr.responseJSON.data);
+      }.bind(this));
     },
 
     remove: function() {

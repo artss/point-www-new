@@ -40,7 +40,10 @@ def login_form():
 @route('/login', methods=['POST'])
 def login():
     if env.user.id:
-        return Response().redirect('%s://%s.%s/' % \
+        if env.request.is_xhr:
+            raise AlreadyAuthorized
+
+        return Response(redirect='%s://%s.%s/' % \
                                    (env.request.protocol,
                                     env.user.login, settings.domain))
 
@@ -307,6 +310,7 @@ def register():
 
     return Response(redirect=get_referer())
 
+@route('/ulogin')
 def ulogin():
     if env.user.id:
         raise AlreadyAuthorized
@@ -328,7 +332,7 @@ def ulogin():
         try:
             env.user.authenticate_ulogin(data['network'], data['uid'])
             if env.user.id:
-                return Response(redirect=get_referer())
+                return Response(redirect=referer())
         except NotAuthorized:
             pass
 

@@ -1,4 +1,4 @@
-define(['form'], function(Form) {
+define(['form', 'underscore'], function(Form, _) {
   var LoginModel = Form.Model.extend({
     validation: {
       login: {
@@ -11,7 +11,18 @@ define(['form'], function(Form) {
     }
   });
   var LoginForm = Form.View.extend({
-    model: LoginModel
+    model: LoginModel,
+
+    initialize: function(options) {
+      Form.View.prototype.initialize.call(this, options);
+
+      this.on('error', function(data) {
+        if (_.isArray(data.errors) && _.indexOf(data.errors, 'credentials') > -1) {
+          this.setValidation('password', false, 'Invalid login or password');
+          this.focus('password');
+        }
+      });
+    }
   });
 
   return LoginForm;

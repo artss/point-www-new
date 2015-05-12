@@ -6,9 +6,10 @@
 
   <div class="forms-wrap">
     <div class="forms">
-      <form class="reg-form" action="https://{{ settings.domain }}/register" method="POST">
+      <form class="reg-form" action="//{{ settings.domain }}/register" method="POST">
         <div class="input-container js-input-container">
           <input type="text" name="login" placeholder="Логин">
+          <div class="input-error-label js-input-error-label"></div>
         </div>
         <div class="input-container js-input-container">
           <input type="password" name="password" placeholder="Пароль">
@@ -18,7 +19,7 @@
         </div>
 
         <div class="recaptcha js-input-container">
-          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+          <script src="//www.google.com/recaptcha/api.js" async defer></script>
           <div class="g-recaptcha" data-sitekey="{{settings.recaptcha_public_key}}" data-theme="{{ recaptcha_theme }}"></div>
         </div>
 
@@ -28,12 +29,13 @@
         </button>
       </form>
 
-      <form class="login-form" action="https://{{ settings.domain }}/login" method="POST">
+      <form class="login-form" action="//{{ settings.domain }}/login" method="POST">
         <div class="input-container js-input-container">
           <input type="text" name="login" placeholder="Логин">
         </div>
         <div class="input-container js-input-container">
           <input type="password" name="password" placeholder="Пароль">
+          <div class="input-error-label js-input-error-label"></div>
         </div>
 
         <button type="submit" class="btn submit js-submit">
@@ -46,7 +48,8 @@
   </div>
 
   <script src="//ulogin.ru/js/ulogin.js"></script>
-  <div id="uLogin" class="ulogin" data-ulogin="display=buttons;fields=nickname,first_name,last_name,photo_big;redirect_uri=https:%2F%2Fpoint.im%2Fulogin">
+  <div id="uLogin" class="ulogin"
+       data-ulogin="display=buttons;fields=nickname,first_name,last_name,photo_big;redirect_uri=https%3a%2f%2f{{settings.domain}}%2fulogin">
     <i class="fa fa-facebook" data-uloginbutton="facebook"></i>
     <i class="fa fa-vk" data-uloginbutton="vkontakte"></i>
     <i class="" data-uloginbutton="yandex">Я</i>

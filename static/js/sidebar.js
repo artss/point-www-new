@@ -1,7 +1,7 @@
-define(["jquery", "login-form"], function ($) {
-  var mainDiv = $(".main");
+define(['jquery', 'login-register'], function ($) {
+  var mainDiv = $('.main');
   var winWidth = $(window).width();
-  var sidebarDiv = $(".sidebar");
+  var sidebarDiv = $('.sidebar');
   var sidebarWidth = sidebarDiv.width();
 
   var startX, startY, lastX, lastY, swipe;
@@ -13,11 +13,11 @@ define(["jquery", "login-form"], function ($) {
 
   function toggleSidebar (state) {
     console.log('toggleSidebar');
-    if (typeof state === "undefined") {
-      state = !mainDiv.hasClass("sidebar-open");
+    if (typeof state === 'undefined') {
+      state = !mainDiv.hasClass('sidebar-open');
     }
 
-    mainDiv.toggleClass("sidebar-open", state);
+    mainDiv.toggleClass('sidebar-open', state);
   }
 
   function checkPos () {
@@ -39,7 +39,7 @@ define(["jquery", "login-form"], function ($) {
   var doc = $(document);
 
   function initSidebar () {
-    doc.on("touchstart", function (evt) {
+    doc.on('touchstart', function (evt) {
       var oevt = evt.originalEvent;
 
       if (oevt.touches.length !== 1) {
@@ -51,14 +51,14 @@ define(["jquery", "login-form"], function ($) {
       lastX = startX;
       lastY = startY;
 
-      if (!mainDiv.hasClass("sidebar-open") && startX > winWidth / 4) {
+      if (!mainDiv.hasClass('sidebar-open') && startX > winWidth / 4) {
         resetSwipe();
       }
 
-      $(".screen-hint").remove();
+      $('.screen-hint').remove();
     });
 
-    doc.on("touchmove", function (evt) {
+    doc.on('touchmove', function (evt) {
       var oevt = evt.originalEvent;
       if (oevt.touches.length !== 1) {
         return;
@@ -78,7 +78,7 @@ define(["jquery", "login-form"], function ($) {
       }
     });
 
-    doc.on("touchend", function () {
+    doc.on('touchend', function () {
       //evt.stopPropagation();
       //evt.preventDefault();
 
@@ -89,11 +89,11 @@ define(["jquery", "login-form"], function ($) {
       resetSwipe();
     });
 
-    doc.on("touchcancel", function () {
+    doc.on('touchcancel', function () {
       resetSwipe();
     });
 
-    $(".sidebar-handle").on("click", function () {
+    $('.sidebar-handle').on('click', function () {
       toggleSidebar();
     });
   }
