@@ -6,21 +6,25 @@
 
   <div class="forms-wrap">
     <div class="forms">
-      <form class="reg-form" action="//{{ settings.domain }}/register" method="POST">
+      <form class="reg-form" action="//{{ settings.domain }}/register" method="POST" autocomplete="off">
         <div class="input-container js-input-container">
-          <input type="text" name="login" placeholder="Логин">
+          <input type="text" name="login" placeholder="Логин"
+            data-error='{"default": "Login may contain [a-z0-9] or \"-\"", "inuse": "This login is already in use"}'>
           <div class="input-error-label js-input-error-label"></div>
         </div>
         <div class="input-container js-input-container">
           <input type="password" name="password" placeholder="Пароль">
+          <div class="input-error-label js-input-error-label"></div>
         </div>
         <div class="input-container js-input-container">
           <input type="email" name="email" placeholder="E-mail">
+          <div class="input-error-label js-input-error-label"></div>
         </div>
 
         <div class="recaptcha js-input-container">
           <script src="//www.google.com/recaptcha/api.js" async defer></script>
           <div class="g-recaptcha" data-sitekey="{{settings.recaptcha_public_key}}" data-theme="{{ recaptcha_theme }}"></div>
+          <div class="input-error-label js-input-error-label"></div>
         </div>
 
         <button type="submit" class="btn submit js-submit">
@@ -34,7 +38,8 @@
           <input type="text" name="login" placeholder="Логин">
         </div>
         <div class="input-container js-input-container">
-          <input type="password" name="password" placeholder="Пароль">
+          <input type="password" name="password" placeholder="Пароль"
+            data-error='{"default":"Password cannot be empty", "credentials": "Invalid login or password"}'>
           <div class="input-error-label js-input-error-label"></div>
         </div>
 

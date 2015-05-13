@@ -177,6 +177,14 @@ def _gender(value):
         return False
     return None
 
+@route('/check-login')
+def check_login():
+    try:
+        User('login', env.request.args('login', ''))
+        return Response(errors=['inuse'])
+    except UserNotFound:
+        return Response(ok=1)
+
 def register():
     #raise Forbidden
     if env.user.id:

@@ -39,13 +39,13 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
     },
 
     validateField: function(evt) {
-      var $target = $(evt.target);
+      var $field = _.isString(evt) ? this.$('[name="' + evt + '"]') : $(evt.target);
 
-      var name = $target.attr('name');
-      this.model.set(name, $target.val());
+      var name = $field.attr('name');
+      this.model.set(name, $field.val());
       var validation = this.validate(name);
 
-      this.setValidation($target, _.isEmpty(validation));
+      this.setValidation($field, _.isEmpty(validation));
     },
 
     validateFieldDelayed: _.debounce(function() {
@@ -67,7 +67,18 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
         $container = $field;
       }
 
-      $container.find('.js-input-error-label').html(message || $field.data('error'));
+      var errdata = $field.data('error');
+      var error;
+
+      if (message) {
+        error = _.isObject(errdata) ? errdata[message] || message : message;
+      }
+
+      if (!error) {
+        error = _.isObject(errdata) ? errdata['default'] : errdata;
+      }
+
+      $container.find('.js-input-error-label').html(error);
 
       $container.toggleClass('error', !status);
     },

@@ -18,7 +18,7 @@ define(['form', 'underscore'], function(Form, _) {
 
       this.on('error', function(data) {
         if (_.isArray(data.errors) && _.indexOf(data.errors, 'credentials') > -1) {
-          this.setValidation('password', false, 'Invalid login or password');
+          this.setValidation('password', false, 'credentials');
           this.focus('password');
         }
       });

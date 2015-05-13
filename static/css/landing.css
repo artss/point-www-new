@@ -3202,10 +3202,11 @@ textarea {
 /* line 104, ../scss/_login-form.scss */
 .login-wrap .input-container {
   position: relative;
+  z-index: 0;
   display: block;
   width: 100%;
 }
-/* line 109, ../scss/_login-form.scss */
+/* line 110, ../scss/_login-form.scss */
 .login-wrap .input-container input {
   position: relative;
   z-index: 2;
@@ -3215,12 +3216,16 @@ textarea {
   padding: 10pt;
   border: 0;
 }
-/* line 119, ../scss/_login-form.scss */
+/* line 120, ../scss/_login-form.scss */
+.login-wrap .input-container.error {
+  z-index: 1;
+}
+/* line 123, ../scss/_login-form.scss */
 .login-wrap .input-container.error .input-error-label {
   top: 100%;
   height: auto;
 }
-/* line 125, ../scss/_login-form.scss */
+/* line 130, ../scss/_login-form.scss */
 .login-wrap .submit {
   width: auto;
   float: right;
@@ -3229,36 +3234,36 @@ textarea {
   font-size: 1.2em;
   text-align: left;
 }
-/* line 133, ../scss/_login-form.scss */
+/* line 138, ../scss/_login-form.scss */
 .login-wrap .submit:before {
   margin-right: 1em;
 }
-/* line 138, ../scss/_login-form.scss */
+/* line 143, ../scss/_login-form.scss */
 .login-wrap .submit:hover {
   background: #35587c;
 }
-/* line 142, ../scss/_login-form.scss */
+/* line 147, ../scss/_login-form.scss */
 .login-wrap .submit[disabled] {
   background: #81a4c9;
   color: #a5bed8;
 }
-/* line 147, ../scss/_login-form.scss */
+/* line 152, ../scss/_login-form.scss */
 .login-wrap .submit .loading {
   display: none;
 }
-/* line 151, ../scss/_login-form.scss */
+/* line 156, ../scss/_login-form.scss */
 .login-wrap .submit.loading {
   text-transform: none;
 }
-/* line 154, ../scss/_login-form.scss */
+/* line 159, ../scss/_login-form.scss */
 .login-wrap .submit.loading .label {
   display: none;
 }
-/* line 157, ../scss/_login-form.scss */
+/* line 162, ../scss/_login-form.scss */
 .login-wrap .submit.loading .loading {
   display: inline;
 }
-/* line 163, ../scss/_login-form.scss */
+/* line 168, ../scss/_login-form.scss */
 .login-wrap .recaptcha {
   padding: 0;
   overflow: hidden;
@@ -3268,23 +3273,23 @@ textarea {
   -o-transition: max-height 0.25s ease;
   transition: max-height 0.25s ease;
 }
-/* line 169, ../scss/_login-form.scss */
+/* line 174, ../scss/_login-form.scss */
 .login-wrap .recaptcha.open {
   max-height: 100pt;
 }
-/* line 173, ../scss/_login-form.scss */
+/* line 178, ../scss/_login-form.scss */
 .login-wrap .recaptcha > div {
   margin-bottom: 10pt;
 }
-/* line 177, ../scss/_login-form.scss */
+/* line 182, ../scss/_login-form.scss */
 .login-wrap .recaptcha div {
   width: 100% !important;
 }
-/* line 181, ../scss/_login-form.scss */
+/* line 186, ../scss/_login-form.scss */
 .login-wrap .recaptcha iframe {
   float: right;
 }
-/* line 186, ../scss/_login-form.scss */
+/* line 191, ../scss/_login-form.scss */
 .login-wrap .ulogin {
   *zoom: 1;
   float: right;
@@ -3299,7 +3304,7 @@ textarea {
 .login-wrap .ulogin:after {
   clear: both;
 }
-/* line 191, ../scss/_login-form.scss */
+/* line 196, ../scss/_login-form.scss */
 .login-wrap .ulogin i {
   margin: .25em;
   font-size: 1.6em;
@@ -3311,7 +3316,7 @@ textarea {
   -o-transition: color 0.25s ease;
   transition: color 0.25s ease;
 }
-/* line 199, ../scss/_login-form.scss */
+/* line 204, ../scss/_login-form.scss */
 .login-wrap .ulogin i:hover {
   color: #35587c;
   opacity: 1 !important;
