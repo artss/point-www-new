@@ -135,8 +135,11 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
       this.setValue.apply(this, arguments);
     }, 400),
 
-    updateButton: function() {
-      this.$submit.prop('disabled', !this.model.isValid());
+    updateButton: function(valid) {
+      if (typeof valid === 'undefined') {
+        valid = this.model.isValid();
+      }
+      this.$submit.prop('disabled', !valid);
     },
 
     setValidation: function(field, status, message) {
@@ -167,7 +170,7 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
     submit: function(evt) {
       evt.preventDefault();
 
-      if (!this.isValid()) {
+      if (!this.model.isValid()) {
         return;
       }
 

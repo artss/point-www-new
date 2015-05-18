@@ -80,10 +80,10 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       });
     },
 
-    updateValidation: function() {
-      if (this.$('.recaptcha').hasClass('open')) {
-        Form.View.prototype.updateValidation.call(this);
-      }
+    submit: function() {
+      this.model.validate('g-recaptcha-response');
+
+      Form.View.prototype.submit.apply(this, arguments);
     }
   });
 
