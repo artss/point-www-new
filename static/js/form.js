@@ -1,15 +1,90 @@
-define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function(Backbone, _, $) {
-  _.extend(Backbone.Model.prototype, Backbone.Validation.mixin);
+define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
+  /**
+   * Base form model.
+   */
+  var FormModel = Backbone.Model.extend({
+    validate: function(fields) {
+      if (_.isEmpty(_.keys(fields))) {
+        fields = this.attributes;
+      }
 
-  var FormModel = Backbone.Model.extend({});
+      if (!this._valid) {
+        this._valid = {};
+      }
 
+      _.each(fields, function(value, field) {
+        this._valid[field] = false;
+
+        var validators = this.validation[field].slice();
+
+        var chain = function() {
+          if (_.isEmpty(validators)) {
+            // validation done; all is correct
+            this._valid[field] = true;
+            this.trigger('validated', field, true);
+            return;
+          }
+
+          var validator = validators.shift();
+
+          if (_.isString(validator)) {
+            validator = FormModel.validators[validator];
+
+          } else if (_.isRegExp(validator)) {
+            var re = validator;
+            validator = function(value) {
+              if (!value) { return; }
+              if (!re.test(value)) { return 'match'; }
+            };
+          }
+
+          if (_.isFunction(validator)) {
+            var res = validator(value);
+
+            if (res && res.promise) { // Deferred
+              res.done(chain);
+              res.fail(function(message) {
+                this.trigger('validated', field, false, message);
+              });
+            } else if (res) {
+              this.trigger('validated', field, false, res);
+            } else {
+              _.defer(chain);
+            }
+          }
+        }.bind(this);
+
+        chain();
+      }, this);
+    },
+
+    isValid: function() {
+      if (typeof this._valid === 'undefined') {
+        this.validate();
+      }
+
+      return !_.some(_.values(this._valid), function(v) { return !v; });
+    }
+  });
+
+  FormModel.validators = {
+    required: function(value) {
+      if (!value) {
+        return 'required';
+      }
+    }
+  };
+
+  /**
+   * Base form view.
+   */
   var FormView = Backbone.View.extend({
     model: FormModel,
 
     events: {
       'submit': 'submit',
-      'change': 'validateField',
-      'input input': 'validateFieldDelayed'
+      'change': 'setValue',
+      'input input': 'setValueDelayed'
     },
 
     initialize: function(options) {
@@ -19,13 +94,12 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
       Backbone.View.prototype.initialize.call(this, options);
 
       this.listenTo(this.model, {
-        'validated': this.updateValidation
+        'validated': this.setValidation
       });
     },
 
     render: function() {
       this.$submit = this.$('.js-submit');
-      this.updateValidation();
     },
 
     focus: function(field) {
@@ -33,31 +107,19 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
       $field.focus();
     },
 
-    validate: function(fields) {
-      var validation = this.model.validate();
-      return _.isEmpty(fields) ? validation : _.pick(validation, fields);
-    },
-
-    validateField: function(evt) {
+    setValue: function(evt) {
       var $field = _.isString(evt) ? this.$('[name="' + evt + '"]') : $(evt.target);
 
       var name = $field.attr('name');
-      this.model.set(name, $field.val());
-      var validation = this.validate(name);
-
-      this.setValidation($field, _.isEmpty(validation));
+      this.model.set(name, $field.val(), { validate: true });
     },
 
-    validateFieldDelayed: _.debounce(function() {
-      this.validateField.apply(this, arguments);
+    setValueDelayed: _.debounce(function() {
+      this.setValue.apply(this, arguments);
     }, 400),
 
-    updateValidation: function() {
-      this.$submit.prop('disabled', !this.isValid());
-    },
-
-    isValid: function() {
-      return this.model.isValid.apply(this.model, arguments);
+    updateButton: function() {
+      this.$submit.prop('disabled', !this.model.isValid());
     },
 
     setValidation: function(field, status, message) {
@@ -81,6 +143,8 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
       $container.find('.js-input-error-label').html(error);
 
       $container.toggleClass('error', !status);
+
+      this.updateButton();
     },
 
     submit: function(evt) {
@@ -116,6 +180,7 @@ define(['backbone', 'underscore', 'jquery', 'lib/backbone.validation'], function
     remove: function() {
       this.stopListening(this.model);
       this.model.destroy();
+      delete this.model;
     }
   });
 

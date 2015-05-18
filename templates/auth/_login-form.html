@@ -8,12 +8,13 @@
     <div class="forms">
       <form class="reg-form" action="//{{ settings.domain }}/register" method="POST" autocomplete="off">
         <div class="input-container js-input-container">
-          <input type="text" name="login" placeholder="Логин"
-            data-error='{"default": "Login may contain [a-z0-9] or \"-\"", "inuse": "This login is already in use"}'>
+          <input type="text" name="login" placeholder="Логин" required
+            data-error='{"match": "Login may contain [a-z0-9] or \"-\"", "inuse": "This login is already in use"}'>
           <div class="input-error-label js-input-error-label"></div>
         </div>
         <div class="input-container js-input-container">
-          <input type="password" name="password" placeholder="Пароль">
+          <input type="password" name="password" placeholder="Пароль" required
+            data-error='{"default": "Password is required", "length": "Password must contain at least 6 characters"}'>
           <div class="input-error-label js-input-error-label"></div>
         </div>
         <div class="input-container js-input-container">

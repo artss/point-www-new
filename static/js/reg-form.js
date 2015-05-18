@@ -1,39 +1,40 @@
 define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _, $) {
   var loginXhr;
 
-  _.extend(Backbone.Validation.validators, {
-    loginInUse: function(value, attrs, customValue, model) {
-      return 'dfv';
+  function loginInUse(value) {}
+
+  /**
+   * Registration form model.
+   */
+  var RegModel = Form.Model.extend({
+    validation: {
+      login: [
+        'required',
+        /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i,
+        loginInUse
+      ],
+      password: [
+        'required',
+        {minLength: 6}
+      ],
+      email: [
+        'required',
+        'email'
+      ],
+      'g-recaptcha-response': [
+        'required'
+      ]
     }
   });
 
-  var RegModel = Form.Model.extend({
-    validation: {
-      login: {
-        required: true,
-        pattern: /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i,
-        loginInUse: true
-      },
-      password: {
-        required: true,
-        minLength: 6
-      },
-      email: {
-        required: true,
-        pattern: 'email'
-      },
-      'g-recaptcha-response': {
-        required: true
-      }
-    }
-  });
+  /**
+   * Registration form view.
+   */
   var RegForm = Form.View.extend({
     model: RegModel,
 
     render: function() {
       Form.View.prototype.render.call(this);
-
-      var self = this;
 
       var $recaptcha = this.$('.recaptcha');
 
@@ -41,9 +42,6 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       $inputs.on('focus.render', function () {
         $recaptcha.addClass('open');
         $inputs.off('focus.render');
-        setInterval(function() {
-          self.validateField('g-recaptcha-response');
-        }, 500);
       });
     },
 
