@@ -21,7 +21,6 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       })
       .success(function(data) {
         if (_.isObject(data.data) && data.data.error) {
-          console.log('error', data.data.error);
           logins[value] = true;
           dfd.reject(data.data.error);
         } else {
@@ -33,7 +32,6 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       return dfd.promise();
 
     } else {
-      console.log('logins', logins);
       return logins[value] ? 'inuse' : undefined;
     }
   }
@@ -72,18 +70,37 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       Form.View.prototype.render.call(this);
 
       var $recaptcha = this.$('.recaptcha');
+      this.$recaptcha = $recaptcha.find('.g-recaptcha');
 
       var $inputs = this.$(':input');
       $inputs.on('focus.render', function () {
         $recaptcha.addClass('open');
         $inputs.off('focus.render');
-      });
+      }.bind(this));
+
+      window[this.$recaptcha.data('callback')] = function() {
+        console.log('callback', this.$el.data('callback'));
+        this.setValue('g-recaptcha-response');
+      }.bind(this);
+
+      window[this.$recaptcha.data('expired-callback')] = function() {
+        console.log('expired', this.$recaptcha.data('expired-callback'));
+        this.getField('g-recaptcha-response').val('');
+        this.setValue('g-recaptcha-response');
+      }.bind(this);
     },
 
-    submit: function() {
-      this.model.validate('g-recaptcha-response');
+    submit: function(evt) {
+      this.setValue('g-recaptcha-response');
 
-      Form.View.prototype.submit.apply(this, arguments);
+      Form.View.prototype.submit.call(this, evt);
+    },
+
+    destroy: function() {
+      delete window[this.$recaptcha.data('callback')];
+      delete window[this.$recaptcha.data('expired-callback')];
+
+      Form.View.prototype.destroy.apply(this, arguments);
     }
   });
 

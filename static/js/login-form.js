@@ -1,13 +1,13 @@
 define(['form', 'underscore'], function(Form, _) {
   var LoginModel = Form.Model.extend({
     validation: {
-      login: {
-        required: true,
-        pattern: /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i
-      },
-      password: {
-        required: true
-      }
+      login: [
+        'required',
+        /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i
+      ],
+      password: [
+        'required'
+      ]
     }
   });
   var LoginForm = Form.View.extend({
