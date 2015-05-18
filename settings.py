@@ -5,11 +5,11 @@ libs = ['/home/point/core/lib']
 apps = ['views', 'api']
 
 # redis
-cache_socket = 'tcp://127.0.0.1:16380'
+cache_socket = 'unix:///var/run/redis/cache.sock'
 storage_socket = 'unix:///var/run/redis/storage.sock'
 pubsub_socket = 'unix:///var/run/redis/pubsub.sock'
 queue_socket = 'unix:///var/run/redis/queue.sock'
-imgproc_socket = 'tcp://127.0.0.1:16379'
+imgproc_socket = 'unix:///var/run/redis/imgproc.sock'
 queue_timeout = 5
 
 feed_fetch_timeout = 30
