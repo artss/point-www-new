@@ -181,7 +181,7 @@ def _gender(value):
 def check_login():
     try:
         User('login', env.request.args('login', ''))
-        return Response(errors=['inuse'])
+        return Response(error='inuse')
     except UserNotFound:
         return Response(ok=1)
 

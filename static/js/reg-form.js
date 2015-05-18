@@ -1,7 +1,42 @@
 define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _, $) {
   var loginXhr;
+  var logins = {};
 
-  function loginInUse(value) {}
+  function loginInUse(value) {
+    if (loginXhr) {
+      loginXhr.abort();
+    }
+
+    value = $.trim(value);
+
+    if (typeof logins[value] === 'undefined') {
+      var dfd = $.Deferred();
+
+      loginXhr = $.ajax({
+        url: '/check-login',
+        data: { login: value }
+      })
+      .always(function() {
+        loginXhr = undefined;
+      })
+      .success(function(data) {
+        if (_.isObject(data.data) && data.data.error) {
+          console.log('error', data.data.error);
+          logins[value] = true;
+          dfd.reject(data.data.error);
+        } else {
+          logins[value] = false;
+          dfd.resolve();
+        }
+      });
+
+      return dfd.promise();
+
+    } else {
+      console.log('logins', logins);
+      return logins[value] ? 'inuse' : undefined;
+    }
+  }
 
   /**
    * Registration form model.
@@ -15,7 +50,7 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       ],
       password: [
         'required',
-        {minLength: 6}
+        /^.{6,}/
       ],
       email: [
         'required',
@@ -42,43 +77,6 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       $inputs.on('focus.render', function () {
         $recaptcha.addClass('open');
         $inputs.off('focus.render');
-      });
-    },
-
-    validateField: function(evt) {
-      Form.View.prototype.validateField.call(this, evt);
-
-      var $field = _.isString(evt) ? this.$('[name="' + evt + '"]') : $(evt.target);
-      var name = $field.attr('name');
-
-      if (!this.isValid(name)) {
-        return;
-      }
-
-      if (name !== 'login') {
-        return;
-      }
-
-      if (loginXhr) {
-        loginXhr.abort();
-      }
-
-      var self = this;
-
-      loginXhr = $.ajax({
-        url: '/check-login',
-        data: { login: $field.val() }
-      })
-      .always(function() {
-        loginXhr = undefined;
-      })
-      .success(function(data) {
-        if (_.isObject(data.data) && _.isArray(data.data.errors)) {
-          _.each(data.data.errors, function(error) {
-            console.log('error');
-            self.setValidation('login', false, error);
-          });
-        }
       });
     },
 
