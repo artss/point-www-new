@@ -121,15 +121,32 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
       this.$submit = this.$('.js-submit');
     },
 
+    /**
+     * Sets focus to the passed field.
+     *
+     * @param {string|jQuery} field Field name or element.
+     */
     focus: function(field) {
       var $field = _.isString(field) ? this.getField(field) : $(field);
       $field.focus();
     },
 
+    /**
+     * Returns form field by name.
+     *
+     * @param {string} name Field name.
+     */
     getField: function(name) {
       return this.$('[name="' + name + '"]');
     },
 
+    /**
+     * Updates value in model.
+     *
+     * @param {string|event} evt Field name or jQuery event object.
+     *
+     * @returns {jQuery} Field element.
+     */
     setValue: function(evt) {
       var $field = _.isString(evt) ? this.getField(evt) : $(evt.target);
 
@@ -142,10 +159,18 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
       return $field;
     },
 
+    /**
+     * Debounced setValue
+     */
     setValueDelayed: _.debounce(function() {
       this.setValue.apply(this, arguments);
     }, 400),
 
+    /**
+     * Updates submit button status.
+     *
+     * @param {bool} valid Status.
+     */
     updateButton: function(valid) {
       if (this.$submit.hasClass('loading')) { return; }
       if (typeof valid === 'undefined') {
@@ -154,6 +179,13 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
       this.$submit.prop('disabled', !valid);
     },
 
+    /**
+     * Sets field valid|invalid.
+     *
+     * @param {string|jQuery} field Field name or element.
+     * @param {bool} valid Status.
+     * @param {string} [message] Error desciption.
+     */
     setValidation: function(field, valid, message) {
       var $field = _.isString(field) ? this.getField(field) : $(field);
       var $container = $field.closest('.js-input-container');
@@ -183,8 +215,13 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
       this.updateButton();
     },
 
+    /**
+     * Submits form.
+     */
     submit: function(evt) {
-      evt.preventDefault();
+      if (evt) {
+        evt.preventDefault();
+      }
 
       this.model.validate();
       if (!this.model.isValid()) {
