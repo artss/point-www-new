@@ -1,6 +1,6 @@
 define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _, $) {
-  var loginXhr;
-  var logins = {};
+  var loginXhr, emailXhr;
+  var logins = {}, emails = {};
 
   function loginInUse(value) {
     if (loginXhr) {
@@ -36,6 +36,40 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
     }
   }
 
+  function emailInUse(value) {
+    if (loginXhr) {
+      emailXhr.abort();
+    }
+
+    value = $.trim(value);
+
+    if (typeof emails[value] === 'undefined') {
+      var dfd = $.Deferred();
+
+      loginXhr = $.ajax({
+        url: '/check-email',
+        data: { email: value }
+      })
+      .always(function() {
+        loginXhr = undefined;
+      })
+      .success(function(data) {
+        if (_.isObject(data.data) && data.data.error) {
+          emails[value] = true;
+          dfd.reject(data.data.error);
+        } else {
+          emails[value] = false;
+          dfd.resolve();
+        }
+      });
+
+      return dfd.promise();
+
+    } else {
+      return emails[value] ? 'inuse' : undefined;
+    }
+  }
+
   /**
    * Registration form model.
    */
@@ -52,7 +86,8 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       ],
       email: [
         'required',
-        'email'
+        'email',
+        emailInUse
       ],
       'g-recaptcha-response': [
         'required'

@@ -185,6 +185,14 @@ def check_login():
     except UserNotFound:
         return Response(ok=1)
 
+@route('/check-email')
+def check_login():
+    user = User('email', env.request.args('email', ''))
+    if user.id:
+        return Response(error='inuse')
+    else:
+        return Response(ok=1)
+
 def register():
     #raise Forbidden
     if env.user.id:
