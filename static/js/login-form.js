@@ -17,10 +17,10 @@ define(['form', 'underscore'], function(Form, _) {
       Form.View.prototype.initialize.call(this, options);
 
       this.on('error', function(data) {
-        if (_.isArray(data.errors) && _.indexOf(data.errors, 'credentials') > -1) {
-          this.setValidation('password', false, 'credentials');
+        _.each(data.errors, function(message, field) {
+          this.setValidation(field, false, message);
           this.focus('password');
-        }
+        }, this);
       });
     }
   });

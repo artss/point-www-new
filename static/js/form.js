@@ -21,11 +21,7 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
     validate: function(fields) {
       if (_.isEmpty(fields)) {
         fields = this.attributes;
-      } else if (_.isObject(this._valid)) {
-        fields = _.extend(_.pick(this.attributes, _.keys(this._valid)), fields);
       }
-
-      console.log('fields', fields);
 
       if (!this._valid) {
         this._valid = {};

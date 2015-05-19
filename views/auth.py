@@ -63,7 +63,7 @@ def login():
         return Response(template='/auth/login.html',
                         code=NotAuthorized.code,
                         message=NotAuthorized.message,
-                        errors=['credentials'],
+                        errors={'password': 'invalid'},
                         referer=ref, fields=ULOGIN_FIELDS)
 
 @route(r'/login/(?P<key>[0-9a-f]{40})')
