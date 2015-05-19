@@ -138,6 +138,8 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
 
       this.model.set(obj);
       this.model.validate(obj);
+
+      return $field;
     },
 
     setValueDelayed: _.debounce(function() {

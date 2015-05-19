@@ -12,9 +12,11 @@
             data-error='{"required": "Login is required", "match": "Login may contain [a-z0-9] or \"-\"", "inuse": "This login is already in use"}'>
           <div class="input-error-label js-input-error-label"></div>
         </div>
-        <div class="input-container js-input-container">
+        <div class="input-container js-input-container password-container">
           <input type="password" name="password" placeholder="Пароль" required
             data-error='{"required": "Password is required", "match": "Password must contain at least 6 characters"}'>
+          <input type="text" name="password" placeholder="Пароль">
+          <button type="button" class="show-password-btn js-show-password"></button>
           <div class="input-error-label js-input-error-label"></div>
         </div>
         <div class="input-container js-input-container">

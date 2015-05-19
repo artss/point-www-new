@@ -263,7 +263,7 @@ dl dd {
 }
 
 /* line 4, ../scss/fa/_core.scss */
-.fa, .sidebar .btn-newpost:before, .sidebar .menu a:before, .popup-newpost .private-label .label:before, .popup-newpost .tags-row:before, .popup-newpost .upload:before, .blog-header:before, .post .tags:before, .post .actions a i {
+.fa, .login-wrap .password-container .show-password-btn, .sidebar .btn-newpost:before, .sidebar .menu a:before, .popup-newpost .private-label .label:before, .popup-newpost .tags-row:before, .popup-newpost .upload:before, .blog-header:before, .post .tags:before, .post .actions a i {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -348,11 +348,11 @@ dl dd {
 }
 
 /* line 14, ../scss/fa/_bordered-pulled.scss */
-.fa.pull-left, .sidebar .pull-left.btn-newpost:before, .sidebar .menu a.pull-left:before, .popup-newpost .private-label .pull-left.label:before, .popup-newpost .pull-left.tags-row:before, .popup-newpost .pull-left.upload:before, .pull-left.blog-header:before, .post .pull-left.tags:before, .post .actions a i.pull-left {
+.fa.pull-left, .login-wrap .password-container .pull-left.show-password-btn, .sidebar .pull-left.btn-newpost:before, .sidebar .menu a.pull-left:before, .popup-newpost .private-label .pull-left.label:before, .popup-newpost .pull-left.tags-row:before, .popup-newpost .pull-left.upload:before, .pull-left.blog-header:before, .post .pull-left.tags:before, .post .actions a i.pull-left {
   margin-right: .3em;
 }
 /* line 15, ../scss/fa/_bordered-pulled.scss */
-.fa.pull-right, .sidebar .pull-right.btn-newpost:before, .sidebar .menu a.pull-right:before, .popup-newpost .private-label .pull-right.label:before, .popup-newpost .pull-right.tags-row:before, .popup-newpost .pull-right.upload:before, .pull-right.blog-header:before, .post .pull-right.tags:before, .post .actions a i.pull-right {
+.fa.pull-right, .login-wrap .password-container .pull-right.show-password-btn, .sidebar .pull-right.btn-newpost:before, .sidebar .menu a.pull-right:before, .popup-newpost .private-label .pull-right.label:before, .popup-newpost .pull-right.tags-row:before, .popup-newpost .pull-right.upload:before, .pull-right.blog-header:before, .post .pull-right.tags:before, .post .actions a i.pull-right {
   margin-left: .3em;
 }
 
@@ -1006,12 +1006,12 @@ dl dd {
 }
 
 /* line 117, ../scss/fa/_icons.scss */
-.fa-eye:before {
+.fa-eye:before, .login-wrap .password-container .show-password-btn:before {
   content: "\f06e";
 }
 
 /* line 118, ../scss/fa/_icons.scss */
-.fa-eye-slash:before {
+.fa-eye-slash:before, .login-wrap .password-container.show-password .show-password-btn:before {
   content: "\f070";
 }
 
@@ -3116,7 +3116,50 @@ dl dd {
   top: 100%;
   height: auto;
 }
-/* line 130, ../scss/_login-form.scss */
+/* line 131, ../scss/_login-form.scss */
+.login-wrap .password-container input {
+  padding-right: 3em;
+}
+/* line 135, ../scss/_login-form.scss */
+.login-wrap .password-container [type="password"] {
+  display: block;
+}
+/* line 139, ../scss/_login-form.scss */
+.login-wrap .password-container [type="text"] {
+  display: none;
+}
+/* line 143, ../scss/_login-form.scss */
+.login-wrap .password-container .show-password-btn {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 10pt;
+  font-size: 1.2em;
+  color: #808080;
+  opacity: .5;
+  -webkit-transition: opacity 0.25s ease;
+  -moz-transition: opacity 0.25s ease;
+  -o-transition: opacity 0.25s ease;
+  transition: opacity 0.25s ease;
+}
+/* line 160, ../scss/_login-form.scss */
+.login-wrap .password-container .show-password-btn:hover {
+  opacity: 1;
+}
+/* line 166, ../scss/_login-form.scss */
+.login-wrap .password-container.show-password [type="password"] {
+  display: none;
+}
+/* line 170, ../scss/_login-form.scss */
+.login-wrap .password-container.show-password [type="text"] {
+  display: block;
+}
+/* line 180, ../scss/_login-form.scss */
 .login-wrap .submit {
   width: auto;
   float: right;
@@ -3125,36 +3168,36 @@ dl dd {
   font-size: 1.2em;
   text-align: left;
 }
-/* line 138, ../scss/_login-form.scss */
+/* line 188, ../scss/_login-form.scss */
 .login-wrap .submit:before {
   margin-right: 1em;
 }
-/* line 143, ../scss/_login-form.scss */
+/* line 193, ../scss/_login-form.scss */
 .login-wrap .submit:hover {
   background: #35587c;
 }
-/* line 147, ../scss/_login-form.scss */
+/* line 197, ../scss/_login-form.scss */
 .login-wrap .submit[disabled] {
   background: #81a4c9;
   color: #a5bed8;
 }
-/* line 152, ../scss/_login-form.scss */
+/* line 202, ../scss/_login-form.scss */
 .login-wrap .submit .loading {
   display: none;
 }
-/* line 156, ../scss/_login-form.scss */
+/* line 206, ../scss/_login-form.scss */
 .login-wrap .submit.loading {
   text-transform: none;
 }
-/* line 159, ../scss/_login-form.scss */
+/* line 209, ../scss/_login-form.scss */
 .login-wrap .submit.loading .label {
   display: none;
 }
-/* line 162, ../scss/_login-form.scss */
+/* line 212, ../scss/_login-form.scss */
 .login-wrap .submit.loading .loading {
   display: inline;
 }
-/* line 168, ../scss/_login-form.scss */
+/* line 218, ../scss/_login-form.scss */
 .login-wrap .recaptcha {
   padding: 0;
   overflow: hidden;
@@ -3164,30 +3207,30 @@ dl dd {
   -o-transition: max-height 0.25s ease;
   transition: max-height 0.25s ease;
 }
-/* line 174, ../scss/_login-form.scss */
+/* line 224, ../scss/_login-form.scss */
 .login-wrap .recaptcha.open {
   max-height: 100pt;
 }
-/* line 178, ../scss/_login-form.scss */
+/* line 228, ../scss/_login-form.scss */
 .login-wrap .recaptcha > div {
   margin-bottom: 10pt;
 }
-/* line 182, ../scss/_login-form.scss */
+/* line 232, ../scss/_login-form.scss */
 .login-wrap .recaptcha div {
   width: 100% !important;
 }
-/* line 186, ../scss/_login-form.scss */
+/* line 236, ../scss/_login-form.scss */
 .login-wrap .recaptcha iframe {
   position: relative;
   z-index: 0;
   float: right;
 }
-/* line 192, ../scss/_login-form.scss */
+/* line 242, ../scss/_login-form.scss */
 .login-wrap .recaptcha.input-container.error .input-error-label {
   top: initial;
   bottom: 0;
 }
-/* line 198, ../scss/_login-form.scss */
+/* line 248, ../scss/_login-form.scss */
 .login-wrap .ulogin {
   *zoom: 1;
   float: right;
@@ -3202,7 +3245,7 @@ dl dd {
 .login-wrap .ulogin:after {
   clear: both;
 }
-/* line 203, ../scss/_login-form.scss */
+/* line 253, ../scss/_login-form.scss */
 .login-wrap .ulogin i {
   margin: .25em;
   font-size: 1.6em;
@@ -3214,7 +3257,7 @@ dl dd {
   -o-transition: color 0.25s ease;
   transition: color 0.25s ease;
 }
-/* line 211, ../scss/_login-form.scss */
+/* line 261, ../scss/_login-form.scss */
 .login-wrap .ulogin i:hover {
   color: #35587c;
   opacity: 1 !important;

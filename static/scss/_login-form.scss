@@ -127,6 +127,56 @@
     }
   }
 
+  .password-container {
+    input {
+      padding-right: 3em;
+    }
+
+    [type="password"] {
+      display: block;
+    }
+
+    [type="text"] {
+      display: none;
+    }
+
+    .show-password-btn {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      right: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      cursor: pointer;
+      @extend .fa;
+      @extend .fa-eye;
+      padding: 10pt;
+      font-size: 1.2em;
+      color: #808080;
+      opacity: .5;
+      @include transition(opacity .25s ease);
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &.show-password {
+      [type="password"] {
+        display: none;
+      }
+
+      [type="text"] {
+        display: block;
+      }
+
+      .show-password-btn {
+        @extend .fa-eye-slash;
+      }
+    }
+  }
+
   .submit {
     width: auto;
     float: right;

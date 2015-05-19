@@ -101,6 +101,12 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
   var RegForm = Form.View.extend({
     model: RegModel,
 
+    events: _.extend({}, Form.View.prototype.events, {
+      'click .js-show-password': function(evt) {
+        $(evt.target).closest('.js-input-container').toggleClass('show-password');
+      }
+    }),
+
     render: function() {
       Form.View.prototype.render.call(this);
 
@@ -123,6 +129,20 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
         this.getField('g-recaptcha-response').val('');
         this.setValue('g-recaptcha-response');
       }.bind(this);
+    },
+
+    setValue: function(evt) {
+      var $field = Form.View.prototype.setValue.call(this, evt);
+
+      if ($field.attr('name') !== 'password') {
+        return;
+      }
+
+      var value = $field.val();
+
+      this.$('[name="password"]').each(function() {
+        $(this).val(value);
+      });
     },
 
     submit: function(evt) {
