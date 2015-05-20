@@ -63,7 +63,7 @@ def login():
         return Response(template='/auth/login.html',
                         code=NotAuthorized.code,
                         message=NotAuthorized.message,
-                        errors=['credentials'],
+                        errors={'password': 'invalid'},
                         referer=ref, fields=ULOGIN_FIELDS)
 
 @route(r'/login/(?P<key>[0-9a-f]{40})')
@@ -183,6 +183,14 @@ def check_login():
         User('login', env.request.args('login', ''))
         return Response(error='inuse')
     except UserNotFound:
+        return Response(ok=1)
+
+@route('/check-email')
+def check_login():
+    user = User('email', env.request.args('email', ''))
+    if user.id:
+        return Response(error='inuse')
+    else:
         return Response(ok=1)
 
 def register():
