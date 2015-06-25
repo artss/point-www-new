@@ -42,3 +42,4 @@ def userlink(user, path=''):
     elif isinstance(user, dict):
         user = user['login']
     return os.path.join('//%s.%s' % (user, settings.domain), unicode(path))
+
