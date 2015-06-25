@@ -14,6 +14,7 @@ from markdown.inlinepatterns import Pattern
 from markdown.util import etree
 from xml.sax.saxutils import escape
 from random import shuffle
+from wwwutil import userlink
 
 try:
     import re2 as re
@@ -255,10 +256,15 @@ def shuffle_filter(environ, array, limit=None):
 def basename(environ, path):
     return os.path.basename(path)
 
+@environmentfilter
+def userlink_filter(environ, user, path=''):
+    return userlink(user, path)
+
 filters = {
     'markdown': markdown_filter,
     'nl2br': nl2br,
     'shuffle': shuffle_filter,
-    'basename': basename
+    'basename': basename,
+    'userlink': userlink_filter,
 }
 

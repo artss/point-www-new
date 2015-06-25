@@ -105,17 +105,21 @@ $sidebar-handle-background: #f0f0f0;
   }
 }
 
+.main-inner:after {
+    z-index: 1;
+}
+
 .main.sidebar-open {
   .main-inner {
+    transform: translate($sidebar-width, 0px, 0px);
+    transform: translate3d($sidebar-width, 0px, 0px);
+
     &:after {
       width: 100%;
       height: 100%;
       opacity: 1;
       transition: opacity 0.25s ease 0s;
     }
-
-    transform: translate($sidebar-width, 0px, 0px);
-    transform: translate3d($sidebar-width, 0px, 0px);
   }
 
   .sidebar {

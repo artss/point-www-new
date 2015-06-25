@@ -1,12 +1,37 @@
 from point.util.env import env
+from geweb.http import Response
 from geweb.route import route
 from point.core.user import UserNotFound
+from point.app import posts
 
 import settings
 
-@route('/', host='*.%s' % settings.domain)
+def get_posts(fn, page=1, *args, **kwargs):
+    if not isinstance(page, (int, long)):
+        try:
+            page = int(page) or 1
+        except (TypeError, ValueError):
+            page = 1
+    if not page:
+        page = 1
+
+    kwargs['limit'] = settings.page_limit + 1
+    kwargs['offset'] = (page - 1) * settings.page_limit
+
+    plist = fn(*args, **kwargs)
+    has_next = len(plist) > settings.page_limit
+
+    plist = plist[:settings.page_limit]
+
+    return plist, page, has_next
+
+@route('/(?P<page>\d*)', host='*.%s' % settings.domain)
 def blog(page=1):
-    if env.owner:
-        return '%s\'s blog' % env.owner.login
-    else:
+    if not env.owner:
         raise UserNotFound
+
+    plist, page, has_next = get_posts(posts.recent_blog_posts, page, env.owner)
+
+    return Response(template='/blog.html', owner=env.owner.todict(),
+                    posts=plist, page=page, has_next=has_next)
+

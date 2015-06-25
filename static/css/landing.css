@@ -175,11 +175,12 @@ i, em {
 /* line 102, ../scss/_typography.scss */
 blockquote, q {
   display: block;
-  margin: 0 25% 25px 0;
-  padding: 0 0 1em 10px;
-  border-left: 5px solid #90a4af;
+  margin: 1em 2em 0.5em 0;
+  padding: 0 0 0 1em;
+  border-left: 5px solid #e7e9eb;
+  color: #83909c;
 }
-/* line 108, ../scss/_typography.scss */
+/* line 109, ../scss/_typography.scss */
 blockquote.alternate, q.alternate {
   border-left: 0;
   border-right: 5px solid #90a4af;
@@ -188,76 +189,76 @@ blockquote.alternate, q.alternate {
   padding: 0 10px 1em 0;
 }
 
-/* line 120, ../scss/_typography.scss */
+/* line 121, ../scss/_typography.scss */
 ul, ol {
   margin: 0 0 25px 20px;
 }
-/* line 123, ../scss/_typography.scss */
+/* line 124, ../scss/_typography.scss */
 ul ul, ul ol, ol ul, ol ol {
   margin: 10px 0 10px 20px;
 }
-/* line 127, ../scss/_typography.scss */
+/* line 128, ../scss/_typography.scss */
 ul li, ol li {
   margin: 10px 0;
 }
-/* line 131, ../scss/_typography.scss */
+/* line 132, ../scss/_typography.scss */
 ul.unstyle, ol.unstyle {
   list-style: none;
   margin-left: 0;
 }
 
-/* line 137, ../scss/_typography.scss */
+/* line 138, ../scss/_typography.scss */
 ul {
   list-style: disc;
 }
-/* line 139, ../scss/_typography.scss */
+/* line 140, ../scss/_typography.scss */
 ul ul {
   list-style: circle;
 }
 
-/* line 144, ../scss/_typography.scss */
+/* line 145, ../scss/_typography.scss */
 ol {
   list-style: decimal;
 }
 
-/* line 148, ../scss/_typography.scss */
+/* line 149, ../scss/_typography.scss */
 dl {
   margin: 0 0 25px 0;
 }
-/* line 150, ../scss/_typography.scss */
+/* line 151, ../scss/_typography.scss */
 dl dt {
   margin: 5px 0;
   font-weight: bold;
   font-size: 12pt;
 }
-/* line 155, ../scss/_typography.scss */
+/* line 156, ../scss/_typography.scss */
 dl dd {
   margin: 5px 15px 10px;
   font-size: 10pt;
 }
 
-/* line 163, ../scss/_typography.scss */
+/* line 164, ../scss/_typography.scss */
 .underdashed {
   border-bottom: 1px dotted #475059;
   color: #475059;
 }
 
-/* line 167, ../scss/_typography.scss */
+/* line 168, ../scss/_typography.scss */
 .underline {
   text-decoration: underline;
   color: #475059;
 }
 
-/* line 173, ../scss/_typography.scss */
+/* line 174, ../scss/_typography.scss */
 .fa-1x {
   font-size: 14px;
 }
 
-/* line 177, ../scss/_typography.scss */
+/* line 178, ../scss/_typography.scss */
 .fa-lg {
   font-size: 19px !important;
 }
-/* line 180, ../scss/_typography.scss */
+/* line 181, ../scss/_typography.scss */
 .fa-lg.fa-plus {
   font-size: 18px !important;
 }

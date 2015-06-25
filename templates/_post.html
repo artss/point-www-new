@@ -1,0 +1,77 @@
+<div class="post">
+  <div class="left">
+      {% if p.rec %}
+      <a class="avatar40" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.rec.author.avatar }}.jpg" alt="{{ p.rec.author.login }}"/></a>
+      {% else %}
+      <a class="avatar40" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.post.author.avatar }}.jpg" alt="{{ p.post.author.login }}"/></a>
+      {% endif %}
+    <div class="sharp">
+      <a href="#">#</a>
+      <div class="post-no"><span>{{ p.post.id }}</span></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="created">
+      <span>{{p.post.created|strftime("%d %b")}}</span>
+      {% if p.post.created|strftime("%Y")==__now__|strftime("%Y") %}
+      <span>{{p.post.created|strftime("%H:%M")}}</span>
+      {% else %}
+      <span>{{p.post.created|strftime("%Y")}}</span>
+      {% endif %}
+    </div>
+
+    {% if p.rec %}
+    <a class="user author" href="{{ p.rec.author|userlink }}">{{ p.rec.author.login }}</a>
+    {% else %}
+    <a class="user author" href="{{ p.post.author|userlink }}">{{ p.post.author.login }}</a>
+    {% endif %}
+
+    {% if p.rec %}
+    {% if p.rec.text %}
+    <div class="text rec">
+        {{ p.rec.text|markdown|safe }}
+    </div>
+    {% endif %}
+    <a class="user author rec" href="{{ p.post.author|userlink }}">
+      <span class="avatar24"><img src="{{ settings.avatars_root }}/24/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></span>
+      {{ p.post.author.login }}
+    </a>
+    {% endif %}
+
+    {% if p.post.tags %}
+    <div class="tags">
+      {% for t in p.post.tags %}<a href="{{ p.post.author|userlink }}?tag={{ t|urlencode }}">{{ t }}</a>{% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="text">
+        {{ (p.post.html or p.post.text)|markdown|safe }}
+    </div>
+
+    <div class="actions">
+        <a class="reply"><i></i><span class="label">ответить</span><span class="number">{{ p.comments_count or '' }}</span></a>
+      {% if p.recommended %}
+      <a class="recommend done"><i></i><span class="label">не рекомендовать</span><span class="number"></span></a>
+      {% else %}
+      <a class="recommend"><i></i><span class="label">рекомендовать</span><span class="number"></span></a>
+      {% endif %}
+      {% if p.bookmarked %}
+      <a class="bookmark done"><i></i><span class="label">из закладок</span></a>
+      {% else %}
+      <a class="bookmark"><i></i><span class="label">в закладки</span></a>
+      {% endif %}
+      {% if p.subscribed %}
+      <a class="subscribe done"><i></i><span class="label">отписаться</span></a>
+      {% else %}
+      <a class="subscribe"><i></i><span class="label">подписаться</span></a>
+      {% endif %}
+      {% if p.post.author.id==env.user.id %}
+      <a class="delete"><i></i><span class="label">удалить</span></a>
+      {% endif %}
+    </div>
+
+    <div class="reply-form">
+    </div>
+  </div>
+</div>

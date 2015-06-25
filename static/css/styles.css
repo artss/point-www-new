@@ -161,11 +161,12 @@ i, em {
 /* line 102, ../scss/_typography.scss */
 blockquote, q {
   display: block;
-  margin: 0 25% 25px 0;
-  padding: 0 0 1em 10px;
-  border-left: 5px solid #90a4af;
+  margin: 1em 2em 0.5em 0;
+  padding: 0 0 0 1em;
+  border-left: 5px solid #e7e9eb;
+  color: #83909c;
 }
-/* line 108, ../scss/_typography.scss */
+/* line 109, ../scss/_typography.scss */
 blockquote.alternate, q.alternate {
   border-left: 0;
   border-right: 5px solid #90a4af;
@@ -174,76 +175,76 @@ blockquote.alternate, q.alternate {
   padding: 0 10px 1em 0;
 }
 
-/* line 120, ../scss/_typography.scss */
+/* line 121, ../scss/_typography.scss */
 ul, ol {
   margin: 0 0 25px 20px;
 }
-/* line 123, ../scss/_typography.scss */
+/* line 124, ../scss/_typography.scss */
 ul ul, ul ol, ol ul, ol ol {
   margin: 10px 0 10px 20px;
 }
-/* line 127, ../scss/_typography.scss */
+/* line 128, ../scss/_typography.scss */
 ul li, ol li {
   margin: 10px 0;
 }
-/* line 131, ../scss/_typography.scss */
+/* line 132, ../scss/_typography.scss */
 ul.unstyle, ol.unstyle {
   list-style: none;
   margin-left: 0;
 }
 
-/* line 137, ../scss/_typography.scss */
+/* line 138, ../scss/_typography.scss */
 ul {
   list-style: disc;
 }
-/* line 139, ../scss/_typography.scss */
+/* line 140, ../scss/_typography.scss */
 ul ul {
   list-style: circle;
 }
 
-/* line 144, ../scss/_typography.scss */
+/* line 145, ../scss/_typography.scss */
 ol {
   list-style: decimal;
 }
 
-/* line 148, ../scss/_typography.scss */
+/* line 149, ../scss/_typography.scss */
 dl {
   margin: 0 0 25px 0;
 }
-/* line 150, ../scss/_typography.scss */
+/* line 151, ../scss/_typography.scss */
 dl dt {
   margin: 5px 0;
   font-weight: bold;
   font-size: 12pt;
 }
-/* line 155, ../scss/_typography.scss */
+/* line 156, ../scss/_typography.scss */
 dl dd {
   margin: 5px 15px 10px;
   font-size: 10pt;
 }
 
-/* line 163, ../scss/_typography.scss */
+/* line 164, ../scss/_typography.scss */
 .underdashed {
   border-bottom: 1px dotted #475059;
   color: #475059;
 }
 
-/* line 167, ../scss/_typography.scss */
+/* line 168, ../scss/_typography.scss */
 .underline {
   text-decoration: underline;
   color: #475059;
 }
 
-/* line 173, ../scss/_typography.scss */
+/* line 174, ../scss/_typography.scss */
 .fa-1x {
   font-size: 14px;
 }
 
-/* line 177, ../scss/_typography.scss */
+/* line 178, ../scss/_typography.scss */
 .fa-lg {
   font-size: 19px !important;
 }
-/* line 180, ../scss/_typography.scss */
+/* line 181, ../scss/_typography.scss */
 .fa-lg.fa-plus, .sidebar .fa-lg.btn-newpost:before {
   font-size: 18px !important;
 }
@@ -3354,30 +3355,35 @@ dl dd {
   color: #d0d0d0;
 }
 
-/* line 109, ../scss/_sidebar.scss */
+/* line 108, ../scss/_sidebar.scss */
+.main-inner:after {
+  z-index: 1;
+}
+
+/* line 113, ../scss/_sidebar.scss */
 .main.sidebar-open .main-inner {
   transform: translate(240px, 0px, 0px);
   transform: translate3d(240px, 0px, 0px);
 }
-/* line 110, ../scss/_sidebar.scss */
+/* line 117, ../scss/_sidebar.scss */
 .main.sidebar-open .main-inner:after {
   width: 100%;
   height: 100%;
   opacity: 1;
   transition: opacity 0.25s ease 0s;
 }
-/* line 121, ../scss/_sidebar.scss */
+/* line 125, ../scss/_sidebar.scss */
 .main.sidebar-open .sidebar {
   transition: transform 0.25s ease 0s;
   visibility: visible;
 }
 
-/* line 127, ../scss/_sidebar.scss */
+/* line 131, ../scss/_sidebar.scss */
 .content {
   padding-left: 10px;
 }
 
-/* line 131, ../scss/_sidebar.scss */
+/* line 135, ../scss/_sidebar.scss */
 .sidebar-handle {
   position: fixed;
   z-index: 2;
@@ -3390,7 +3396,7 @@ dl dd {
   cursor: pointer;
 }
 
-/* line 143, ../scss/_sidebar.scss */
+/* line 147, ../scss/_sidebar.scss */
 .screen-hint {
   display: none;
   position: fixed;
@@ -3410,30 +3416,30 @@ dl dd {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* line 161, ../scss/_sidebar.scss */
+/* line 165, ../scss/_sidebar.scss */
 body.touch-device .content {
   padding-left: 0;
 }
-/* line 165, ../scss/_sidebar.scss */
+/* line 169, ../scss/_sidebar.scss */
 body.touch-device .sidebar-handle {
   display: none;
 }
-/* line 169, ../scss/_sidebar.scss */
+/* line 173, ../scss/_sidebar.scss */
 body.touch-device .screen-hint {
   display: block;
 }
 
 @media only screen and (min-width: 600pt) {
-  /* line 176, ../scss/_sidebar.scss */
+  /* line 180, ../scss/_sidebar.scss */
   .main.sidebar-open .main-inner {
     transform: none;
   }
-  /* line 179, ../scss/_sidebar.scss */
+  /* line 183, ../scss/_sidebar.scss */
   .main.sidebar-open .main-inner:after {
     opacity: 0;
   }
 
-  /* line 185, ../scss/_sidebar.scss */
+  /* line 189, ../scss/_sidebar.scss */
   .sidebar {
     left: 0;
     transform: none;
@@ -3445,24 +3451,24 @@ body.touch-device .screen-hint {
     }*/
   }
 
-  /* line 197, ../scss/_sidebar.scss */
+  /* line 201, ../scss/_sidebar.scss */
   .content {
     margin-left: 240px;
     padding-left: 10px;
   }
 
-  /* line 202, ../scss/_sidebar.scss */
+  /* line 206, ../scss/_sidebar.scss */
   .sidebar-handle {
     display: none;
   }
 
-  /* line 206, ../scss/_sidebar.scss */
+  /* line 210, ../scss/_sidebar.scss */
   .screen-hint {
     display: none;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 212, ../scss/_sidebar.scss */
+  /* line 216, ../scss/_sidebar.scss */
   .sidebar {
     left: 50%;
     margin-left: -640px;
@@ -4157,7 +4163,17 @@ a.user {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 157, ../scss/pages/_blog.scss */
+/* line 156, ../scss/pages/_blog.scss */
+.post .author.rec {
+  margin: .25em 0 .5em 0;
+  color: #788694;
+}
+/* line 160, ../scss/pages/_blog.scss */
+.post .author.rec .avatar24 {
+  float: left;
+  margin-right: 0.5em;
+}
+/* line 167, ../scss/pages/_blog.scss */
 .post .created {
   display: block;
   float: right;
@@ -4166,13 +4182,13 @@ a.user {
   font-size: .9em;
   color: #a0a0a0;
 }
-/* line 166, ../scss/pages/_blog.scss */
+/* line 176, ../scss/pages/_blog.scss */
 .post .tags {
   position: relative;
   margin: .25em 0;
   padding-left: 1.8em;
 }
-/* line 176, ../scss/pages/_blog.scss */
+/* line 186, ../scss/pages/_blog.scss */
 .post .tags:before {
   position: absolute;
   left: 0;
@@ -4180,15 +4196,51 @@ a.user {
   font-size: 1.2em;
   color: #35587c;
 }
-/* line 184, ../scss/pages/_blog.scss */
+/* line 194, ../scss/pages/_blog.scss */
 .post .tags a {
   text-decoration: none;
 }
-/* line 189, ../scss/pages/_blog.scss */
+/* line 197, ../scss/pages/_blog.scss */
+.post .tags a:after {
+  content: ',';
+  margin-right: 0.5em;
+}
+/* line 202, ../scss/pages/_blog.scss */
+.post .tags a:last-child:after {
+  content: none;
+}
+/* line 208, ../scss/pages/_blog.scss */
 .post .text {
   margin: .5em 0;
 }
-/* line 193, ../scss/pages/_blog.scss */
+/* line 211, ../scss/pages/_blog.scss */
+.post .text.rec {
+  margin-bottom: 1em;
+}
+/* line 215, ../scss/pages/_blog.scss */
+.post .text p {
+  margin-bottom: .25em;
+}
+/* line 220, ../scss/pages/_blog.scss */
+.post blockquote {
+  margin: 1em 2em 1em 0;
+}
+/* line 224, ../scss/pages/_blog.scss */
+.post .postimg {
+  position: relative;
+  display: block;
+  float: left;
+  clear: both;
+  margin: .5em .5em .5em 0;
+  width: 100%;
+  max-width: 400px;
+}
+/* line 233, ../scss/pages/_blog.scss */
+.post .postimg img {
+  max-width: 100%;
+  max-height: 300px;
+}
+/* line 239, ../scss/pages/_blog.scss */
 .post .actions {
   margin: 1em 0;
   opacity: .5;
@@ -4197,78 +4249,88 @@ a.user {
   -o-transition: opacity 0.25s;
   transition: opacity 0.25s;
 }
-/* line 198, ../scss/pages/_blog.scss */
+/* line 244, ../scss/pages/_blog.scss */
 .post .actions a {
   display: inline-block;
   text-decoration: none;
   margin: .5em 1.5em .5em 0;
   white-space: nowrap;
 }
-/* line 208, ../scss/pages/_blog.scss */
+/* line 254, ../scss/pages/_blog.scss */
 .post .actions a:hover {
   color: inherit;
 }
-/* line 212, ../scss/pages/_blog.scss */
+/* line 258, ../scss/pages/_blog.scss */
 .post .actions a:before {
   font-size: 1.2em;
 }
-/* line 233, ../scss/pages/_blog.scss */
+/* line 279, ../scss/pages/_blog.scss */
 .post .actions .delete {
   float: right;
   margin: .5em 0;
 }
-/* line 242, ../scss/pages/_blog.scss */
+/* line 288, ../scss/pages/_blog.scss */
 .post .actions .recommend i, .post .actions .bookmark i, .post .actions .subscribe i, .post .actions .delete i {
   color: #c8d8e8;
 }
-/* line 247, ../scss/pages/_blog.scss */
+/* line 293, ../scss/pages/_blog.scss */
 .post .actions .recommend.done i, .post .actions .bookmark.done i, .post .actions .subscribe.done i, .post .actions .delete.done i {
   color: #35587c;
 }
-/* line 253, ../scss/pages/_blog.scss */
+/* line 299, ../scss/pages/_blog.scss */
 .post .actions .number {
   margin-left: .25em;
 }
-/* line 257, ../scss/pages/_blog.scss */
+/* line 303, ../scss/pages/_blog.scss */
 .post .actions .label {
   display: none;
   margin: 0 0 0 .5em;
 }
 @media only screen and (min-width: 360pt) {
-  /* line 264, ../scss/pages/_blog.scss */
+  /* line 310, ../scss/pages/_blog.scss */
   .post .actions .reply .label, .post .actions .recommend .label {
     display: inline;
   }
-  /* line 268, ../scss/pages/_blog.scss */
+  /* line 314, ../scss/pages/_blog.scss */
   .post .actions .reply .number, .post .actions .recommend .number {
     margin-left: 0;
   }
-  /* line 270, ../scss/pages/_blog.scss */
+  /* line 316, ../scss/pages/_blog.scss */
   .post .actions .reply .number:before, .post .actions .recommend .number:before {
     content: '|';
     margin: 0 .25em;
   }
-  /* line 275, ../scss/pages/_blog.scss */
+  /* line 321, ../scss/pages/_blog.scss */
   .post .actions .reply .number:empty:before, .post .actions .recommend .number:empty:before {
     content: none;
     margin: 0;
   }
 }
 @media only screen and (min-width: 480pt) {
-  /* line 285, ../scss/pages/_blog.scss */
+  /* line 331, ../scss/pages/_blog.scss */
   .post .actions .bookmark .label, .post .actions .subscribe .label {
     display: inline;
   }
 }
 @media only screen and (min-width: 640pt) {
-  /* line 292, ../scss/pages/_blog.scss */
+  /* line 338, ../scss/pages/_blog.scss */
   .post .actions .label {
     display: inline;
   }
 }
-/* line 299, ../scss/pages/_blog.scss */
+/* line 345, ../scss/pages/_blog.scss */
 .post:hover .actions {
   opacity: 1;
+}
+
+/* line 351, ../scss/pages/_blog.scss */
+.more-posts {
+  display: block;
+  padding: .5em;
+  text-align: center;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
 /* line 1, ../scss/pages/_profile.scss */

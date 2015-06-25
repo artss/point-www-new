@@ -1,5 +1,21 @@
 {% extends "/base.html" %}
 
 {% block content %}
-<h1>blog</h1>
+
+<a href="{{ owner|userlink('info') }}" class="blog-header">
+    <div class="avatar40"><img src="{{ settings.avatars_root }}/80/{{ owner.avatar }}" alt="arts"/></div>
+    <h1>{{ owner.name }}</h1>
+    <div class="user">{{ owner.login }}</div>
+</a>
+
+<div class="posts-list">
+{% for p in posts %}
+{% include "/_post.html" %}
+{% endfor %}
+</div>
+
+{% if has_next %}
+<a class="more-posts" href="{{ env.owner|userlink(page + 1) }}">Ещё</a>
+{% endif %}
+
 {% endblock %}

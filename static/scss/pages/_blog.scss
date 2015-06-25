@@ -152,6 +152,16 @@ a.user {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    &.rec {
+      margin: .25em 0 .5em 0;
+      color: #788694;
+
+      .avatar24 {
+        float: left;
+        margin-right: 0.5em;
+      }
+    }
   }
 
   .created {
@@ -183,11 +193,47 @@ a.user {
 
     a {
       text-decoration: none;
+
+      &:after {
+        content: ',';
+        margin-right: 0.5em;
+      }
+
+      &:last-child:after {
+        content: none;
+      }
     }
   }
 
   .text {
     margin: .5em 0;
+
+    &.rec {
+      margin-bottom: 1em;
+    }
+
+    p {
+      margin-bottom: .25em;
+    }
+  }
+
+  blockquote {
+    margin: 1em 2em 1em 0;
+  }
+
+  .postimg {
+    position: relative;
+    display: block;
+    float: left;
+    clear: both;
+    margin: .5em .5em .5em 0;
+    width: 100%;
+    max-width: 400px;
+
+    img {
+      max-width: 100%;
+      max-height: 300px;
+    }
   }
 
   .actions {
@@ -300,5 +346,14 @@ a.user {
       opacity: 1;
     }
   }
+}
+
+.more-posts {
+    display: block;
+    padding: .5em;
+    text-align: center;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    text-decoration: none;
 }
 
