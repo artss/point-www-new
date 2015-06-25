@@ -19,7 +19,7 @@ import urllib2
 from datetime import datetime, timedelta
 from recaptcha.client import captcha
 
-from wwwutil import check_referer, referer
+from wwwutil import check_referer, referer, userlink
 
 try:
     import re2 as re
@@ -43,9 +43,7 @@ def login():
         if env.request.is_xhr:
             raise AlreadyAuthorized
 
-        return Response(redirect='%s://%s.%s/' % \
-                                   (env.request.protocol,
-                                    env.user.login, settings.domain))
+        return Response(redirect='%s:%s' % (env.request.protocol, userlink(env.user)))
 
     ref = referer()
 

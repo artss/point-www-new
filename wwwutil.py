@@ -5,6 +5,7 @@ try:
 except ImportError:
     import re
 
+from point.util.env import env
 from point.core.user import User
 
 import settings
