@@ -1,7 +1,7 @@
 from point.util.env import env
 from geweb.http import Response
 from geweb.route import route
-from point.core.user import UserNotFound
+from point.core.user import User, UserNotFound
 from point.app import posts
 
 import settings
@@ -25,10 +25,9 @@ def get_posts(fn, page=1, *args, **kwargs):
 
     return plist, page, has_next
 
-@route('/(?P<page>\d*)', host='*.%s' % settings.domain)
-def blog(page=1):
-    if not env.owner:
-        raise UserNotFound
+@route('/u/(?P<login>[a-z0-9]+)(?:/(?P<page>\d*)/?)?', host=settings.domain)
+def blog(login, page=1):
+    env.owner = User('login', login)
 
     plist, page, has_next = get_posts(posts.recent_blog_posts, page, env.owner)
 
