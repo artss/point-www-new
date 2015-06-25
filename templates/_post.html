@@ -1,9 +1,9 @@
 <div class="post">
   <div class="left">
       {% if p.rec %}
-      <a class="avatar40" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.rec.author.avatar }}.jpg" alt="{{ p.rec.author.login }}"/></a>
+      <a class="avatar40" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.rec.author.avatar }}" alt="{{ p.rec.author.login }}"/></a>
       {% else %}
-      <a class="avatar40" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.post.author.avatar }}.jpg" alt="{{ p.post.author.login }}"/></a>
+      <a class="avatar40" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></a>
       {% endif %}
     <div class="sharp">
       <a href="#">#</a>

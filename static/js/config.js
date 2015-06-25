@@ -1,5 +1,7 @@
+/* global require */
+
 require.config({
-  baseUrl: 'js',
+  baseUrl: '/js',
 
   shim: {
     'lib/jquery.autosize': {

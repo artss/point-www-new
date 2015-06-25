@@ -10,12 +10,12 @@
 
 <div class="posts-list">
 {% for p in posts %}
-{% include "/_post.html" %}
+  {% include "/_post.html" %}
 {% endfor %}
 </div>
 
 {% if has_next %}
-<a class="more-posts" href="{{ env.owner|userlink(page + 1) }}">Ещё</a>
+<a class="more-posts" href="{{ owner|userlink(page + 1) }}">Ещё</a>
 {% endif %}
 
 {% endblock %}
