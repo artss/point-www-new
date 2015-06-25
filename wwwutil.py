@@ -1,15 +1,11 @@
+import os
+
 try:
     import re2 as re
 except ImportError:
     import re
 
-import json
-from geweb.http import Response
-from geweb.middleware import Middleware
-from geweb.exceptions import Forbidden
-import geweb.db.pgsql as db
-from point.util.env import env
-from point.core.user import User, UserNotFound
+from point.core.user import User
 
 import settings
 
@@ -39,45 +35,9 @@ def referer():
         referer = '%s://%s/' % (env.request.protocol, settings.domain)
     return referer
 
-def domain_owner(domain):
-    if domain == settings.domain:
-        return User.from_data(None, None)
-
-    if domain.endswith(settings.domain):
-        return User('login', domain[0:domain.find(settings.domain)-1])
-
-    res = db.fetchone("SELECT id FROM users.domains WHERE domain=%s;",
-                     [domain]) #, _cache=600)
-    if res:
-        return User(res[0])
-
-    raise UserNotFound
-
-class DomainOwnerMiddleware(Middleware):
-    @staticmethod
-    def process_request(request):
-        try:
-            env.owner = domain_owner(request.host)
-        except UserNotFound:
-            env.owner = None
-
-class AjaxResponseMiddleware(Middleware):
-    class AjaxResponse(Response):
-        def render_headers(self):
-            if env.request.is_xhr:
-                self.mimetype = 'application/json'
-            return super(AjaxResponseMiddleware.AjaxResponse, self).render_headers()
-
-        def render(self):
-            if env.request.is_xhr:
-                resp = {'data': self.data}
-                if self.template:
-                    resp['template'] = self.template
-                return json.dumps(resp)
-
-            return super(AjaxResponseMiddleware.AjaxResponse, self).render()
-
-    @staticmethod
-    def process_response(response):
-        response.__class__ = AjaxResponseMiddleware.AjaxResponse
-
+def userlink(user, path=''):
+    if isinstance(user, User):
+        user = user.login
+    elif isinstance(user, dict):
+        user = user['login']
+    return os.path.join('//%s.%s' % (user, settings.domain), unicode(path))
