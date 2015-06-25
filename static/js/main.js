@@ -12,9 +12,14 @@ function (Backbone, sidebar, util, PostListView, $) {
 
   var App = Backbone.Router.extend({
     routes: {
+      'recent(/)': 'postsList',
+      'recent/:page(/)': 'postsList',
       'u/:login/info(/)': 'userInfo',
       'u/:login(/)': 'postsList',
-      'u/:login/:page(/)': 'postsList'
+      'u/:login/:page(/)': 'postsList',
+      'comments': 'postsList',
+      'messages': 'postsList',
+      'bookmarks': 'postsList'
     },
 
     loadView: function(View, url) {
