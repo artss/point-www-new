@@ -14,16 +14,26 @@ function (Backbone, _, sidebar, util, PostListView, $) {
 
   var App = Backbone.Router.extend({
     routes: {
+      'recent(/)': 'postsList',
       'recent/:page(/)': 'postsList',
+      'recent/unread(/)': 'postsList',
+      'recent/unread/:page(/)': 'postsList',
+
       'u/:login/info(/)': 'userInfo',
+
       'u/:login(/)': 'postsList',
       'u/:login/:page(/)': 'postsList',
+
       'comments(/)': 'postsList',
       'comments/:page(/)': 'postsList',
+      'comments/unread(/)': 'postsList',
+      'comments/unread/:page(/)': 'postsList',
+
       'messages(/)': 'postsList',
       'messages/:page(/)': 'postsList',
       'bookmarks(/)': 'postsList',
       'bookmarks/:page(/)': 'postsList',
+
       'p/:post': 'showPost'
     },
 

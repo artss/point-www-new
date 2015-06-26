@@ -2,20 +2,24 @@
 
 {% block content %}
 <div class="js-view">
+  {% block header %}
   <a class="blog-header js-navigate" href="{{ owner|userlink('info') }}">
       <div class="avatar40"><img src="{{ settings.avatars_root }}/80/{{ owner.avatar }}" alt="arts"/></div>
       <h1>{{ owner.name }}</h1>
       <div class="user">{{ owner.login }}</div>
   </a>
+  {% endblock %}
 
   <div class="posts-list js-posts-list">
   {% for p in posts %}
-    {% include "/_post.html" %}
+    {% include "/pages/_post.html" %}
   {% endfor %}
   </div>
 
+  {% block pager %}
   {% if has_next %}
   <a class="more-posts js-more" href="{{ owner|userlink(page + 1) }}">Ещё</a>
   {% endif %}
+  {% endblock %}
 </div>
 {% endblock %}

@@ -361,5 +361,9 @@ a.user {
     content: $fa-var-angle-double-down;
     margin: 0 0.5em;
   }
+
+  &.hidden {
+    visibility: hidden;
+  }
 }
 

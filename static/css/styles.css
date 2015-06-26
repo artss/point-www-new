@@ -264,7 +264,7 @@ dl dd {
 }
 
 /* line 4, ../scss/fa/_core.scss */
-.fa, .login-wrap .password-container .show-password-btn, .sidebar .btn-newpost:before, .sidebar .menu a:before, .popup-newpost .private-label .label:before, .popup-newpost .tags-row:before, .popup-newpost .upload:before, .blog-header:before, .post .tags:before, .post .actions a i, .more-posts:after {
+.fa, .login-wrap .password-container .show-password-btn, .sidebar .btn-newpost:before, .sidebar .menu a:before, .popup-newpost .private-label .label:before, .popup-newpost .tags-row:before, .popup-newpost .upload:before, .blog-header:before, .post .tags:before, .post .actions a i, .more-posts:after, .recent-tabs .tab:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -349,11 +349,11 @@ dl dd {
 }
 
 /* line 14, ../scss/fa/_bordered-pulled.scss */
-.fa.pull-left, .login-wrap .password-container .pull-left.show-password-btn, .sidebar .pull-left.btn-newpost:before, .sidebar .menu a.pull-left:before, .popup-newpost .private-label .pull-left.label:before, .popup-newpost .pull-left.tags-row:before, .popup-newpost .pull-left.upload:before, .pull-left.blog-header:before, .post .pull-left.tags:before, .post .actions a i.pull-left, .pull-left.more-posts:after {
+.fa.pull-left, .login-wrap .password-container .pull-left.show-password-btn, .sidebar .pull-left.btn-newpost:before, .sidebar .menu a.pull-left:before, .popup-newpost .private-label .pull-left.label:before, .popup-newpost .pull-left.tags-row:before, .popup-newpost .pull-left.upload:before, .pull-left.blog-header:before, .post .pull-left.tags:before, .post .actions a i.pull-left, .pull-left.more-posts:after, .recent-tabs .pull-left.tab:before {
   margin-right: .3em;
 }
 /* line 15, ../scss/fa/_bordered-pulled.scss */
-.fa.pull-right, .login-wrap .password-container .pull-right.show-password-btn, .sidebar .pull-right.btn-newpost:before, .sidebar .menu a.pull-right:before, .popup-newpost .private-label .pull-right.label:before, .popup-newpost .pull-right.tags-row:before, .popup-newpost .pull-right.upload:before, .pull-right.blog-header:before, .post .pull-right.tags:before, .post .actions a i.pull-right, .pull-right.more-posts:after {
+.fa.pull-right, .login-wrap .password-container .pull-right.show-password-btn, .sidebar .pull-right.btn-newpost:before, .sidebar .menu a.pull-right:before, .popup-newpost .private-label .pull-right.label:before, .popup-newpost .pull-right.tags-row:before, .popup-newpost .pull-right.upload:before, .pull-right.blog-header:before, .post .pull-right.tags:before, .post .actions a i.pull-right, .pull-right.more-posts:after, .recent-tabs .pull-right.tab:before {
   margin-left: .3em;
 }
 
@@ -531,7 +531,7 @@ dl dd {
 }
 
 /* line 15, ../scss/fa/_icons.scss */
-.fa-th-list:before {
+.fa-th-list:before, .recent-tabs .recent-tab:before {
   content: "\f00b";
 }
 
@@ -3922,16 +3922,17 @@ form .row input[type="submit"] {
   padding: 0 10px;
   line-height: 55px;
   text-indent: 0;
+  /*text-transform: uppercase;*/
 }
-/* line 35, ../scss/_tabs.scss */
+/* line 36, ../scss/_tabs.scss */
 .tabs.header-tabs .tabs-nav .tab.active {
   padding: 0 20px;
 }
-/* line 45, ../scss/_tabs.scss */
+/* line 46, ../scss/_tabs.scss */
 .tabs .tabs-content > div {
   display: none;
 }
-/* line 48, ../scss/_tabs.scss */
+/* line 49, ../scss/_tabs.scss */
 .tabs .tabs-content > div.active {
   display: block;
 }
@@ -4336,6 +4337,31 @@ a.user {
 .more-posts:after {
   content: "\f103";
   margin: 0 0.5em;
+}
+/* line 365, ../scss/pages/_blog.scss */
+.more-posts.hidden {
+  visibility: hidden;
+}
+
+/* line 4, ../scss/pages/_recent.scss */
+.recent-tabs .tab:before {
+  margin-right: 0.5em;
+  opacity: 0.5;
+}
+/* line 20, ../scss/pages/_recent.scss */
+.recent-tabs .recent-unread-tab:before {
+  content: attr(data-unread);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  min-width: 1em;
+  text-align: center;
+  background: #35587c;
+  color: #ffffff;
+  padding: 0.125em;
+  font-size: 1em;
 }
 
 /* line 1, ../scss/pages/_profile.scss */

@@ -1,0 +1,32 @@
+.recent-tabs {
+  .tab {
+
+    &:before {
+      @extend .fa;
+      margin-right: 0.5em;
+      opacity: 0.5;
+    }
+  }
+
+  .recent-tab {
+    @extend .fa-th-list;
+
+    &:before {
+      
+    }
+  }
+
+  .recent-unread-tab {
+    &:before {
+      content: attr(data-unread);
+      @include border-radius(2px);
+      min-width: 1em;
+      text-align: center;
+      background: #35587c;
+      color: #ffffff;
+      padding: 0.125em;
+      font-size: 1em;
+    }
+  }
+}
+

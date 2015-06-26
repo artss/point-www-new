@@ -25,12 +25,27 @@ def get_posts(fn, page=1, *args, **kwargs):
 
     return plist, page, has_next
 
+@route('/recent(?P<unread>/unread)?(?:/(?P<page>\d*))?/?', host=settings.domain)
+def recent(page=1, unread=False):
+    unread=bool(unread)
+    if unread:
+        page = 1
+
+    plist, page, has_next = get_posts(posts.recent_posts, page, unread=unread)
+
+    unread_posts = env.user.unread_posts_count('post')
+    unread_comments = env.user.unread_comments_count('post')
+
+    return Response(template='/pages/recent.html', owner=env.user, unread=unread,
+                    posts=plist, page=page, has_next=has_next,
+                    unread_posts=unread_posts, unread_comments=unread_comments)
+
 @route('/u/(?P<login>[a-zA-Z0-9]+)(?:/(?P<page>\d*)/?)?', host=settings.domain)
 def blog(login, page=1):
     env.owner = User('login', login)
 
     plist, page, has_next = get_posts(posts.recent_blog_posts, page, env.owner)
 
-    return Response(template='/blog.html', owner=env.owner.todict(),
+    return Response(template='/pages/blog.html', owner=env.owner,
                     posts=plist, page=page, has_next=has_next)
 

@@ -1,4 +1,4 @@
-<div class="post">
+<div class="post" data-post="{{ p.post.id }}">
   <div class="left">
       {% if p.rec %}
       <a class="avatar40 js-navigate" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.rec.author.avatar }}" alt="{{ p.rec.author.login }}"/></a>
@@ -46,7 +46,7 @@
     {% endif %}
 
     <div class="text">
-        {{ (p.post.html or p.post.text)|markdown|safe }}
+        {{ p.post.text|markdown|safe }}
     </div>
 
     <div class="actions">
@@ -72,7 +72,6 @@
     </div>
 
     <div class="reply-form">
-      {{ p._rec }}
     </div>
   </div>
 </div>

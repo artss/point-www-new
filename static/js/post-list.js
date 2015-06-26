@@ -1,6 +1,6 @@
 /* global define, require */
 
-define(['base-view', 'tpl!/_post.html', 'util/util', 'underscore', 'jquery'],
+define(['base-view', 'tpl!/pages/_post.html', 'util/util', 'underscore', 'jquery'],
 function(BaseView, postTemplate, util, _, $) {
   'use strict';
 
@@ -26,30 +26,32 @@ function(BaseView, postTemplate, util, _, $) {
       evt.preventDefault();
 
       var $pager = $(evt.target);
-      $pager.prop('disabled', true);
+      var showPager = !$pager.hasClass('hidden');
+      $pager.addClass('hidden');
 
       $.getJSON($pager.attr('href'))
-      .success(function(resp) {
-        var posts = _.map(resp.data.posts, function(post) {
-          post._rec = JSON.stringify(post.rec);
-          return postTemplate({p: post});
+        .success(function(resp) {
+          var posts = _.map(resp.data.posts, function(post) {
+            return postTemplate({p: post});
+          });
+
+          this.$('.js-posts-list').append($.trim(posts.join('')));
+          this.$('.js-unread-posts').attr('data-unread', resp.data.unread_posts);
+
+          this.updatePager(resp.data.page, resp.data.has_next);
+        }.bind(this))
+
+        .error(function() {
+          $pager.toggleClass('hidden', !showPager);
+        })
+
+        .always(function() {
         });
-
-        this.$('.js-posts-list').append(posts.join(''));
-
-        this.updatePager(resp.data.page, resp.data.has_next);
-      }.bind(this))
-      .always(function() {
-        $pager.prop('disabled', false);
-      });
     },
 
     updatePager: function(page, has_next) {
       var $pager = this.$('.js-more');
-      if (!has_next) {
-        $pager.hide();
-        return;
-      }
+      $pager.toggleClass('hidden', !has_next);
 
       var loc = util.parseUrl($pager.attr('href'));
       var href = loc.pathname.replace(/\d+\/?$/, page + 1) + loc.search;
