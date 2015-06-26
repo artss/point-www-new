@@ -83,7 +83,7 @@ $sidebar-handle-background: #f0f0f0;
         font-size: 1.2em;
       }
 
-      &.recent:before { @extend .fa-list; }
+      &.recent:before { @extend .fa-th-list; }
       &.blog:before { @extend .fa-home; }
       &.comments:before { @extend .fa-comments; }
       &.messages:before { @extend .fa-envelope; }

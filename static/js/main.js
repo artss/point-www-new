@@ -63,6 +63,7 @@ function (Backbone, _, sidebar, util, PostListView, $) {
         this._currentView = new View(_.extend(data, {el: $el[0]}));
         this._currentView.render();
         $content.append($el);
+        sidebar.toggle(false);
 
         delete this._xhr;
       }.bind(this))

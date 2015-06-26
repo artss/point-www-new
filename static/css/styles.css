@@ -531,7 +531,7 @@ dl dd {
 }
 
 /* line 15, ../scss/fa/_icons.scss */
-.fa-th-list:before, .recent-tabs .recent-tab:before {
+.fa-th-list:before, .sidebar .menu a.recent:before, .recent-tabs .recent-tab:before {
   content: "\f00b";
 }
 
@@ -756,7 +756,7 @@ dl dd {
 }
 
 /* line 63, ../scss/fa/_icons.scss */
-.fa-list:before, .sidebar .menu a.recent:before {
+.fa-list:before {
   content: "\f03a";
 }
 
