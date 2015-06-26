@@ -13,6 +13,11 @@
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
+    <script type="text/javascript">
+      var settings = {
+        avatars_root: '{{ settings.avatars_root }}'
+      };
+    </script>
     <script type="text/javascript" src="/js/lib/require.js" data-main="js/main"></script>
     <script type="text/javascript" src="/js/config.js"></script>
   </head>
@@ -55,7 +60,7 @@
         {% if env.user.is_authorized() %}
         <div class="sidebar">
           <div class="clearfix">
-            <a href="/" class="logo">
+            <a href="/" class="logo js-navigate">
               <!--[if IE]>
               <img src="/img/logo.png" alt="Point.im"/>
               <![endif]-->
@@ -67,23 +72,23 @@
           </div>
 
           <div class="menu">
-            <a class="recent" href="/recent">Лента</a>
-            <a class="blog active" href="/u/{{ env.user.login }}">Блог</a>
-            <a class="comments" href="/comments">Комментарии</a>
-            <a class="messages" href="/messages">Сообщения</a>
-            <a class="bookmarks" href="/bookmarks">Закладки</a>
-            <a class="search" href="/search">Поиск</a>
+            <a class="recent js-navigate" href="/recent">Лента</a>
+            <a class="blog js-navigate" href="/u/{{ env.user.login }}">Блог</a>
+            <a class="comments js-navigate" href="/comments">Комментарии</a>
+            <a class="messages js-navigate" href="/messages">Сообщения</a>
+            <a class="bookmarks js-navigate" href="/bookmarks">Закладки</a>
+            <a class="search js-navigate" href="/search">Поиск</a>
           </div>
 
           <div class="menu profile-menu">
-            <a class="profile" href="/profile">Профиль</a>
+            <a class="profile js-navigate" href="/profile">Профиль</a>
             <a class="logout" href="/logout">Выйти</a>
           </div>
         </div>
         {% else %}
         <div class="sidebar">
           <div class="clearfix">
-            <a href="/" class="logo">
+            <a href="/" class="logo js-navigate">
               <!--[if IE]>
               <img src="img/logo.png" alt="Point.im"/>
               <![endif]-->
@@ -100,7 +105,7 @@
 
         <div class="sidebar-handle"></div>
         <div class="content">
-          <div class="content-inner">
+          <div class="content-inner js-content">
             {% block content %}{% endblock %}
           </div>
         </div>

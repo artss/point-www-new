@@ -33,9 +33,8 @@ class UserLinkPattern(Pattern):
         except UserNotFound:
             return #'@'+m.group('u')
         a = etree.Element('a')
-        a.set('href', '%s://%s.%s/' % (env.request.protocol,
-                                       m.group('u'), settings.domain))
-        a.set('class', 'user')
+        a.set('href', userlink(m.group('u')))
+        a.set('class', 'user js-navigate')
         a.text = m.group('u')
         return a
 

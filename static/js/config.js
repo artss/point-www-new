@@ -12,7 +12,11 @@ require.config({
   paths: {
     'jquery': 'lib/jquery',
     'backbone': 'lib/backbone',
+    'underscore': 'lib/underscore',
+    'text': 'lib/require.text',
     'swig': 'lib/swig',
-    'underscore': 'lib/underscore'
-  }
+    'tpl': 'util/tpl/tpl'
+  },
+
+  tplPath: '/templates'
 });

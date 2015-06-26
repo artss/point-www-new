@@ -25,7 +25,7 @@ def get_posts(fn, page=1, *args, **kwargs):
 
     return plist, page, has_next
 
-@route('/u/(?P<login>[a-z0-9]+)(?:/(?P<page>\d*)/?)?', host=settings.domain)
+@route('/u/(?P<login>[a-zA-Z0-9]+)(?:/(?P<page>\d*)/?)?', host=settings.domain)
 def blog(login, page=1):
     env.owner = User('login', login)
 

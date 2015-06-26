@@ -1,7 +1,7 @@
 /* global require */
 
-require(['backbone' ,'sidebar', 'util/util', 'post-list', 'jquery', 'lib/jquery.autosize'],
-function (Backbone, sidebar, util, PostListView, $) {
+require(['backbone', 'underscore' ,'sidebar', 'util/util', 'post-list', 'jquery', 'lib/jquery.autosize'],
+function (Backbone, _, sidebar, util, PostListView, $) {
   'use strict';
 
   var _initial = true;
@@ -10,21 +10,31 @@ function (Backbone, sidebar, util, PostListView, $) {
     $('body').addClass('touch-device');
   }
 
+  var $content = $('.js-content');
+
   var App = Backbone.Router.extend({
     routes: {
-      'recent(/)': 'postsList',
       'recent/:page(/)': 'postsList',
       'u/:login/info(/)': 'userInfo',
       'u/:login(/)': 'postsList',
       'u/:login/:page(/)': 'postsList',
-      'comments': 'postsList',
-      'messages': 'postsList',
-      'bookmarks': 'postsList'
+      'comments(/)': 'postsList',
+      'comments/:page(/)': 'postsList',
+      'messages(/)': 'postsList',
+      'messages/:page(/)': 'postsList',
+      'bookmarks(/)': 'postsList',
+      'bookmarks/:page(/)': 'postsList',
+      'p/:post': 'showPost'
     },
 
     loadView: function(View, url) {
+      var $el;
+
       if (_initial) {
+        $el = $('.js-view');
+        this._currentView = new View({el: $el[0]});
         _initial = false;
+        $content.append($el);
         return;
       }
 
@@ -32,15 +42,17 @@ function (Backbone, sidebar, util, PostListView, $) {
         this._xhr.abort();
       }
 
-      this._xhr = $.get(url)
-      .success(function() {
-        console.log('= loadView', arguments);
+      this._xhr = $.getJSON(url)
+      .success(function(data) {
         if (this._currentView) {
           this._currentView.$el.remove();
           this._currentView.destroy();
         }
 
-        this._currentView = new View();
+        $el = $('<div class="js-view"></div>');
+        this._currentView = new View(_.extend(data, {el: $el[0]}));
+        this._currentView.render();
+        $content.append($el);
 
         delete this._xhr;
       }.bind(this))
@@ -53,7 +65,12 @@ function (Backbone, sidebar, util, PostListView, $) {
       this.loadView(PostListView, location.href);
     },
 
+    showPost: function() {
+      console.log('+ showPost');
+    },
+
     userInfo: function() {
+      console.log('+ userInfo');
     }
   });
 
@@ -81,7 +98,7 @@ function (Backbone, sidebar, util, PostListView, $) {
 
   var app = new App();
 
-  $(document).on('click', 'a', function(evt) {
+  $(document).on('click', '.js-navigate', function(evt) {
     var $a = $(evt.target).closest('a');
 
     var loc = util.parseUrl($a.attr('href'));

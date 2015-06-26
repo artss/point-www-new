@@ -1,12 +1,12 @@
 <div class="post">
   <div class="left">
       {% if p.rec %}
-      <a class="avatar40" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.rec.author.avatar }}" alt="{{ p.rec.author.login }}"/></a>
+      <a class="avatar40 js-navigate" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.rec.author.avatar }}" alt="{{ p.rec.author.login }}"/></a>
       {% else %}
-      <a class="avatar40" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></a>
+      <a class="avatar40 js-navigate" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></a>
       {% endif %}
     <div class="sharp">
-      <a href="#">#</a>
+      <a class="js-navigate" href="/p/{{ p.post.id }}">#</a>
       <div class="post-no"><span>{{ p.post.id }}</span></div>
     </div>
   </div>
@@ -22,9 +22,9 @@
     </div>
 
     {% if p.rec %}
-    <a class="user author" href="{{ p.rec.author|userlink }}">{{ p.rec.author.login }}</a>
+    <a class="user author js-navigate" href="{{ p.rec.author|userlink }}">{{ p.rec.author.login }}</a>
     {% else %}
-    <a class="user author" href="{{ p.post.author|userlink }}">{{ p.post.author.login }}</a>
+    <a class="user author js-navigate" href="{{ p.post.author|userlink }}">{{ p.post.author.login }}</a>
     {% endif %}
 
     {% if p.rec %}
@@ -33,15 +33,15 @@
         {{ p.rec.text|markdown|safe }}
     </div>
     {% endif %}
-    <a class="user author rec" href="{{ p.post.author|userlink }}">
+    <a class="user author rec js-navigate" href="{{ p.post.author|userlink }}">
       <span class="avatar24"><img src="{{ settings.avatars_root }}/24/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></span>
       {{ p.post.author.login }}
     </a>
     {% endif %}
 
-    {% if p.post.tags %}
+    {% if p.post.tags|length > 0 %}
     <div class="tags">
-      {% for t in p.post.tags %}<a href="{{ p.post.author|userlink }}?tag={{ t|urlencode }}">{{ t }}</a>{% endfor %}
+      {% for t in p.post.tags %}<a class="js-navigate" href="{{ p.post.author|userlink }}?tag={{ t|urlencode }}">{{ t }}</a>{% endfor %}
     </div>
     {% endif %}
 
@@ -72,6 +72,7 @@
     </div>
 
     <div class="reply-form">
+      {{ p._rec }}
     </div>
   </div>
 </div>

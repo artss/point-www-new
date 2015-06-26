@@ -264,7 +264,7 @@ dl dd {
 }
 
 /* line 4, ../scss/fa/_core.scss */
-.fa, .login-wrap .password-container .show-password-btn, .sidebar .btn-newpost:before, .sidebar .menu a:before, .popup-newpost .private-label .label:before, .popup-newpost .tags-row:before, .popup-newpost .upload:before, .blog-header:before, .post .tags:before, .post .actions a i {
+.fa, .login-wrap .password-container .show-password-btn, .sidebar .btn-newpost:before, .sidebar .menu a:before, .popup-newpost .private-label .label:before, .popup-newpost .tags-row:before, .popup-newpost .upload:before, .blog-header:before, .post .tags:before, .post .actions a i, .more-posts:after {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -349,11 +349,11 @@ dl dd {
 }
 
 /* line 14, ../scss/fa/_bordered-pulled.scss */
-.fa.pull-left, .login-wrap .password-container .pull-left.show-password-btn, .sidebar .pull-left.btn-newpost:before, .sidebar .menu a.pull-left:before, .popup-newpost .private-label .pull-left.label:before, .popup-newpost .pull-left.tags-row:before, .popup-newpost .pull-left.upload:before, .pull-left.blog-header:before, .post .pull-left.tags:before, .post .actions a i.pull-left {
+.fa.pull-left, .login-wrap .password-container .pull-left.show-password-btn, .sidebar .pull-left.btn-newpost:before, .sidebar .menu a.pull-left:before, .popup-newpost .private-label .pull-left.label:before, .popup-newpost .pull-left.tags-row:before, .popup-newpost .pull-left.upload:before, .pull-left.blog-header:before, .post .pull-left.tags:before, .post .actions a i.pull-left, .pull-left.more-posts:after {
   margin-right: .3em;
 }
 /* line 15, ../scss/fa/_bordered-pulled.scss */
-.fa.pull-right, .login-wrap .password-container .pull-right.show-password-btn, .sidebar .pull-right.btn-newpost:before, .sidebar .menu a.pull-right:before, .popup-newpost .private-label .pull-right.label:before, .popup-newpost .pull-right.tags-row:before, .popup-newpost .pull-right.upload:before, .pull-right.blog-header:before, .post .pull-right.tags:before, .post .actions a i.pull-right {
+.fa.pull-right, .login-wrap .password-container .pull-right.show-password-btn, .sidebar .pull-right.btn-newpost:before, .sidebar .menu a.pull-right:before, .popup-newpost .private-label .pull-right.label:before, .popup-newpost .pull-right.tags-row:before, .popup-newpost .pull-right.upload:before, .pull-right.blog-header:before, .post .pull-right.tags:before, .post .actions a i.pull-right, .pull-right.more-posts:after {
   margin-left: .3em;
 }
 
@@ -4062,7 +4062,7 @@ a.user {
 /* line 64, ../scss/pages/_blog.scss */
 .blog-header h1 {
   font-size: 1.2em;
-  line-height: 1em;
+  line-height: 1.2em;
   font-weight: normal;
   margin: 0;
   color: #808080;
@@ -4331,6 +4331,11 @@ a.user {
   font-size: 1.2em;
   text-transform: uppercase;
   text-decoration: none;
+}
+/* line 359, ../scss/pages/_blog.scss */
+.more-posts:after {
+  content: "\f103";
+  margin: 0 0.5em;
 }
 
 /* line 1, ../scss/pages/_profile.scss */

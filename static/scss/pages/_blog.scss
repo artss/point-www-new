@@ -63,7 +63,7 @@ a.user {
 
   h1 {
     font-size: 1.2em;
-    line-height: 1em;
+    line-height: 1.2em;
     font-weight: normal;
     margin: 0;
     color: #808080;
@@ -349,11 +349,17 @@ a.user {
 }
 
 .more-posts {
-    display: block;
-    padding: .5em;
-    text-align: center;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    text-decoration: none;
+  display: block;
+  padding: .5em;
+  text-align: center;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  &:after {
+    @extend .fa;
+    content: $fa-var-angle-double-down;
+    margin: 0 0.5em;
+  }
 }
 
