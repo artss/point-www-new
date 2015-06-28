@@ -14,6 +14,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
     <script type="text/javascript">
+      var env = {
+        user: {{ env.user|json|safe }}
+      };
+
       var settings = {
         avatars_root: '{{ settings.avatars_root }}'
       };
@@ -106,7 +110,9 @@
         <div class="sidebar-handle"></div>
         <div class="content">
           <div class="content-inner js-content">
+            <div class="js-view {% if menu %}{{ menu }}-view{% endif %}">
             {% block content %}{% endblock %}
+            </div>
           </div>
         </div>
       </div>

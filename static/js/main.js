@@ -46,14 +46,6 @@ function (Backbone, _, $, App, util) {
     }
   });
 
-  $.ajaxSetup({
-    success: function(resp) {
-      if (_.isObject(resp.data) && !_.isUndefined(resp.data.menu)) {
-        app.setMenu(resp.data.menu);
-      }
-    }
-  });
-
   Backbone.history.start({pushState: true, root: '/'});
 });
 

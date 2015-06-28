@@ -31,20 +31,20 @@ a.user {
   text-decoration: none;
 }
 
-.blog-header {
+.header {
   position: relative;
   display: block;
   @include box-sizing("border-box");
   height: $blog-header-height;
   margin: 0 0 20px 0;
   padding: 10px $blog-header-height;
-  background: #f0f0f0;
   border-bottom: solid 1px #e0e0e0;
   text-decoration: none;
+  background: $blog-color;
 
   &:before {
     @extend .fa;
-    @extend .fa-angle-right;
+    @extend .fa-arrow-right;
     position: absolute;
     right: 0;
     top: 0;
@@ -52,7 +52,16 @@ a.user {
     height: $blog-header-height;
     text-align: center;
     line-height: $blog-header-height;
-    font-size: 2em;
+    font-size: 1.2em;
+    color: #ffffff;
+    opacity: 0.75;
+    @include transition(opacity 0.25s ease);
+  }
+
+  &:hover {
+    &:before {
+      opacity: 1;
+    }
   }
 
   .avatar40 {
@@ -66,18 +75,23 @@ a.user {
     line-height: 1.2em;
     font-weight: normal;
     margin: 0;
-    color: #808080;
-    @include text-shadow(0 1px 0 #ffffff);
+    color: #ffffff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   .user {
-    @include text-shadow(0 1px 0 #ffffff);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #ffffff;
+    opacity: 0.75;
   }
+}
+
+.other-blog-view .header {
+  background: $other-blog-color;
 }
 
 .posts-list {
@@ -364,6 +378,18 @@ a.user {
 
   &.hidden {
     visibility: hidden;
+  }
+}
+
+.blog-view {
+  .more-posts {
+    color: $blog-color;
+  }
+}
+
+.other-blog-view {
+  .more-posts {
+    color: $other-blog-color;
   }
 }
 

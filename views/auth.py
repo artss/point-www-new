@@ -19,7 +19,8 @@ import urllib2
 from datetime import datetime, timedelta
 from recaptcha.client import captcha
 
-from wwwutil import check_referer, referer, userlink
+from wwwutil import check_referer, referer
+from wwwutil.links import userlink
 
 try:
     import re2 as re

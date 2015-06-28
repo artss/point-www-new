@@ -1,4 +1,4 @@
-/* global define */
+/* global define, env, settings */
 
 /**
  * Plugin for loading templates.
@@ -48,7 +48,7 @@ define(['swig', 'util/tpl/filters', 'underscore', 'jquery'], function(swig, filt
     }
   };
 
-  swig.setDefaults({loader: loader});
+  swig.setDefaults({loader: loader, locals: {env: env, settings: settings}});
 
   _.each(filters, function(filter, name) {
     swig.setFilter(name, filter);

@@ -1,7 +1,7 @@
-.recent-tabs {
+.messages-tabs {
   .tabs-nav {
     .tab {
-      color: $recent-color;
+      color: $messages-color;
 
       &:before {
         @extend .fa;
@@ -10,28 +10,29 @@
       }
 
       &.active {
-        background: lighten($recent-color, 10%);
+        background: lighten($messages-color, 10%);
         color: #ffffff;
-        border-bottom-color: $recent-color;
+        border-bottom-color: $messages-color;
       }
     }
   }
 
-  .recent-tab {
-    @extend .fa-th-list;
+  .messages-incoming-tab,
+  .messages-outgoing-tab {
+    @extend .fa-envelope;
 
     &:before {
-      font-size: 1.1em;
+      font-size: 1.2em;
     }
   }
 
-  .recent-unread-tab {
+  .messages-new-tab {
     &:before {
       content: attr(data-unread);
       @include border-radius(2px);
       min-width: 1em;
       text-align: center;
-      background: lighten($recent-color, 10%);
+      background: lighten($messages-color, 10%);
       color: #ffffff;
       padding: 0.125em;
       font-size: 1em;
@@ -40,15 +41,15 @@
     &.active {
       &:before {
         background: #ffffff;
-        color: $recent-color;
+        color: $messages-color;
       }
     }
   }
 }
 
-.recent-view {
+.messages-view {
   .more-posts {
-    color: $recent-color;
+    color: $messages-color;
   }
 }
 

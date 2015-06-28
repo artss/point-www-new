@@ -53,17 +53,22 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
       }
 
       this._xhr = $.getJSON(url)
-      .success(function(data) {
+      .success(function(resp) {
         if (this._currentView) {
           this._currentView.$el.remove();
           this._currentView.destroy();
         }
 
         $el = $('<div class="js-view"></div>');
-        this._currentView = new View(_.extend(data, {el: $el[0]}));
+        this._currentView = new View(_.extend(resp, {el: $el[0]}));
         this._currentView.render();
         $content.append($el);
         sidebar.toggle(false);
+
+        if (_.isObject(resp.data) && !_.isUndefined(resp.data.menu)) {
+          sidebar.setMenu(resp.data.menu);
+          this._currentView.$el.addClass(resp.data.menu + '-view');
+        }
 
         delete this._xhr;
       }.bind(this))
@@ -82,10 +87,6 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
 
     userInfo: function() {
       console.log('+ userInfo');
-    },
-
-    setMenu: function(id) {
-      sidebar.setMenu(id);
     }
   });
 

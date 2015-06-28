@@ -83,19 +83,54 @@ $sidebar-handle-background: #f0f0f0;
         color: #35587c;
       }
 
-      &.recent:before { @extend .fa-th-list; }
-      &.blog:before { @extend .fa-home; }
-      &.comments:before { @extend .fa-comments; }
-      &.messages:before { @extend .fa-envelope; }
-      &.bookmarks:before { @extend .fa-star; }
-      &.search:before { @extend .fa-search; }
-      &.profile:before { @extend .fa-sliders; }
-      &.logout:before { @extend .fa-power-off; }
-
       &:active, &.active {
         color: #35587c;
         background: #f0f0f0;
       }
+
+      &.recent {
+        &:before { @extend .fa-th-list; }
+        &:hover, &:active, &.active {
+          color: $recent-color;
+        }
+      }
+      &.blog {
+        &:before { @extend .fa-home; }
+        &:hover, &:active, &.active {
+          color: $blog-color;
+        }
+      }
+      &.comments {
+        &:before { @extend .fa-comments; }
+        &:hover, &:active, &.active {
+          color: $comments-color;
+        }
+      }
+      &.messages {
+        &:before { @extend .fa-envelope; }
+        &:hover, &:active, &.active {
+          color: $messages-color;
+        }
+      }
+      &.bookmarks {
+        &:before { @extend .fa-star; }
+        &:hover, &:active, &.active {
+          color: $bookmarks-color;
+        }
+      }
+      &.search {
+        &:before { @extend .fa-search; }
+        &:hover, &:active, &.active {
+          color: $search-color;
+        }
+      }
+      &.profile {
+        &:before { @extend .fa-sliders; }
+        &:hover, &:active, &.active {
+          color: $profile-color;
+        }
+      }
+      &.logout:before { @extend .fa-power-off; }
 
       &.logout {
         #margin-top: 10px;

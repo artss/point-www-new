@@ -1,9 +1,8 @@
 {% extends "/base.html" %}
 
 {% block content %}
-<div class="js-view">
   {% block header %}
-  <a class="blog-header js-navigate" href="{{ owner|userlink('info') }}">
+  <a class="header {% if owner.id == env.user.id %}self{% endif %} js-navigate" href="{{ owner|userlink('info') }}">
       <div class="avatar40"><img src="{{ settings.avatars_root }}/80/{{ owner.avatar }}" alt="arts"/></div>
       <h1>{{ owner.name }}</h1>
       <div class="user">{{ owner.login }}</div>
@@ -21,5 +20,4 @@
   <a class="more-posts js-more" href="{{ owner|userlink(page + 1) }}">Ещё</a>
   {% endif %}
   {% endblock %}
-</div>
 {% endblock %}

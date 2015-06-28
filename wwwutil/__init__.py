@@ -1,4 +1,6 @@
-import os
+from wwwutil.md import markdown
+from datetime import datetime
+import calendar
 
 try:
     import re2 as re
@@ -6,7 +8,6 @@ except ImportError:
     import re
 
 from point.util.env import env
-from point.core.user import User
 
 import settings
 
@@ -36,10 +37,21 @@ def referer():
         referer = '%s://%s/' % (env.request.protocol, settings.domain)
     return referer
 
-def userlink(user, path=''):
-    if isinstance(user, User):
-        user = user.login
-    elif isinstance(user, dict):
-        user = user['login']
-    return os.path.join('/', 'u', user, unicode(path)).rstrip('/')
+def json_serializer(obj):
+    if isinstance(obj, datetime):
+        if obj.utcoffset() is not None:
+            obj = obj - obj.utcoffset()
+        millis = int(
+            calendar.timegm(obj.timetuple()) * 1000 +
+            obj.microsecond / 1000
+        )
+        return millis
 
+    try:
+        obj = obj.todict()
+        if 'text' in obj:
+            obj['text'] = markdown(obj['text'])
+        return obj
+
+    except AttributeError:
+        return obj

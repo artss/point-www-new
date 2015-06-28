@@ -1,7 +1,7 @@
-.recent-tabs {
+.comments-tabs {
   .tabs-nav {
     .tab {
-      color: $recent-color;
+      color: $comments-color;
 
       &:before {
         @extend .fa;
@@ -10,28 +10,28 @@
       }
 
       &.active {
-        background: lighten($recent-color, 10%);
+        background: lighten($comments-color, 10%);
         color: #ffffff;
-        border-bottom-color: $recent-color;
+        border-bottom-color: $comments-color;
       }
     }
   }
 
-  .recent-tab {
-    @extend .fa-th-list;
+  .comments-tab {
+    @extend .fa-comments;
 
     &:before {
       font-size: 1.1em;
     }
   }
 
-  .recent-unread-tab {
+  .comments-unread-tab {
     &:before {
       content: attr(data-unread);
       @include border-radius(2px);
       min-width: 1em;
       text-align: center;
-      background: lighten($recent-color, 10%);
+      background: lighten($comments-color, 10%);
       color: #ffffff;
       padding: 0.125em;
       font-size: 1em;
@@ -40,15 +40,15 @@
     &.active {
       &:before {
         background: #ffffff;
-        color: $recent-color;
+        color: $comments-color;
       }
     }
   }
 }
 
-.recent-view {
+.comments-view {
   .more-posts {
-    color: $recent-color;
+    color: $comments-color;
   }
 }
 
