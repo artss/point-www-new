@@ -72,12 +72,12 @@
           </div>
 
           <div class="menu">
-            <a class="recent js-navigate" href="/recent">Лента</a>
-            <a class="blog js-navigate" href="/u/{{ env.user.login }}">Блог</a>
-            <a class="comments js-navigate" href="/comments">Комментарии</a>
-            <a class="messages js-navigate" href="/messages">Сообщения</a>
-            <a class="bookmarks js-navigate" href="/bookmarks">Закладки</a>
-            <a class="search js-navigate" href="/search">Поиск</a>
+            <a class="menu-item recent {% if menu == 'recent' %}active{% endif %} js-navigate" href="/recent">Лента</a>
+            <a class="menu-item blog {% if menu == 'blog' %}active{% endif %} js-navigate" href="/u/{{ env.user.login }}">Блог</a>
+            <a class="menu-item comments {% if menu == 'comments' %}active{% endif %} js-navigate" href="/comments">Комментарии</a>
+            <a class="menu-item messages {% if menu == 'messages' %}active{% endif %} js-navigate" href="/messages">Сообщения</a>
+            <a class="menu-item bookmarks {% if menu == 'bookmarks' %}active{% endif %} js-navigate" href="/bookmarks">Закладки</a>
+            <a class="menu-item search {% if menu == 'search' %}active{% endif %} js-navigate" href="/search">Поиск</a>
           </div>
 
           <div class="menu profile-menu">

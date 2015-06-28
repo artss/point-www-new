@@ -3,8 +3,8 @@
 {% block header %}
 <div class="tabs header-tabs recent-tabs">
   <div class="tabs-nav">
-    <a href="/recent" class="tab recent-tab{% if not unread %} active{% endif %}">Лента</a>
-    <a href="/recent/unread" class="tab recent-unread-tab{% if unread %} active{% endif %} js-unread-posts" data-unread="{{ unread_posts or 0 }}">Непрочитанные</a>
+    <a href="/recent" class="tab recent-tab{% if not unread %} active{% endif %} js-navigate">Лента</a>
+    <a href="/recent/unread" class="tab recent-unread-tab{% if unread %} active{% endif %} js-unread-posts js-navigate" data-unread="{{ unread_posts or 0 }}">Непрочитанные</a>
   </div>
 </div>
 {% endblock %}

@@ -3336,13 +3336,13 @@ dl dd {
   transition: color 0.5s ease, background 0.5s ease;
 }
 /* line 76, ../scss/_sidebar.scss */
-.sidebar .menu a:hover {
-  color: #35587c;
-}
-/* line 80, ../scss/_sidebar.scss */
 .sidebar .menu a:before {
   width: 2em;
   font-size: 1.2em;
+}
+/* line 82, ../scss/_sidebar.scss */
+.sidebar .menu a:hover {
+  color: #35587c;
 }
 /* line 95, ../scss/_sidebar.scss */
 .sidebar .menu a:active, .sidebar .menu a.active {
@@ -4347,6 +4347,10 @@ a.user {
 .recent-tabs .tab:before {
   margin-right: 0.5em;
   opacity: 0.5;
+}
+/* line 14, ../scss/pages/_recent.scss */
+.recent-tabs .recent-tab:before {
+  font-size: 1.1em;
 }
 /* line 20, ../scss/pages/_recent.scss */
 .recent-tabs .recent-unread-tab:before {

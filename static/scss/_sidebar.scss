@@ -73,14 +73,14 @@ $sidebar-handle-background: #f0f0f0;
       color: #a0a0a0;
       @include transition(color .5s ease, background .5s ease);
 
-      &:hover {
-        color: #35587c;
-      }
-
       &:before {
         @extend .fa;
         width: 2em;
         font-size: 1.2em;
+      }
+
+      &:hover {
+        color: #35587c;
       }
 
       &.recent:before { @extend .fa-th-list; }

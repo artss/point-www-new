@@ -36,7 +36,8 @@ def recent(page=1, unread=False):
     unread_posts = env.user.unread_posts_count('post')
     unread_comments = env.user.unread_comments_count('post')
 
-    return Response(template='/pages/recent.html', owner=env.user, unread=unread,
+    return Response(template='/pages/recent.html', menu='recent',
+                    owner=env.user, unread=unread,
                     posts=plist, page=page, has_next=has_next,
                     unread_posts=unread_posts, unread_comments=unread_comments)
 
@@ -46,6 +47,11 @@ def blog(login, page=1):
 
     plist, page, has_next = get_posts(posts.recent_blog_posts, page, env.owner)
 
-    return Response(template='/pages/blog.html', owner=env.owner,
+    if env.user.is_authorized() and env.user == env.owner:
+        menu = 'blog'
+    else:
+        menu = ''
+
+    return Response(template='/pages/blog.html', menu=menu, owner=env.owner,
                     posts=plist, page=page, has_next=has_next)
 

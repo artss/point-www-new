@@ -1,23 +1,27 @@
+/* global define */
+
 define(['jquery', 'login-register'], function ($) {
-  var mainDiv = $('.main');
+  'use strict';
+
+  var $mainDiv = $('.main');
   var winWidth = $(window).width();
-  var sidebarDiv = $('.sidebar');
-  var sidebarWidth = sidebarDiv.width();
+
+  var $sidebarDiv = $('.sidebar');
+  var sidebarWidth = $sidebarDiv.width();
 
   var startX, startY, lastX, lastY, swipe;
 
   $(window).resize(function () {
     winWidth = $(window).width();
-    sidebarWidth = sidebarDiv.width();
+    sidebarWidth = $sidebarDiv.width();
   });
 
   function toggleSidebar (state) {
-    console.log('toggleSidebar');
     if (typeof state === 'undefined') {
-      state = !mainDiv.hasClass('sidebar-open');
+      state = !$mainDiv.hasClass('sidebar-open');
     }
 
-    mainDiv.toggleClass('sidebar-open', state);
+    $mainDiv.toggleClass('sidebar-open', state);
   }
 
   function checkPos () {
@@ -51,7 +55,7 @@ define(['jquery', 'login-register'], function ($) {
       lastX = startX;
       lastY = startY;
 
-      if (!mainDiv.hasClass('sidebar-open') && startX > winWidth / 4) {
+      if (!$mainDiv.hasClass('sidebar-open') && startX > winWidth / 4) {
         resetSwipe();
       }
 
@@ -98,8 +102,17 @@ define(['jquery', 'login-register'], function ($) {
     });
   }
 
+  function setMenu(id) {
+    $sidebarDiv.find('.menu-item').each(function() {
+      var $item = $(this);
+      $item.toggleClass('active', Boolean(id && $item.hasClass(id)));
+    });
+  }
+
   return {
     init: initSidebar,
-    toggle: toggleSidebar
+    toggle: toggleSidebar,
+    setMenu: setMenu
   };
 });
+
