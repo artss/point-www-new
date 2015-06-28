@@ -4508,7 +4508,7 @@ a.user {
   font-size: 1.2em;
 }
 /* line 30, ../scss/pages/_messages.scss */
-.messages-tabs .messages-new-tab:before {
+.messages-tabs .messages-unread-tab:before {
   content: attr(data-unread);
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -4523,7 +4523,7 @@ a.user {
   font-size: 1em;
 }
 /* line 42, ../scss/pages/_messages.scss */
-.messages-tabs .messages-new-tab.active:before {
+.messages-tabs .messages-unread-tab.active:before {
   background: #ffffff;
   color: #3f51b5;
 }
