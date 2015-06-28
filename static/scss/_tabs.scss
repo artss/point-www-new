@@ -2,13 +2,15 @@
 
 .tabs {
   .tabs-nav {
+    display: table;
     @include clearfix;
 
     .tab {
-      display: inline-block;
+      display: table-cell;
       max-width: 20em;
-      padding: 1em 10px;
+      padding: 1em 10pt;
       @include box-sizing("border-box");
+      vertical-align: middle;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -18,23 +20,23 @@
     }
 
     .active {
-      padding: 1em 20px;
+      padding: 1em 15pt;
       background: #f0f0f0;
       border-bottom: solid 5px #35587c;
     }
   }
 
-  &.header-tabs {
+  &.header-tabs,
+  &.header {
     .tabs-nav {
 
       .tab {
-        padding: 0 10px;
-        line-height: 55px;
+        padding: 0 10pt;
         text-indent: 0;
         /*text-transform: uppercase;*/
 
         &.active {
-          padding: 0 20px;
+          padding: 0 15pt;
         }
       }
     }

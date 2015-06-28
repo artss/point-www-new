@@ -1,41 +1,66 @@
+$messages-lighten-color: lighten($messages-color, 10%);
+
 .messages-tabs {
   .tabs-nav {
     .tab {
       color: $messages-color;
 
-      &:before {
-        @extend .fa;
-        margin-right: 0.5em;
-        #opacity: 0.5;
-      }
-
       &.active {
-        background: lighten($messages-color, 10%);
+        background: $messages-lighten-color;
         color: #ffffff;
         border-bottom-color: $messages-color;
       }
     }
   }
 
+  .messages-unread-tab:before {
+    @extend .fa-envelope;
+  }
+
   .messages-incoming-tab,
   .messages-outgoing-tab {
-    @extend .fa-envelope;
+    position: relative;
 
     &:before {
-      font-size: 1.2em;
+      @extend .fa-envelope;
+    }
+
+    &:after {
+      @extend .fa;
+      position: absolute;
+      font-size: 0.9em;
+      margin-left: 0.75em;
+      left: 10pt;
+      top: 50%;
+      display: block;
+      width: 0.9em;
+      height: 0.9em;
+      padding: 0;
+      @include box-sizing("content-box");
+      @include border-radius(50%);
+      background: #ffffff;
+      border: solid 1px #ffffff;
+    }
+
+    &.active:after {
+      left: 15pt;
+      background: $messages-lighten-color;
+      border: solid 1px $messages-lighten-color;
     }
   }
 
-  .messages-unread-tab {
+  .messages-incoming-tab:after {
+    content: $fa-var-arrow-circle-down;
+  }
+
+  .messages-outgoing-tab:after {
+    content: $fa-var-arrow-circle-up;
+  }
+
+  .counter-tab {
     &:before {
-      content: attr(data-unread);
-      @include border-radius(2px);
-      min-width: 1em;
-      text-align: center;
-      background: lighten($messages-color, 10%);
+      background: $messages-lighten-color;
       color: #ffffff;
-      padding: 0.125em;
-      font-size: 1em;
     }
 
     &.active {

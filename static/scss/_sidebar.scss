@@ -33,12 +33,12 @@ $sidebar-handle-background: #f0f0f0;
   .btn-newpost {
     display: block;
     float: right;
-    width: 60px;
-    height: 60px;
+    width: $header-height;
+    height: $header-height;
     border: 0;
     padding: 0;
     text-align: center;
-    line-height: 60px;
+    line-height: $header-height;
     font-size: 2em;
     color: $sidebar-background;
     background-color: darken($sidebar-background, 10%);

@@ -1,0 +1,64 @@
+.post-list-tabs {
+  height: $header-height;
+
+  .tabs-nav {
+    .tab {
+      @include box-sizing("border-box");
+      height: $header-height;
+
+      &:before {
+        @extend .fa;
+        margin-right: 0.5em;
+        font-size: 1.2em;
+        #opacity: 0.5;
+      }
+
+      &.active {
+        background: #a0a0a0;
+        color: #ffffff;
+        border-bottom-color: #808080;
+      }
+    }
+  }
+
+  .counter-tab {
+    &:before {
+      content: attr(data-unread);
+      @include border-radius(2px);
+      min-width: 1em;
+      text-align: center;
+      background: #d0d0d0;
+      color: #ffffff;
+      padding: 0.25em 0.125em 0 0.125em;
+      font-size: 1em !important;
+      opacity: 0.75;
+    }
+
+    &.active {
+      &:before {
+        background: #ffffff;
+        color: #a0a0a0;
+      }
+    }
+  }
+}
+
+.more-posts {
+  display: block;
+  padding: .5em;
+  text-align: center;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  &:after {
+    @extend .fa;
+    content: $fa-var-angle-double-down;
+    margin: 0 0.5em;
+  }
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+

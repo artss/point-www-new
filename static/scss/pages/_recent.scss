@@ -3,12 +3,6 @@
     .tab {
       color: $recent-color;
 
-      &:before {
-        @extend .fa;
-        margin-right: 0.5em;
-        #opacity: 0.5;
-      }
-
       &.active {
         background: lighten($recent-color, 10%);
         color: #ffffff;
@@ -17,24 +11,14 @@
     }
   }
 
-  .recent-tab {
+  .recent-tab:before {
     @extend .fa-th-list;
-
-    &:before {
-      font-size: 1.1em;
-    }
   }
 
-  .recent-unread-tab {
+  .counter-tab {
     &:before {
-      content: attr(data-unread);
-      @include border-radius(2px);
-      min-width: 1em;
-      text-align: center;
       background: lighten($recent-color, 10%);
       color: #ffffff;
-      padding: 0.125em;
-      font-size: 1em;
     }
 
     &.active {

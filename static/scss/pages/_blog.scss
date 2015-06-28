@@ -1,4 +1,4 @@
-$blog-header-height: 60px;
+$blog-header-height: $header-height;
 
 @import "compass/css3";
 @import "util/clearfix";
@@ -31,7 +31,7 @@ a.user {
   text-decoration: none;
 }
 
-.header {
+.blog-header {
   position: relative;
   display: block;
   @include box-sizing("border-box");
@@ -66,8 +66,9 @@ a.user {
 
   .avatar40 {
     position: absolute;
-    left: 10px;
-    top: 10px;
+    left: 7.5pt;
+    top: 50%;
+    margin-top: -20px;
   }
 
   h1 {
@@ -90,7 +91,7 @@ a.user {
   }
 }
 
-.other-blog-view .header {
+.other-blog-view .blog-header {
   background: $other-blog-color;
 }
 
@@ -362,24 +363,7 @@ a.user {
   }
 }
 
-.more-posts {
-  display: block;
-  padding: .5em;
-  text-align: center;
-  font-size: 1.2em;
-  text-transform: uppercase;
-  text-decoration: none;
 
-  &:after {
-    @extend .fa;
-    content: $fa-var-angle-double-down;
-    margin: 0 0.5em;
-  }
-
-  &.hidden {
-    visibility: hidden;
-  }
-}
 
 .blog-view {
   .more-posts {
