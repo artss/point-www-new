@@ -3342,7 +3342,7 @@ dl dd {
 /* line 76, ../scss/_sidebar.scss */
 .sidebar .menu a:before {
   width: 2em;
-  font-size: 1.2em;
+  font-size: 1.3em;
 }
 /* line 82, ../scss/_sidebar.scss */
 .sidebar .menu a:hover {
@@ -4008,7 +4008,7 @@ form .row input[type="submit"] {
 /* line 9, ../scss/pages/_post-list.scss */
 .post-list-tabs .tabs-nav .tab:before {
   margin-right: 0.5em;
-  font-size: 1.2em;
+  font-size: 1.3em;
   #opacity: 0.5;
 }
 /* line 16, ../scss/pages/_post-list.scss */
