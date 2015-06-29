@@ -6,20 +6,28 @@ function(BaseView, postTemplate, util, _, $) {
 
   var PostListView = BaseView.extend({
     initialize: function(options) {
+      BaseView.prototype.initialize.call(this, options);
+
       this.template = options.template;
       this.data = options.data;
     },
 
-    events: {
+    events: _.extend(BaseView.prototype.events, {
       'click .js-more': 'loadNext'
-    },
+    }),
 
     render: function() {
+      var dfd = $.Deferred();
+
       require(['tpl!' + this.template], function(template) {
         this.$el.append(template(this.data));
 
         this.updatePager(this.data.page, this.data.has_next);
+
+        dfd.resolve();
       }.bind(this));
+
+      return dfd.promise();
     },
 
     loadNext: function(evt) {

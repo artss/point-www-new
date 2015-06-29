@@ -27,7 +27,7 @@
   </head>
   <body>
     <div class="main">
-      {% if env.user.is_authorized() %}
+      {% if env.user.id %}
       <div class="popup-container">
         <div class="popup popup-newpost">
           <form action="/post" method="post" enctype="multipart/form-data">
@@ -61,7 +61,7 @@
       <div class="screen-hint">Потяните за левый край экрана, чтобы открыть меню.</div>
       <div class="main-inner">
 
-        {% if env.user.is_authorized() %}
+        {% if env.user.id %}
         <div class="sidebar">
           <div class="clearfix">
             <div class="logo js-navigate">

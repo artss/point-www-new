@@ -3371,15 +3371,15 @@ dl dd {
 }
 /* line 117, ../scss/_sidebar.scss */
 .sidebar .menu a.bookmarks:hover, .sidebar .menu a.bookmarks:active, .sidebar .menu a.bookmarks.active {
-  color: #35587c;
+  color: #0097a7;
 }
 /* line 123, ../scss/_sidebar.scss */
 .sidebar .menu a.search:hover, .sidebar .menu a.search:active, .sidebar .menu a.search.active {
-  color: #35587c;
+  color: #f9a825;
 }
 /* line 129, ../scss/_sidebar.scss */
 .sidebar .menu a.profile:hover, .sidebar .menu a.profile:active, .sidebar .menu a.profile.active {
-  color: #35587c;
+  color: #546e7a;
 }
 /* line 135, ../scss/_sidebar.scss */
 .sidebar .menu a.logout {
@@ -3997,27 +3997,28 @@ form .row input[type="submit"] {
 /* line 1, ../scss/pages/_post-list.scss */
 .post-list-tabs {
   height: 42pt;
+  background: #ffffff;
 }
-/* line 5, ../scss/pages/_post-list.scss */
+/* line 6, ../scss/pages/_post-list.scss */
 .post-list-tabs .tabs-nav .tab {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 42pt;
 }
-/* line 9, ../scss/pages/_post-list.scss */
+/* line 10, ../scss/pages/_post-list.scss */
 .post-list-tabs .tabs-nav .tab:before {
   margin-right: 0.5em;
   font-size: 1.3em;
   #opacity: 0.5;
 }
-/* line 16, ../scss/pages/_post-list.scss */
+/* line 17, ../scss/pages/_post-list.scss */
 .post-list-tabs .tabs-nav .tab.active {
   background: #a0a0a0;
   color: #ffffff;
   border-bottom-color: #808080;
 }
-/* line 25, ../scss/pages/_post-list.scss */
+/* line 26, ../scss/pages/_post-list.scss */
 .post-list-tabs .counter-tab:before {
   content: attr(data-unread);
   -webkit-border-radius: 2px;
@@ -4033,13 +4034,13 @@ form .row input[type="submit"] {
   font-size: 1em !important;
   opacity: 0.75;
 }
-/* line 38, ../scss/pages/_post-list.scss */
+/* line 39, ../scss/pages/_post-list.scss */
 .post-list-tabs .counter-tab.active:before {
   background: #ffffff;
   color: #a0a0a0;
 }
 
-/* line 46, ../scss/pages/_post-list.scss */
+/* line 47, ../scss/pages/_post-list.scss */
 .more-posts {
   display: block;
   padding: .5em;
@@ -4048,12 +4049,12 @@ form .row input[type="submit"] {
   text-transform: uppercase;
   text-decoration: none;
 }
-/* line 54, ../scss/pages/_post-list.scss */
+/* line 55, ../scss/pages/_post-list.scss */
 .more-posts:after {
   content: "\f103";
   margin: 0 0.5em;
 }
-/* line 60, ../scss/pages/_post-list.scss */
+/* line 61, ../scss/pages/_post-list.scss */
 .more-posts.hidden {
   visibility: hidden;
 }
@@ -4136,7 +4137,7 @@ a.user {
   height: 42pt;
   margin: 0 0 20px 0;
   padding: 10px 42pt;
-  border-bottom: solid 1px #e0e0e0;
+  #border-bottom: solid 1px #e0e0e0;
   text-decoration: none;
   background: #ff5252;
 }
@@ -4645,9 +4646,29 @@ body {
 
 /* line 65, ../scss/styles.scss */
 .content-inner {
+  position: relative;
   max-width: 1024px;
   margin: 0 auto;
+  padding-top: 55pt;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+/* line 72, ../scss/styles.scss */
+.content-inner .header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  -webkit-transition: box-shadow 0.25s ease;
+  -moz-transition: box-shadow 0.25s ease;
+  -o-transition: box-shadow 0.25s ease;
+  transition: box-shadow 0.25s ease;
+}
+/* line 80, ../scss/styles.scss */
+.content-inner .header.scrolled {
+  -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
 }
