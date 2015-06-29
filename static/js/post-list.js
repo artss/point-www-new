@@ -1,15 +1,36 @@
 /* global define, require */
 
-define(['base-view', 'tpl!/pages/_post.html', 'util/util', 'underscore', 'jquery'],
-function(BaseView, postTemplate, util, _, $) {
+define(['base-view', 'tpl!/pages/_posts-page.html', 'util/util', 'underscore', 'jquery'],
+function(BaseView, postsPageTemplate, util, _, $) {
   'use strict';
 
   var PostListView = BaseView.extend({
     initialize: function(options) {
+      var self = this;
+
       BaseView.prototype.initialize.call(this, options);
 
       this.template = options.template;
       this.data = options.data;
+
+      this.$content = $('.content');
+
+      this.$content.on('scroll.post-list', _.throttle(function() {
+        var ch = self.$content.height();
+
+        self.$('.js-page').each(function() {
+          var $page = $(this);
+          var page = $page.data('page');
+          var pos = $page.offset().top;
+          //console.log(page, pos);
+
+          if (pos >= 0 && pos < ch) {
+            self.app.navigate(self._pageLink(location.href, page),
+                              {trigger: false, replace: true});
+            return false;
+          }
+        });
+      }, 1000));
     },
 
     events: {
@@ -39,11 +60,9 @@ function(BaseView, postTemplate, util, _, $) {
 
       $.getJSON($pager.attr('href'))
         .success(function(resp) {
-          var posts = _.map(resp.data.posts, function(post) {
-            return postTemplate({p: post});
-          });
+          var posts = postsPageTemplate(resp.data);
 
-          this.$('.js-posts-list').append($.trim(posts.join('')));
+          this.$('.js-posts-list').append($.trim(posts));
           this.$('.js-unread-posts').attr('data-unread', resp.data.unread_posts);
 
           this.updatePager(resp.data.page, resp.data.has_next);
@@ -57,13 +76,30 @@ function(BaseView, postTemplate, util, _, $) {
         });
     },
 
+    _pageLink: function(href, page) {
+      var loc = util.parseUrl(href);
+      var dirs = loc.pathname.replace(/\/+$/).split(/\/+/);
+      if (/^\d+$/.test((dirs[dirs.length - 1]))) {
+        dirs.pop();
+      }
+
+      if (page > 1) {
+        dirs.push(page);
+      }
+
+      return dirs.join('/') + loc.search;
+    },
+
     updatePager: function(page, has_next) {
       var $pager = this.$('.js-more');
       $pager.toggleClass('hidden', !has_next);
 
-      var loc = util.parseUrl($pager.attr('href'));
-      var href = loc.pathname.replace(/\d+\/?$/, page + 1) + loc.search;
-      $pager.attr('href', href);
+      $pager.attr('href', this._pageLink($pager.attr('href'), page + 1));
+    },
+
+    destroy: function() {
+      BaseView.prototype.destroy.apply(this, arguments);
+      this.$content.off('scroll.post-list');
     }
   });
 

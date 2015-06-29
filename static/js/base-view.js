@@ -7,12 +7,13 @@ define(['backbone', 'jquery'], function(Backbone, $) {
     initialize: function(options) {
       Backbone.View.prototype.initialize.call(this, options);
 
+      this.app = options.app;
+
       this.on('rendered', this.subscribeScroll);
     },
 
     subscribeScroll: function() {
       var $header = $('.header');
-      console.log('h', $header);
 
       if ($header.length === 0) {
         return;

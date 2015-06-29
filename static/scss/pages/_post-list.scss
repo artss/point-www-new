@@ -44,6 +44,10 @@
   }
 }
 
+.posts-page .post:last-child {
+  border-bottom: solid 1px #d0d0d0;
+}
+
 .more-posts {
   display: block;
   padding: .5em;

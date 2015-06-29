@@ -10,9 +10,7 @@
   {% endblock %}
 
   <div class="posts-list js-posts-list">
-  {% for p in posts %}
-    {% include "/pages/_post.html" %}
-  {% endfor %}
+    {% include "/pages/_posts-page.html" %}
   </div>
 
   {% block pager %}

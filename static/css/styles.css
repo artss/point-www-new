@@ -4041,6 +4041,11 @@ form .row input[type="submit"] {
 }
 
 /* line 47, ../scss/pages/_post-list.scss */
+.posts-page .post:last-child {
+  border-bottom: solid 1px #d0d0d0;
+}
+
+/* line 51, ../scss/pages/_post-list.scss */
 .more-posts {
   display: block;
   padding: .5em;
@@ -4049,12 +4054,12 @@ form .row input[type="submit"] {
   text-transform: uppercase;
   text-decoration: none;
 }
-/* line 55, ../scss/pages/_post-list.scss */
+/* line 59, ../scss/pages/_post-list.scss */
 .more-posts:after {
   content: "\f103";
   margin: 0 0.5em;
 }
-/* line 61, ../scss/pages/_post-list.scss */
+/* line 65, ../scss/pages/_post-list.scss */
 .more-posts.hidden {
   visibility: hidden;
 }

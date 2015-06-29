@@ -44,7 +44,7 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
 
       if (_initial) {
         $el = $('.js-view');
-        this._currentView = new View({el: $el[0]});
+        this._currentView = new View({el: $el[0], app: this});
         _initial = false;
         $content.append($el);
         this._currentView.trigger('rendered');
@@ -63,7 +63,7 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
         }
 
         $el = $('<div class="js-view"></div>');
-        this._currentView = new View(_.extend(resp, {el: $el[0]}));
+        this._currentView = new View(_.extend(resp, {el: $el[0], app: this}));
 
         if (_.isObject(resp.data) && !_.isUndefined(resp.data.menu)) {
           sidebar.setMenu(resp.data.menu);
@@ -73,6 +73,10 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
         this._currentView.render().then(function() {
           $content.append($el);
           this._currentView.trigger('rendered');
+
+          this._currentView.on('navigate', function() {
+            console.log('navigate', this, arguments);
+          }, this);
         }.bind(this));
 
         delete this._xhr;
