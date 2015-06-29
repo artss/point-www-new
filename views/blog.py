@@ -41,7 +41,7 @@ def recent(page=1, unread=False):
                     posts=plist, page=page, has_next=has_next,
                     unread_posts=unread_posts)
 
-@route('/u/(?P<login>[a-zA-Z0-9]+)(?:/(?P<page>\d*)/?)?', host=settings.domain)
+@route('/u/(?P<login>[a-zA-Z0-9-]+)(?:/(?P<page>\d*)/?)?', host=settings.domain)
 def blog(login, page=1):
     env.owner = User('login', login)
 

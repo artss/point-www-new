@@ -9,25 +9,36 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
 
   var App = Backbone.Router.extend({
     routes: {
-      'recent(/)': 'postsList',
-      'recent/:page(/)': 'postsList',
-      'recent/unread(/)': 'postsList',
-      'recent/unread/:page(/)': 'postsList',
+      'recent(/unread)(/:page)(/)': function() {
+        return this.postsList('/recent(/unread)?');
+      },
 
       'u/:login/info(/)': 'userInfo',
 
-      'u/:login(/)': 'postsList',
-      'u/:login/:page(/)': 'postsList',
+      'u/:login(/:page)(/)': function() {
+        return this.postsList('/u/[a-zA-Z0-9]+');
+      },
 
-      'comments(/)': 'postsList',
-      'comments/:page(/)': 'postsList',
-      'comments/unread(/)': 'postsList',
-      'comments/unread/:page(/)': 'postsList',
+      'comments(/unread)(/:page)(/)': function() {
+        return this.postsList('/comments(/unread)?');
+      },
 
-      'messages(/)': 'postsList',
-      'messages/:page(/)': 'postsList',
-      'bookmarks(/)': 'postsList',
-      'bookmarks/:page(/)': 'postsList',
+      'messages(/:page)(/)': function() {
+        return this.postsList('/messages');
+      },
+      'messages/unread(/:page)(/)': function() {
+        return this.postsList('/messages/unread');
+      },
+      'messages/incoming(/:page)(/)': function() {
+        return this.postsList('/messages/incoming');
+      },
+      'messages/outgoing(/:page)(/)': function() {
+        return this.postsList('/messages/outgoing');
+      },
+
+      'bookmarks/:page(/)': function() {
+        return this.postsList(/\/bookmarks/);
+      },
 
       'p/:post': 'showPost'
     },
@@ -37,14 +48,14 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
       sidebar.init();
     },
 
-    loadView: function(View, url) {
+    loadView: function(View, url, urlPattern) {
       sidebar.toggle(false);
 
       var $el;
 
       if (_initial) {
         $el = $('.js-view');
-        this._currentView = new View({el: $el[0], app: this});
+        this._currentView = new View({el: $el[0], app: this, urlPattern: urlPattern});
         _initial = false;
         $content.append($el);
         this._currentView.trigger('rendered');
@@ -63,7 +74,7 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
         }
 
         $el = $('<div class="js-view"></div>');
-        this._currentView = new View(_.extend(resp, {el: $el[0], app: this}));
+        this._currentView = new View(_.extend(resp, {el: $el[0], app: this, urlPattern: urlPattern}));
 
         if (_.isObject(resp.data) && !_.isUndefined(resp.data.menu)) {
           sidebar.setMenu(resp.data.menu);
@@ -86,8 +97,8 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
       });
     },
 
-    postsList: function() {
-      this.loadView(PostListView, location.href);
+    postsList: function(urlPattern) {
+      this.loadView(PostListView, location.href, new RegExp('^' + urlPattern));
     },
 
     showPost: function() {

@@ -12,6 +12,7 @@ function(BaseView, postsPageTemplate, util, _, $) {
 
       this.template = options.template;
       this.data = options.data;
+      this.urlPattern = options.urlPattern;
 
       this.$content = $('.content');
 
@@ -25,7 +26,7 @@ function(BaseView, postsPageTemplate, util, _, $) {
           //console.log(page, pos);
 
           if (pos >= 0 && pos < ch) {
-            self.app.navigate(self._pageLink(location.href, page),
+            self.app.navigate(self.pageLink(page),
                               {trigger: false, replace: true});
             return false;
           }
@@ -76,12 +77,9 @@ function(BaseView, postsPageTemplate, util, _, $) {
         });
     },
 
-    _pageLink: function(href, page) {
-      var loc = util.parseUrl(href);
-      var dirs = loc.pathname.replace(/\/+$/).split(/\/+/);
-      if (/^\d+$/.test((dirs[dirs.length - 1]))) {
-        dirs.pop();
-      }
+    pageLink: function(page) {
+      var loc = util.parseUrl(location.pathname.match(this.urlPattern)[0]);
+      var dirs = loc.pathname.replace(/\/+$/, '').split(/\/+/);
 
       if (page > 1) {
         dirs.push(page);
@@ -94,7 +92,7 @@ function(BaseView, postsPageTemplate, util, _, $) {
       var $pager = this.$('.js-more');
       $pager.toggleClass('hidden', !has_next);
 
-      $pager.attr('href', this._pageLink($pager.attr('href'), page + 1));
+      $pager.attr('href', this.pageLink(page + 1));
     },
 
     destroy: function() {
