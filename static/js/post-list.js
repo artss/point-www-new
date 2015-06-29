@@ -12,9 +12,9 @@ function(BaseView, postTemplate, util, _, $) {
       this.data = options.data;
     },
 
-    events: _.extend(BaseView.prototype.events, {
+    events: {
       'click .js-more': 'loadNext'
-    }),
+    },
 
     render: function() {
       var dfd = $.Deferred();
