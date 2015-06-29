@@ -3718,7 +3718,7 @@ content:after {
 }
 /* line 203, ../scss/landing.scss */
 .devices .browser .inner {
-  background: #a2ccea;
+  background: #42a5f5;
 }
 /* line 205, ../scss/landing.scss */
 .devices .browser img {
@@ -3730,7 +3730,7 @@ content:after {
 }
 /* line 210, ../scss/landing.scss */
 .devices .im .inner {
-  background: #f4db62;
+  background: #ffee58;
 }
 /* line 212, ../scss/landing.scss */
 .devices .im img {
@@ -3742,7 +3742,7 @@ content:after {
 }
 /* line 217, ../scss/landing.scss */
 .devices .mobile .inner {
-  background: #84c971;
+  background: #66bb6a;
 }
 /* line 219, ../scss/landing.scss */
 .devices .mobile img {
@@ -3756,7 +3756,7 @@ content:after {
 /* line 225, ../scss/landing.scss */
 .login-wrap {
   *zoom: 1;
-  background: #606060;
+  background: #546e7a;
 }
 /* line 2, ../scss/util/_clearfix.scss */
 .login-wrap:after, .login-wrap:before {
@@ -3783,11 +3783,11 @@ content:after {
 /* line 242, ../scss/landing.scss */
 .login-wrap .login-link {
   float: right;
-  color: #a0a0a0;
+  color: #90a4ae;
 }
 /* line 248, ../scss/landing.scss */
 .login-wrap.login .reg-link {
-  color: #a0a0a0;
+  color: #90a4ae;
 }
 /* line 252, ../scss/landing.scss */
 .login-wrap.login .login-link {

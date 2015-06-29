@@ -200,21 +200,21 @@ content {
   }
 
   .browser {
-    .inner { background: #a2ccea; }
+    .inner { background: #42a5f5; }
 
     img { width: 4em; }
     h2 { margin-left: 4em; }
   }
 
   .im {
-    .inner { background: #f4db62; }
+    .inner { background: #ffee58; }
 
     img { width: 3em; }
     h2 { margin-left: 3em; }
   }
 
   .mobile {
-    .inner { background: #84c971; }
+    .inner { background: #66bb6a; }
 
     img { width: 2em; }
     h2 { margin-left: 2em; }
@@ -224,7 +224,7 @@ content {
 
 .login-wrap {
   @include clearfix;
-  background: #606060;
+  background: #546e7a;
 
   .reg-link,
   .login-link {
@@ -241,12 +241,12 @@ content {
 
   .login-link {
     float: right;
-    color: #a0a0a0;
+    color: #90a4ae;
   }
 
   &.login {
     .reg-link {
-      color: #a0a0a0;
+      color: #90a4ae;
     }
 
     .login-link {
