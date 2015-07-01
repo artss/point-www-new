@@ -2,7 +2,7 @@ workers = 8
 
 libs = ['/home/point/core/lib']
 
-apps = ['views', 'api']
+apps = ['views']
 
 # redis
 cache_socket = 'unix:///var/run/redis/cache.sock'
@@ -30,7 +30,7 @@ db = {
 }
 
 server_host = '127.0.0.1'
-server_port = 8088
+server_port = 8188
 
 websocket_host = '127.0.0.1'
 websocket_port = 8089
