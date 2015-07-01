@@ -44,7 +44,7 @@ def login():
         if env.request.is_xhr:
             raise AlreadyAuthorized
 
-        return Response(redirect='%s:%s' % (env.request.protocol, userlink(env.user)))
+        return Response(redirect='%s://%s%s' % (env.request.protocol, settings.domain, userlink(env.user)))
 
     ref = referer()
 
