@@ -1,3 +1,3 @@
-define(['login-register'], function () {
+define(['auth/login-register'], function () {
 });
 

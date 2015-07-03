@@ -1,4 +1,4 @@
-define(['reg-form', 'login-form', 'jquery'], function (RegForm, LoginForm, $) {
+define(['auth/reg-form', 'auth/login-form', 'jquery'], function (RegForm, LoginForm, $) {
   var wrap = $('.login-wrap');
 
   wrap.find('.reg-link').click(function (evt) {

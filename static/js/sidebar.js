@@ -1,6 +1,6 @@
 /* global define */
 
-define(['jquery', 'login-register'], function ($) {
+define(['jquery', 'auth/login-register'], function ($) {
   'use strict';
 
   var $mainDiv = $('.main');
