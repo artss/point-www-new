@@ -3,4 +3,5 @@ venv
 .vimrc
 .idea
 .sass-cache
+bower_components
 settings_local.py

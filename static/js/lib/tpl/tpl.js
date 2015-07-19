@@ -7,7 +7,7 @@
  *   console.log(tpl(context));
  * });
  */
-define(['swig', 'util/tpl/filters', 'underscore', 'jquery'], function(swig, filters, _, $) {
+define(['swig', 'lib/tpl/filters', 'underscore'], function(swig, filters, _) {
   'use strict';
 
   /**
@@ -34,17 +34,21 @@ define(['swig', 'util/tpl/filters', 'underscore', 'jquery'], function(swig, filt
       return to;
     },
     load: function(filename, callback) {
-      console.log('requireLoader.load', filename, callback);
-      var data = $.ajax({
-        url: '/templates' + filename,
-        async: false
-      }).responseText;
+      var request = new XMLHttpRequest();
+      request.open('GET', '/templates' + filename, false);
+      request.send(null);
 
-      if (callback) {
-        return callback(null, data);
+      if (request.status === 200) {
+        var data = request.responseText;
+
+        if (callback) {
+          return callback(null, data);
+        }
+
+        return data;
       }
 
-      return data;
+      console.err('Template request failed', request.status, request.statusText);
     }
   };
 

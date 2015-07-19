@@ -1,6 +1,6 @@
-/* global define */
+/* global define, strftime */
 
-define(['util/util', 'lib/strftime'], function(util) {
+define(['util/util', 'strftime'], function(util) {
   'use strict';
 
   return {
@@ -22,7 +22,11 @@ define(['util/util', 'lib/strftime'], function(util) {
       if (!(date instanceof Date)) {
         date = new Date(date);
       }
-      return date.strftime(format);
+      return strftime(format, date);
+    },
+
+    length: function(obj) {
+      return obj.length;
     }
   };
 });

@@ -1,24 +1,30 @@
-define(["underscore", "jquery"], function (_, $) {
+/* global define */
+
+define(['underscore', 'jquery'], function (_, $) {
+  'use strict';
+
   function tabs () {
     var el = this;
     var $el = $(this);
 
-    if (!$el.hasClass("tabs-nav")) {
-      $el = $el.find(".tabs-nav").eq(0);
-      if (!$el.length) return;
+    if (!$el.hasClass('tabs-nav')) {
+      $el = $el.find('.tabs-nav').eq(0);
+      if (!$el.length) {
+        return;
+      }
       el = $el[0];
     }
 
     var win = $(window);
 
     function resize () {
-      var tw = $el.find(".tabs-nav-inner").width();
+      var tw = $el.find('.tabs-nav-inner').width();
       console.log(win.width(), tw);
       //if (tw > win.width()) {
       //}
     }
 
-    win.on("resize", resize);
+    win.on('resize', resize);
     resize();
   }
 
