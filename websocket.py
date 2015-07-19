@@ -26,7 +26,7 @@ class WsPubsub(object):
         log.info('ws: pubsub init')
         pool = RedisPool(settings.pubsub_socket)
         pubsub = pool.pubsub()
-        pubsub.subscribe(['msg', 'sub', 'rec', 'confirm'])
+        pubsub.subscribe(['msg', 'msg.self', 'sub', 'rec', 'confirm'])
         for msg in pubsub.listen():
             self.handle_message(msg)
 
