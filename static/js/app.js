@@ -1,6 +1,7 @@
 /* global define */
 
-define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Backbone, _, $, sidebar, PostListView) {
+define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'],
+function(Backbone, _, $, SidebarView, PostListView) {
   'use strict';
 
   var _initial = true;
@@ -45,11 +46,12 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
 
     initialize: function() {
       Backbone.Router.prototype.initialize.apply(this, arguments);
-      sidebar.init();
+
+      this.sidebar = new SidebarView({el: '.sidebar'});
     },
 
     loadView: function(View, url, urlPattern) {
-      sidebar.toggle(false);
+      this.sidebar.toggle(false);
 
       var $el;
 
@@ -77,7 +79,7 @@ define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'], function(Ba
         this._currentView = new View(_.extend(resp, {el: $el[0], app: this, urlPattern: urlPattern}));
 
         if (_.isObject(resp.data) && !_.isUndefined(resp.data.menu)) {
-          sidebar.setMenu(resp.data.menu);
+          this.sidebar.setMenu(resp.data.menu);
           this._currentView.$el.addClass(resp.data.menu + '-view');
         }
 

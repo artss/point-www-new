@@ -8,8 +8,6 @@ function (Backbone, _, $, App, util) {
     $('body').addClass('touch-device');
   }
 
-  //$(sidebar.init);
-
   // TODO: move it to post form view
   var mainDiv = $('.main');
 
