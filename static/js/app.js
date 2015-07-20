@@ -1,7 +1,7 @@
 /* global define */
 
-define(['backbone', 'underscore', 'jquery', 'sidebar', 'post-list'],
-function(Backbone, _, $, SidebarView, PostListView) {
+define(['backbone', 'underscore', 'sidebar', 'post-list'],
+function(Backbone, _, SidebarView, PostListView) {
   'use strict';
 
   var _initial = true;

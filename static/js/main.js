@@ -1,15 +1,15 @@
 /* global require */
 
-require(['backbone', 'underscore', 'jquery', 'app', 'util/util', 'lib/jquery.autosize'],
-function (Backbone, _, $, App, util) {
+require(['app', 'backbone', 'underscore', 'util/util', 'util/dom-helpers'],
+function (App, Backbone, _, util, dh) {
   'use strict';
 
   if ('ontouchstart' in document.documentElement) {
-    $('body').addClass('touch-device');
+    document.body.classList.add('touch-device');
   }
 
   // TODO: move it to post form view
-  var mainDiv = $('.main');
+  /*var mainDiv = document.querySelector('.main');
 
   $('.btn-newpost').click(function () {
     sidebar.toggle(false);
@@ -26,18 +26,18 @@ function (Backbone, _, $, App, util) {
     var num = $(this).closest('.upload').find('.number');
     num.toggleClass('positive', this.files.length > 0);
     num.text(this.files.length);
-  });
+  });*/
 
   var app = new App();
 
-  $(document).on('click', '.js-navigate', function(evt) {
-    var $a = $(evt.target).closest('a');
+  dh.on(document, 'click', '.js-navigate', function(evt) {
+    var href = evt.target.getAttribute('href');
 
-    var loc = util.parseUrl($a.attr('href'));
+    var loc = util.parseUrl(href);
 
     if (loc.protocol === location.protocol && loc.host === loc.host) {
       evt.preventDefault();
-      app.navigate($a.attr('href'), {trigger: true});
+      app.navigate(href, {trigger: true});
     } else {
       Backbone.history.stop();
       location.href = loc.href;
