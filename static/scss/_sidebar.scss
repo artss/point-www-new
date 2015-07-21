@@ -141,7 +141,7 @@ $sidebar-handle-background: #f0f0f0;
 }
 
 .main-inner:after {
-    z-index: 1;
+    z-index: 3;
 }
 
 .main.sidebar-open {
@@ -169,7 +169,7 @@ $sidebar-handle-background: #f0f0f0;
 
 .sidebar-handle {
   position: fixed;
-  z-index: 2;
+  z-index: 4;
   left: 0;
   top: 0;
   width: 10px;

@@ -3389,7 +3389,7 @@ dl dd {
 
 /* line 143, ../scss/_sidebar.scss */
 .main-inner:after {
-  z-index: 1;
+  z-index: 3;
 }
 
 /* line 148, ../scss/_sidebar.scss */
@@ -3418,7 +3418,7 @@ dl dd {
 /* line 170, ../scss/_sidebar.scss */
 .sidebar-handle {
   position: fixed;
-  z-index: 2;
+  z-index: 4;
   left: 0;
   top: 0;
   width: 10px;
@@ -3997,28 +3997,35 @@ form .row input[type="submit"] {
 /* line 1, ../scss/pages/_post-list.scss */
 .post-list-tabs {
   height: 42pt;
+  -webkit-transition: background 0.25s;
+  -moz-transition: background 0.25s;
+  -o-transition: background 0.25s;
+  transition: background 0.25s;
+}
+/* line 5, ../scss/pages/_post-list.scss */
+.scrolled .post-list-tabs {
   background: #ffffff;
 }
-/* line 6, ../scss/pages/_post-list.scss */
+/* line 10, ../scss/pages/_post-list.scss */
 .post-list-tabs .tabs-nav .tab {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 42pt;
 }
-/* line 10, ../scss/pages/_post-list.scss */
+/* line 14, ../scss/pages/_post-list.scss */
 .post-list-tabs .tabs-nav .tab:before {
   margin-right: 0.5em;
   font-size: 1.3em;
   #opacity: 0.5;
 }
-/* line 17, ../scss/pages/_post-list.scss */
+/* line 21, ../scss/pages/_post-list.scss */
 .post-list-tabs .tabs-nav .tab.active {
   background: #a0a0a0;
   color: #ffffff;
   border-bottom-color: #808080;
 }
-/* line 26, ../scss/pages/_post-list.scss */
+/* line 30, ../scss/pages/_post-list.scss */
 .post-list-tabs .counter-tab:before {
   content: attr(data-unread);
   -webkit-border-radius: 2px;
@@ -4034,18 +4041,18 @@ form .row input[type="submit"] {
   font-size: 1em !important;
   opacity: 0.75;
 }
-/* line 39, ../scss/pages/_post-list.scss */
+/* line 43, ../scss/pages/_post-list.scss */
 .post-list-tabs .counter-tab.active:before {
   background: #ffffff;
   color: #a0a0a0;
 }
 
-/* line 47, ../scss/pages/_post-list.scss */
+/* line 51, ../scss/pages/_post-list.scss */
 .posts-page .post:last-child {
   border-bottom: solid 1px #d0d0d0;
 }
 
-/* line 51, ../scss/pages/_post-list.scss */
+/* line 55, ../scss/pages/_post-list.scss */
 .more-posts {
   display: block;
   padding: .5em;
@@ -4054,12 +4061,12 @@ form .row input[type="submit"] {
   text-transform: uppercase;
   text-decoration: none;
 }
-/* line 59, ../scss/pages/_post-list.scss */
+/* line 63, ../scss/pages/_post-list.scss */
 .more-posts:after {
   content: "\f103";
   margin: 0 0.5em;
 }
-/* line 65, ../scss/pages/_post-list.scss */
+/* line 69, ../scss/pages/_post-list.scss */
 .more-posts.hidden {
   visibility: hidden;
 }
@@ -4140,7 +4147,7 @@ a.user {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 42pt;
-  margin: 0 0 20px 0;
+  margin: 0;
   padding: 10px 42pt;
   #border-bottom: solid 1px #e0e0e0;
   text-decoration: none;
@@ -4597,19 +4604,19 @@ a.user {
   min-height: 10em;
 }
 
-/* line 19, ../scss/styles.scss */
+/* line 21, ../scss/styles.scss */
 html {
   height: 100%;
 }
 
-/* line 23, ../scss/styles.scss */
+/* line 25, ../scss/styles.scss */
 body {
   background: #ffffff;
   margin: 0;
   height: 100%;
 }
 
-/* line 29, ../scss/styles.scss */
+/* line 31, ../scss/styles.scss */
 .main {
   position: relative;
   overflow: hidden;
@@ -4618,7 +4625,7 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 35, ../scss/styles.scss */
+/* line 37, ../scss/styles.scss */
 .main .main-inner {
   height: 100%;
   left: 0;
@@ -4626,7 +4633,7 @@ body {
   transition: transform 0.25s ease 0s;
   z-index: 1;
 }
-/* line 42, ../scss/styles.scss */
+/* line 44, ../scss/styles.scss */
 .main .main-inner:after {
   position: absolute;
   width: 0;
@@ -4640,7 +4647,7 @@ body {
   transition: opacity 0.25s ease 0s, width 0.1s ease 0.5s, height 0.1s ease 0.25s;
 }
 
-/* line 59, ../scss/styles.scss */
+/* line 61, ../scss/styles.scss */
 .content {
   height: 100%;
   -webkit-box-sizing: border-box;
@@ -4649,7 +4656,7 @@ body {
   overflow-y: scroll;
 }
 
-/* line 65, ../scss/styles.scss */
+/* line 67, ../scss/styles.scss */
 .content-inner {
   position: relative;
   max-width: 1024px;
@@ -4659,20 +4666,59 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 72, ../scss/styles.scss */
-.content-inner .header {
-  position: absolute;
+
+/* line 75, ../scss/styles.scss */
+.header {
+  position: fixed;
+  z-index: 0;
   left: 0;
   top: 0;
-  width: 100%;
   z-index: 2;
-  -webkit-transition: box-shadow 0.25s ease;
-  -moz-transition: box-shadow 0.25s ease;
-  -o-transition: box-shadow 0.25s ease;
-  transition: box-shadow 0.25s ease;
+  width: 100%;
+  -webkit-transition: top 0.25s;
+  -moz-transition: top 0.25s;
+  -o-transition: top 0.25s;
+  transition: top 0.25s;
 }
-/* line 80, ../scss/styles.scss */
-.content-inner .header.scrolled {
+/* line 84, ../scss/styles.scss */
+.header.hidden {
+  top: -42pt;
+}
+/* line 88, ../scss/styles.scss */
+.header .header-inner {
+  position: relative;
+  z-index: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1264px;
+  margin: 0 auto;
+}
+/* line 96, ../scss/styles.scss */
+.header .header-inner:after {
+  content: '';
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 4px;
+  top: -4px;
+  margin-right: 1em;
+  display: block;
+  -webkit-transition: box-shadow 0.25s, background 0.25s;
+  -moz-transition: box-shadow 0.25s, background 0.25s;
+  -o-transition: box-shadow 0.25s, background 0.25s;
+  transition: box-shadow 0.25s, background 0.25s;
+  background: transparent;
+}
+@media only screen and (min-width: 800px) {
+  /* line 88, ../scss/styles.scss */
+  .header .header-inner {
+    padding-left: 240px;
+  }
+}
+/* line 116, ../scss/styles.scss */
+.header.scrolled .header-inner:after {
   -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);

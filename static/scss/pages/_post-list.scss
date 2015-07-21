@@ -1,6 +1,10 @@
 .post-list-tabs {
   height: $header-height;
-  background: #ffffff;
+  @include transition(background 0.25s);
+
+  .scrolled & {
+    background: #ffffff;
+  }
 
   .tabs-nav {
     .tab {

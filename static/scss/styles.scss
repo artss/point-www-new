@@ -16,6 +16,8 @@ $header-height: 42pt;
 
 @import "pages";
 
+$max-content-width: 1024px;
+
 html {
   height: 100%;
 }
@@ -64,21 +66,56 @@ body {
 
 .content-inner {
   position: relative;
-  max-width: 1024px;
+  max-width: $max-content-width;
   margin: 0 auto;
   padding-top: #{$header-height + 13pt};
   @include box-sizing("border-box");
+}
 
-  .header {
-    position: absolute;
-    left: 0;
-    top: 0;
+.header {
+  position: fixed;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  @include transition(top 0.25s);
+
+  &.hidden {
+    top: -$header-height;
+  }
+
+  .header-inner {
+    position: relative;
+    z-index: 1;
+    @include box-sizing("border-box");
     width: 100%;
-    z-index: 2;
-    @include transition(box-shadow 0.25s ease);
+    max-width: #{$sidebar-width + $max-content-width};
+    margin: 0 auto;
 
-    &.scrolled {
-      @include box-shadow(0 3px 2px rgba(0,0,0,.125));
+    &:after {
+      content: '';
+      position: relative;
+      z-index: 0;
+      width: 100%;
+      height: 4px;
+      top: -4px;
+      margin-right: 1em;
+      display: block;
+      @include transition(box-shadow 0.25s, background 0.25s);
+      background: transparent;
+    }
+
+    @include respond-to(800px) {
+      padding-left: $sidebar-width;
+    }
+  }
+
+  &.scrolled {
+    .header-inner {
+      &:after {
+        @include box-shadow(0 3px 2px rgba(0,0,0,.125));
+      }
     }
   }
 }

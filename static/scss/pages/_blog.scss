@@ -36,7 +36,7 @@ a.user {
   display: block;
   @include box-sizing("border-box");
   height: $blog-header-height;
-  margin: 0 0 20px 0;
+  margin: 0;
   padding: 10px $blog-header-height;
   #border-bottom: solid 1px #e0e0e0;
   text-decoration: none;

@@ -1,13 +1,17 @@
 {% extends "/base.html" %}
 
 {% block content %}
-  {% block header %}
-  <a class="header blog-header js-navigate" href="{{ owner|userlink('info') }}">
-      <div class="avatar40"><img src="{{ settings.avatars_root }}/80/{{ owner.avatar }}" alt="arts"/></div>
-      <h1>{{ owner.name }}</h1>
-      <div class="user">{{ owner.login }}</div>
-  </a>
-  {% endblock %}
+  <div class="header">
+    <div class="header-inner">
+      {% block header %}
+      <a class="blog-header js-navigate"  href="{{ owner|userlink('info') }}">
+        <div class="avatar40"><img src="{{ settings.avatars_root }}/80/{{ owner.avatar }}" alt="arts"/></div>
+        <h1>{{ owner.name }}</h1>
+        <div class="user">{{ owner.login }}</div>
+      </a>
+      {% endblock %}
+    </div>
+  </div>
 
   <div class="posts-list js-posts-list">
     {% include "/pages/_posts-page.html" %}
