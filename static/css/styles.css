@@ -4148,7 +4148,7 @@ a.user {
   box-sizing: border-box;
   height: 42pt;
   margin: 0;
-  padding: 10px 42pt;
+  padding: 0.5em 52pt;
   #border-bottom: solid 1px #e0e0e0;
   text-decoration: none;
   background: #ff5252;
@@ -4177,7 +4177,7 @@ a.user {
 /* line 67, ../scss/pages/_blog.scss */
 .blog-header .avatar40 {
   position: absolute;
-  left: 7.5pt;
+  left: 15pt;
   top: 50%;
   margin-top: -20px;
 }
