@@ -60,13 +60,12 @@ function(Backbone, _, request, dom, SidebarView, PostListView) {
         el = dom.select('.js-view');
         this._currentView = new View({el: el, app: this, urlPattern: urlPattern});
         _initial = false;
-        content.appendChild(el);
+        //content.appendChild(el);
         this._currentView.trigger('rendered');
         return;
       }
 
       if (this._request) {
-        console.log('abort', this._request);
         this._request.cancel();
       }
 
@@ -85,10 +84,9 @@ function(Backbone, _, request, dom, SidebarView, PostListView) {
           this._currentView.el.classList.add(resp.data.menu + '-view');
         }
 
-        this._currentView.render()
-        .then(
+        this._currentView.render().then(
           function() {
-            content.appendChild(el);
+            content.insertAdjacentElement('afterBegin', el);
             this._currentView.trigger('rendered');
 
             this._currentView.on('navigate', function() {

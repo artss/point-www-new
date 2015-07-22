@@ -3,10 +3,6 @@ footer {
   margin: 2em 0;
   @include box-sizing("border-box");
 
-  @include respond-to(1200px) {
-    width: 65%;
-  }
-
   .menu {
     @include clearfix;
     @include box-sizing("border-box");
