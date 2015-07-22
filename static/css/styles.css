@@ -4603,19 +4603,87 @@ a.user {
   min-height: 10em;
 }
 
-/* line 21, ../scss/styles.scss */
+/* line 1, ../scss/_footer.scss */
+footer {
+  height: 100pt;
+  margin: 2em 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@media only screen and (min-width: 1200px) {
+  /* line 1, ../scss/_footer.scss */
+  footer {
+    width: 65%;
+  }
+}
+/* line 10, ../scss/_footer.scss */
+footer .menu {
+  *zoom: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+}
+/* line 2, ../scss/util/_clearfix.scss */
+footer .menu:after, footer .menu:before {
+  content: " ";
+  display: table;
+}
+/* line 6, ../scss/util/_clearfix.scss */
+footer .menu:after {
+  clear: both;
+}
+/* line 15, ../scss/_footer.scss */
+footer .menu > div {
+  display: block;
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1em 0;
+  padding: 10pt;
+  min-width: 10em;
+}
+@media only screen and (min-width: 480px) {
+  /* line 15, ../scss/_footer.scss */
+  footer .menu > div {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  /* line 15, ../scss/_footer.scss */
+  footer .menu > div {
+    width: 33.3%;
+  }
+}
+/* line 32, ../scss/_footer.scss */
+footer .menu a {
+  display: block;
+  float: left;
+  clear: both;
+  padding: .25em 0;
+  text-decoration: none;
+}
+/* line 41, ../scss/_footer.scss */
+footer .copyright {
+  margin: 2em 10pt;
+  color: #a0a0a0;
+}
+
+/* line 23, ../scss/styles.scss */
 html {
   height: 100%;
 }
 
-/* line 25, ../scss/styles.scss */
+/* line 27, ../scss/styles.scss */
 body {
   background: #ffffff;
   margin: 0;
   height: 100%;
 }
 
-/* line 31, ../scss/styles.scss */
+/* line 33, ../scss/styles.scss */
 .main {
   position: relative;
   overflow: hidden;
@@ -4624,7 +4692,7 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 37, ../scss/styles.scss */
+/* line 39, ../scss/styles.scss */
 .main .main-inner {
   height: 100%;
   left: 0;
@@ -4632,7 +4700,7 @@ body {
   transition: transform 0.25s ease 0s;
   z-index: 1;
 }
-/* line 44, ../scss/styles.scss */
+/* line 46, ../scss/styles.scss */
 .main .main-inner:after {
   position: absolute;
   width: 0;
@@ -4646,7 +4714,7 @@ body {
   transition: opacity 0.25s ease 0s, width 0.1s ease 0.5s, height 0.1s ease 0.25s;
 }
 
-/* line 61, ../scss/styles.scss */
+/* line 63, ../scss/styles.scss */
 .content {
   height: 100%;
   -webkit-box-sizing: border-box;
@@ -4655,10 +4723,11 @@ body {
   overflow-y: scroll;
 }
 
-/* line 67, ../scss/styles.scss */
+/* line 69, ../scss/styles.scss */
 .content-inner {
   position: relative;
   max-width: 1024px;
+  min-height: 50%;
   margin: 0 auto;
   padding-top: 55pt;
   -webkit-box-sizing: border-box;
@@ -4666,7 +4735,7 @@ body {
   box-sizing: border-box;
 }
 
-/* line 75, ../scss/styles.scss */
+/* line 78, ../scss/styles.scss */
 .header {
   position: fixed;
   z-index: 0;
@@ -4679,11 +4748,11 @@ body {
   -o-transition: top 0.25s;
   transition: top 0.25s;
 }
-/* line 84, ../scss/styles.scss */
+/* line 87, ../scss/styles.scss */
 .header.hidden {
   top: -42pt;
 }
-/* line 88, ../scss/styles.scss */
+/* line 91, ../scss/styles.scss */
 .header .header-inner {
   position: relative;
   z-index: 1;
@@ -4694,7 +4763,7 @@ body {
   max-width: 1264px;
   margin: 0 auto;
 }
-/* line 96, ../scss/styles.scss */
+/* line 99, ../scss/styles.scss */
 .header .header-inner:after {
   content: '';
   position: relative;
@@ -4711,12 +4780,12 @@ body {
   background: transparent;
 }
 @media only screen and (min-width: 800px) {
-  /* line 88, ../scss/styles.scss */
+  /* line 91, ../scss/styles.scss */
   .header .header-inner {
     padding-left: 240px;
   }
 }
-/* line 116, ../scss/styles.scss */
+/* line 119, ../scss/styles.scss */
 .header.scrolled .header-inner:after {
   -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);

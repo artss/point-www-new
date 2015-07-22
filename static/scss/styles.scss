@@ -16,6 +16,8 @@ $header-height: 42pt;
 
 @import "pages";
 
+@import "footer";
+
 $max-content-width: 1024px;
 
 html {
@@ -67,6 +69,7 @@ body {
 .content-inner {
   position: relative;
   max-width: $max-content-width;
+  min-height: 50%;
   margin: 0 auto;
   padding-top: #{$header-height + 13pt};
   @include box-sizing("border-box");
@@ -118,5 +121,9 @@ body {
       }
     }
   }
+}
+
+footer {
+  
 }
 

@@ -3373,12 +3373,80 @@ textarea {
   opacity: 1 !important;
 }
 
-/* line 10, ../scss/landing.scss */
+/* line 1, ../scss/_footer.scss */
+footer {
+  height: 100pt;
+  margin: 2em 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@media only screen and (min-width: 1200px) {
+  /* line 1, ../scss/_footer.scss */
+  footer {
+    width: 65%;
+  }
+}
+/* line 10, ../scss/_footer.scss */
+footer .menu {
+  *zoom: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+}
+/* line 2, ../scss/util/_clearfix.scss */
+footer .menu:after, footer .menu:before {
+  content: " ";
+  display: table;
+}
+/* line 6, ../scss/util/_clearfix.scss */
+footer .menu:after {
+  clear: both;
+}
+/* line 15, ../scss/_footer.scss */
+footer .menu > div {
+  display: block;
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1em 0;
+  padding: 10pt;
+  min-width: 10em;
+}
+@media only screen and (min-width: 480px) {
+  /* line 15, ../scss/_footer.scss */
+  footer .menu > div {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  /* line 15, ../scss/_footer.scss */
+  footer .menu > div {
+    width: 33.3%;
+  }
+}
+/* line 32, ../scss/_footer.scss */
+footer .menu a {
+  display: block;
+  float: left;
+  clear: both;
+  padding: .25em 0;
+  text-decoration: none;
+}
+/* line 41, ../scss/_footer.scss */
+footer .copyright {
+  margin: 2em 10pt;
+  color: #a0a0a0;
+}
+
+/* line 11, ../scss/landing.scss */
 html {
   height: 100%;
 }
 
-/* line 14, ../scss/landing.scss */
+/* line 15, ../scss/landing.scss */
 body {
   max-width: 1200px;
   height: 100%;
@@ -3390,7 +3458,7 @@ body {
   background: 100%;
 }
 
-/* line 24, ../scss/landing.scss */
+/* line 25, ../scss/landing.scss */
 header .logo {
   display: block;
   float: left;
@@ -3399,24 +3467,24 @@ header .logo {
   padding: 6pt 4pt;
   background: #eff2f5;
 }
-/* line 32, ../scss/landing.scss */
+/* line 33, ../scss/landing.scss */
 header .logo img {
   display: inline-block;
   width: 40pt;
 }
-/* line 38, ../scss/landing.scss */
+/* line 39, ../scss/landing.scss */
 header .slogan {
   display: table;
   height: 60pt;
   margin: 0 0 0 54pt;
 }
-/* line 43, ../scss/landing.scss */
+/* line 44, ../scss/landing.scss */
 header .slogan .slogan-inner {
   display: table-cell;
   height: 100%;
   vertical-align: middle;
 }
-/* line 48, ../scss/landing.scss */
+/* line 49, ../scss/landing.scss */
 header .slogan .slogan-inner a {
   position: relative;
   font-size: 3em;
@@ -3424,11 +3492,11 @@ header .slogan .slogan-inner a {
   text-decoration: none;
   text-transform: uppercase;
 }
-/* line 57, ../scss/landing.scss */
+/* line 58, ../scss/landing.scss */
 header .slogan .slogan-inner a:hover, header .slogan .slogan-inner a:active, header .slogan .slogan-inner a:visited {
   color: #35587c;
 }
-/* line 61, ../scss/landing.scss */
+/* line 62, ../scss/landing.scss */
 header .slogan .slogan-inner a span {
   position: absolute;
   left: 0;
@@ -3441,7 +3509,7 @@ header .slogan .slogan-inner a span {
   line-height: 1em;
 }
 
-/* line 77, ../scss/landing.scss */
+/* line 78, ../scss/landing.scss */
 content {
   *zoom: 1;
 }
@@ -3455,7 +3523,7 @@ content:after {
   clear: both;
 }
 
-/* line 81, ../scss/landing.scss */
+/* line 82, ../scss/landing.scss */
 .wrap {
   *zoom: 1;
 }
@@ -3469,18 +3537,18 @@ content:after {
   clear: both;
 }
 
-/* line 86, ../scss/landing.scss */
+/* line 87, ../scss/landing.scss */
 .about {
   margin: 4em 0;
 }
-/* line 89, ../scss/landing.scss */
+/* line 90, ../scss/landing.scss */
 .about p {
   margin: 1em 0;
   font-size: 1.1em;
   line-height: 1.4em;
 }
 
-/* line 96, ../scss/landing.scss */
+/* line 97, ../scss/landing.scss */
 .devices {
   margin: 5pt -5pt;
   *zoom: 1;
@@ -3494,7 +3562,7 @@ content:after {
 .devices:after {
   clear: both;
 }
-/* line 100, ../scss/landing.scss */
+/* line 101, ../scss/landing.scss */
 .devices > div {
   float: left;
   width: 100%;
@@ -3503,138 +3571,138 @@ content:after {
   font-size: 1.2em;
 }
 @media only screen and (min-width: 240px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.2em;
   }
 }
 @media only screen and (min-width: 264px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.2625em;
   }
 }
 @media only screen and (min-width: 288px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.325em;
   }
 }
 @media only screen and (min-width: 312px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.3875em;
   }
 }
 @media only screen and (min-width: 336px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.45em;
   }
 }
 @media only screen and (min-width: 480px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.2em;
   }
 }
 @media only screen and (min-width: 504px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.2625em;
   }
 }
 @media only screen and (min-width: 528px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.325em;
   }
 }
 @media only screen and (min-width: 552px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.3875em;
   }
 }
 @media only screen and (min-width: 576px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.45em;
   }
 }
 @media only screen and (min-width: 600px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.2em;
   }
 }
 @media only screen and (min-width: 624px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.2625em;
   }
 }
 @media only screen and (min-width: 648px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.325em;
   }
 }
 @media only screen and (min-width: 672px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.3875em;
   }
 }
 @media only screen and (min-width: 696px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.45em;
   }
 }
 @media only screen and (min-width: 720px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.5125em;
   }
 }
 @media only screen and (min-width: 744px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.575em;
   }
 }
 @media only screen and (min-width: 768px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.6375em;
   }
 }
 @media only screen and (min-width: 792px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.7em;
   }
 }
 @media only screen and (min-width: 816px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     font-size: 1.7625em;
   }
 }
-/* line 125, ../scss/landing.scss */
+/* line 126, ../scss/landing.scss */
 .devices > div .inner {
   position: relative;
   margin: 5pt;
   padding: 10pt;
 }
-/* line 131, ../scss/landing.scss */
+/* line 132, ../scss/landing.scss */
 .devices > div img {
   display: block;
   float: left;
   width: 4em;
 }
-/* line 137, ../scss/landing.scss */
+/* line 138, ../scss/landing.scss */
 .devices > div h2 {
   margin-left: 4em;
   padding-left: 10pt;
@@ -3653,7 +3721,7 @@ content:after {
 .devices > div h2:after {
   clear: both;
 }
-/* line 147, ../scss/landing.scss */
+/* line 148, ../scss/landing.scss */
 .devices > div .descr {
   margin: 1em 0;
   font-size: 11pt;
@@ -3661,32 +3729,32 @@ content:after {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.375);
 }
 @media only screen and (min-width: 480px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     float: left;
     width: 50%;
   }
-  /* line 158, ../scss/landing.scss */
+  /* line 159, ../scss/landing.scss */
   .devices > div h2 {
     height: 4em;
   }
-  /* line 162, ../scss/landing.scss */
+  /* line 163, ../scss/landing.scss */
   .devices > div .descr {
     height: 5em;
   }
 }
 @media only screen and (min-width: 600px) {
-  /* line 100, ../scss/landing.scss */
+  /* line 101, ../scss/landing.scss */
   .devices > div {
     width: 33.3%;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 173, ../scss/landing.scss */
+  /* line 174, ../scss/landing.scss */
   .devices > div:last-child .inner {
     z-index: 1;
   }
-  /* line 177, ../scss/landing.scss */
+  /* line 178, ../scss/landing.scss */
   .devices > div:last-child .inner:before, .devices > div:last-child .inner:after {
     content: "";
     position: absolute;
@@ -3695,7 +3763,7 @@ content:after {
     width: 60%;
     background: inherit;
   }
-  /* line 186, ../scss/landing.scss */
+  /* line 187, ../scss/landing.scss */
   .devices > div:last-child .inner:before {
     top: 0;
     height: 50.1%;
@@ -3705,7 +3773,7 @@ content:after {
     -o-transform: skewX(15deg);
     transform: skewX(15deg);
   }
-  /* line 192, ../scss/landing.scss */
+  /* line 193, ../scss/landing.scss */
   .devices > div:last-child .inner:after {
     top: 49.9%;
     height: 50.1%;
@@ -3716,44 +3784,44 @@ content:after {
     transform: skewX(-15deg);
   }
 }
-/* line 203, ../scss/landing.scss */
+/* line 204, ../scss/landing.scss */
 .devices .browser .inner {
   background: #42a5f5;
 }
-/* line 205, ../scss/landing.scss */
+/* line 206, ../scss/landing.scss */
 .devices .browser img {
   width: 4em;
 }
-/* line 206, ../scss/landing.scss */
+/* line 207, ../scss/landing.scss */
 .devices .browser h2 {
   margin-left: 4em;
 }
-/* line 210, ../scss/landing.scss */
+/* line 211, ../scss/landing.scss */
 .devices .im .inner {
   background: #ffee58;
 }
-/* line 212, ../scss/landing.scss */
+/* line 213, ../scss/landing.scss */
 .devices .im img {
   width: 3em;
 }
-/* line 213, ../scss/landing.scss */
+/* line 214, ../scss/landing.scss */
 .devices .im h2 {
   margin-left: 3em;
 }
-/* line 217, ../scss/landing.scss */
+/* line 218, ../scss/landing.scss */
 .devices .mobile .inner {
   background: #66bb6a;
 }
-/* line 219, ../scss/landing.scss */
+/* line 220, ../scss/landing.scss */
 .devices .mobile img {
   width: 2em;
 }
-/* line 220, ../scss/landing.scss */
+/* line 221, ../scss/landing.scss */
 .devices .mobile h2 {
   margin-left: 2em;
 }
 
-/* line 225, ../scss/landing.scss */
+/* line 226, ../scss/landing.scss */
 .login-wrap {
   *zoom: 1;
   background: #546e7a;
@@ -3767,7 +3835,7 @@ content:after {
 .login-wrap:after {
   clear: both;
 }
-/* line 230, ../scss/landing.scss */
+/* line 231, ../scss/landing.scss */
 .login-wrap .reg-link,
 .login-wrap .login-link {
   display: block;
@@ -3775,139 +3843,72 @@ content:after {
   text-decoration: none;
   text-transform: uppercase;
 }
-/* line 237, ../scss/landing.scss */
+/* line 238, ../scss/landing.scss */
 .login-wrap .reg-link {
   float: left;
   color: #f0f0f0;
 }
-/* line 242, ../scss/landing.scss */
+/* line 243, ../scss/landing.scss */
 .login-wrap .login-link {
   float: right;
   color: #90a4ae;
 }
-/* line 248, ../scss/landing.scss */
+/* line 249, ../scss/landing.scss */
 .login-wrap.login .reg-link {
   color: #90a4ae;
 }
-/* line 252, ../scss/landing.scss */
+/* line 253, ../scss/landing.scss */
 .login-wrap.login .login-link {
   color: #f0f0f0;
 }
-/* line 258, ../scss/landing.scss */
+/* line 259, ../scss/landing.scss */
 .login-wrap .login-form .remember {
   float: left;
   margin: 1.2em 10pt;
   color: #d0d0d0;
 }
-/* line 265, ../scss/landing.scss */
+/* line 266, ../scss/landing.scss */
 .login-wrap .submit {
   background: #5d8bba;
 }
-/* line 268, ../scss/landing.scss */
+/* line 269, ../scss/landing.scss */
 .login-wrap .submit:hover {
   background: #81a4c9;
 }
-/* line 274, ../scss/landing.scss */
+/* line 275, ../scss/landing.scss */
 .login-wrap .ulogin i {
   color: #d0d0d0;
 }
-/* line 277, ../scss/landing.scss */
+/* line 278, ../scss/landing.scss */
 .login-wrap .ulogin i:hover {
   color: #f0f0f0;
 }
 
 @media only screen and (min-width: 600px) {
-  /* line 290, ../scss/landing.scss */
+  /* line 291, ../scss/landing.scss */
   .login-wrap {
     float: right;
     width: 66.2%;
   }
 }
 @media only screen and (min-width: 960px) {
-  /* line 297, ../scss/landing.scss */
+  /* line 298, ../scss/landing.scss */
   .login-wrap {
     float: right;
     width: 32.5%;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 304, ../scss/landing.scss */
+  /* line 305, ../scss/landing.scss */
   .wrap {
     float: left;
     width: 65%;
   }
 
-  /* line 309, ../scss/landing.scss */
+  /* line 310, ../scss/landing.scss */
   .login-wrap {
     width: 30%;
     min-height: 290pt;
     margin-top: 4em;
   }
-}
-/* line 316, ../scss/landing.scss */
-footer {
-  height: 100pt;
-  margin: 2em 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-@media only screen and (min-width: 1200px) {
-  /* line 316, ../scss/landing.scss */
-  footer {
-    width: 65%;
-  }
-}
-/* line 325, ../scss/landing.scss */
-footer .menu {
-  *zoom: 1;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0;
-}
-/* line 2, ../scss/util/_clearfix.scss */
-footer .menu:after, footer .menu:before {
-  content: " ";
-  display: table;
-}
-/* line 6, ../scss/util/_clearfix.scss */
-footer .menu:after {
-  clear: both;
-}
-/* line 330, ../scss/landing.scss */
-footer .menu > div {
-  display: block;
-  float: left;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 1em 0;
-  padding: 10pt;
-  min-width: 10em;
-}
-@media only screen and (min-width: 480px) {
-  /* line 330, ../scss/landing.scss */
-  footer .menu > div {
-    width: 50%;
-  }
-}
-@media only screen and (min-width: 600px) {
-  /* line 330, ../scss/landing.scss */
-  footer .menu > div {
-    width: 33.3%;
-  }
-}
-/* line 347, ../scss/landing.scss */
-footer .menu a {
-  display: block;
-  float: left;
-  clear: both;
-  padding: .25em 0;
-  text-decoration: none;
-}
-/* line 356, ../scss/landing.scss */
-footer .copyright {
-  margin: 2em 10pt;
-  color: #a0a0a0;
 }

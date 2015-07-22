@@ -1,0 +1,46 @@
+footer {
+  height: 100pt;
+  margin: 2em 0;
+  @include box-sizing("border-box");
+
+  @include respond-to(1200px) {
+    width: 65%;
+  }
+
+  .menu {
+    @include clearfix;
+    @include box-sizing("border-box");
+    padding: 0;
+
+    & > div {
+      display: block;
+      float: left;
+      @include box-sizing("border-box");
+      margin: 1em 0;
+      padding: 10pt;
+      min-width: 10em;
+
+      @include respond-to(480px) {
+        width: 50%;
+      }
+
+      @include respond-to(600px) {
+        width: 33.3%;
+      }
+    }
+
+    a {
+      display: block;
+      float: left;
+      clear: both;
+      padding: .25em 0;
+      text-decoration: none;
+    }
+  }
+
+  .copyright {
+    margin: 2em 10pt;
+    color: #a0a0a0;
+  }
+}
+
