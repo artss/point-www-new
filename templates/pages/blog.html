@@ -5,7 +5,7 @@
     <div class="header-inner">
       {% block header %}
       <a class="blog-header js-navigate"  href="{{ owner|userlink('info') }}">
-        <div class="avatar40"><img src="{{ settings.avatars_root }}/80/{{ owner.avatar }}" alt="arts"/></div>
+        <div class="avatar40"><img src="{{ settings.avatars_root }}/80/{{ owner.avatar }}" alt="{{ owner.login }}"/></div>
         <h1>{{ owner.name }}</h1>
         <div class="user">{{ owner.login }}</div>
       </a>
@@ -14,7 +14,19 @@
   </div>
 
   <div class="posts-list js-posts-list">
-    {% include "/pages/_posts-page.html" %}
+    {% if posts|length %}
+      {% include "/pages/_posts-page.html" %}
+    {% else %}
+      <div class="posts-empty">
+        {% block empty %}
+        {% if env.user.id == owner.id %}
+        Вы ещё ничего не написали. <a class="js-new-post">Хотите сделать это сейчас</a>?
+        {% else %}
+        <a class="user js-navigate" href="{{ owner|userlink }}">{{ owner.login }}</a> ещё ничего не написал.
+        {% endif %}
+        {% endblock %}
+      </div>
+    {% endif %}
   </div>
 
   {% block pager %}

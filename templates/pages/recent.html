@@ -12,7 +12,11 @@
 {% endblock %}
 
 {% block empty %}
-
+  {% if unread %}
+    Нет непрочитанных постов.
+  {% else %}
+    Нет новых постов.
+  {% endif %}
 {% endblock %}
 
 {% block pager %}

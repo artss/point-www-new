@@ -72,6 +72,10 @@ define(['lib/base-view', 'lib/dom', 'underscore', 'auth/login-register'], functi
       }.bind(this));
     },
 
+    events: {
+      'click .btn-newpost': 'newPost'
+    },
+
     toggle: function(state) {
       if (typeof state === 'undefined') {
         state = !mainDiv.classList.contains('sidebar-open');
@@ -113,6 +117,10 @@ define(['lib/base-view', 'lib/dom', 'underscore', 'auth/login-register'], functi
     _updateSize: function() {
       winWidth = window.offsetWidth;
       this._width = this.el.offsetWidth;
+    },
+
+    newPost: function() {
+    
     }
   });
 
