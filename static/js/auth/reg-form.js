@@ -1,74 +1,42 @@
-define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _, $) {
-  var loginXhr, emailXhr;
-  var logins = {}, emails = {};
+/* global define */
 
-  function loginInUse(value) {
-    if (loginXhr) {
-      loginXhr.abort();
+define(['lib/form', 'backbone', 'underscore', 'lib/request', 'lib/dom'], function(Form, Backbone, _, request, dom) {
+  'use strict';
+
+  var validators = {};
+
+  _.each(['login', 'email'], function(name) {
+    function validator(value) {
+      if (validator.request) {
+        validator.request.cancel();
+      }
+
+      value = value.trim();
+
+      if (typeof validator.cache[value] === 'undefined') {
+        validator.request = request.get('/check-' + name, { value: value });
+
+        return validator.request.then(function(resp) {
+          if (_.isObject(resp.data) && resp.data.error) {
+            validator.cache[value] = true;
+            throw resp.data.error;
+          } else {
+            validator.cache[value] = false;
+            validator.request = undefined;
+          }
+        })
+        .catch(function() {
+          validator.request = undefined;
+        });
+
+      } else {
+        return validator.cache[value] ? 'inuse' : undefined;
+      }
     }
 
-    value = $.trim(value);
-
-    if (typeof logins[value] === 'undefined') {
-      var dfd = $.Deferred();
-
-      loginXhr = $.ajax({
-        url: '/check-login',
-        data: { login: value }
-      })
-      .always(function() {
-        loginXhr = undefined;
-      })
-      .success(function(data) {
-        if (_.isObject(data.data) && data.data.error) {
-          logins[value] = true;
-          dfd.reject(data.data.error);
-        } else {
-          logins[value] = false;
-          dfd.resolve();
-        }
-      });
-
-      return dfd.promise();
-
-    } else {
-      return logins[value] ? 'inuse' : undefined;
-    }
-  }
-
-  function emailInUse(value) {
-    if (loginXhr) {
-      emailXhr.abort();
-    }
-
-    value = $.trim(value);
-
-    if (typeof emails[value] === 'undefined') {
-      var dfd = $.Deferred();
-
-      loginXhr = $.ajax({
-        url: '/check-email',
-        data: { email: value }
-      })
-      .always(function() {
-        loginXhr = undefined;
-      })
-      .success(function(data) {
-        if (_.isObject(data.data) && data.data.error) {
-          emails[value] = true;
-          dfd.reject(data.data.error);
-        } else {
-          emails[value] = false;
-          dfd.resolve();
-        }
-      });
-
-      return dfd.promise();
-
-    } else {
-      return emails[value] ? 'inuse' : undefined;
-    }
-  }
+    validator.cache = {};
+    validators[name] = validator;
+  });
 
   /**
    * Registration form model.
@@ -78,7 +46,7 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       login: [
         'required',
         /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i,
-        loginInUse
+        validators.login
       ],
       password: [
         'required',
@@ -87,7 +55,7 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
       email: [
         'required',
         'email',
-        emailInUse
+        validators.email
       ],
       'g-recaptcha-response': [
         'required'
@@ -103,45 +71,44 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
 
     events: _.extend({}, Form.View.prototype.events, {
       'click .js-show-password': function(evt) {
-        $(evt.target).closest('.js-input-container').toggleClass('show-password');
+        console.log(dom.closest(evt.target, '.js-input-container'));
+        dom.closest(evt.target, '.js-input-container').classList.toggle('show-password');
       }
     }),
 
     render: function() {
       Form.View.prototype.render.call(this);
 
-      var $recaptcha = this.$('.recaptcha');
-      this.$recaptcha = $recaptcha.find('.g-recaptcha');
+      var recaptcha = this.$('.recaptcha')[0];
+      this.recaptcha = dom.select(recaptcha, '.g-recaptcha');
 
-      var $inputs = this.$(':input');
-      $inputs.on('focus.render', function () {
-        $recaptcha.addClass('open');
-        $inputs.off('focus.render');
-      }.bind(this));
+      var openRecaptcha = function () {
+        recaptcha.classList.add('open');
+        dom.off(this.el, 'focus', openRecaptcha);
+      }.bind(this);
+      dom.on(this.el, 'focus', 'input', openRecaptcha);
 
-      window[this.$recaptcha.data('callback')] = function() {
-        console.log('callback', this.$el.data('callback'));
+      window[this.recaptcha.getAttribute('data-callback')] = function() {
         this.setValue('g-recaptcha-response');
       }.bind(this);
 
-      window[this.$recaptcha.data('expired-callback')] = function() {
-        console.log('expired', this.$recaptcha.data('expired-callback'));
-        this.getField('g-recaptcha-response').val('');
+      window[this.recaptcha.getAttribute('data-expired-callback')] = function() {
+        this.getField('g-recaptcha-response').value = '';
         this.setValue('g-recaptcha-response');
       }.bind(this);
     },
 
     setValue: function(evt) {
-      var $field = Form.View.prototype.setValue.call(this, evt);
+      var field = Form.View.prototype.setValue.call(this, evt);
 
-      if ($field.attr('name') !== 'password') {
+      if (field.getAttribute('name') !== 'password') {
         return;
       }
 
-      var value = $field.val();
+      var value = field.value;
 
-      this.$('[name="password"]').each(function() {
-        $(this).val(value);
+      _.each(this.$('[name="password"]'), function(el) {
+        el.value = value;
       });
     },
 
@@ -152,8 +119,8 @@ define(['form', 'backbone', 'underscore', 'jquery'], function(Form, Backbone, _,
     },
 
     destroy: function() {
-      delete window[this.$recaptcha.data('callback')];
-      delete window[this.$recaptcha.data('expired-callback')];
+      delete window[this.recaptcha.getAttribute('data-callback')];
+      delete window[this.recaptcha.getAttribute('data-expired-callback')];
 
       Form.View.prototype.destroy.apply(this, arguments);
     }

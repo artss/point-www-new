@@ -1,6 +1,6 @@
 /* global define */
 
-define(['base-view', 'lib/dom', 'underscore', 'auth/login-register'], function (BaseView, dom, _) {
+define(['lib/base-view', 'lib/dom', 'underscore', 'auth/login-register'], function (BaseView, dom, _) {
   'use strict';
 
   var mainDiv = dom.select('.main');
@@ -77,7 +77,11 @@ define(['base-view', 'lib/dom', 'underscore', 'auth/login-register'], function (
         state = !mainDiv.classList.contains('sidebar-open');
       }
 
-      mainDiv.classList.toggle('sidebar-open', state);
+      if (state) {
+        mainDiv.classList.add('sidebar-open');
+      } else {
+        mainDiv.classList.remove('sidebar-open');
+      }
     },
 
     checkPos: function() {
@@ -98,7 +102,11 @@ define(['base-view', 'lib/dom', 'underscore', 'auth/login-register'], function (
 
     setMenu: function(id) {
       _.each(this.$('.menu-item'), function(item) {
-        item.classList.toggle('active', Boolean(id && item.classList.contains(id)));
+        if (id && item.classList.contains(id)) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
       });
     },
 

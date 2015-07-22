@@ -1,8 +1,10 @@
 /* global require */
 
-require(['app', 'backbone', 'underscore', 'lib/dom', 'util/util'],
-function (App, Backbone, _, dom, util) {
+require(['app', 'backbone', 'underscore', 'lib/dom', 'util/util', 'backbone.nativeajax'],
+function (App, Backbone, _, dom, util, nativeajax) {
   'use strict';
+
+  Backbone.ajax = nativeajax;
 
   if ('ontouchstart' in document.documentElement) {
     document.body.classList.add('touch-device');

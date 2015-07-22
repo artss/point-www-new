@@ -1,6 +1,6 @@
 /* global define */
 
-define(['backbone', 'backbone.nativeview', 'lib/dom'], function(Backbone, _nv, dom) {
+define(['backbone', 'lib/dom', 'backbone.nativeview'], function(Backbone, dom) {
   'use strict';
 
   var BaseView = Backbone.NativeView.extend({
@@ -25,6 +25,7 @@ define(['backbone', 'backbone.nativeview', 'lib/dom'], function(Backbone, _nv, d
       this._scrollHandler = this._scrollHandler.bind(this);
 
       dom.on(this.content, 'scroll', this._scrollHandler);
+      this._scrollHandler();
     },
 
     _scrollHandler: function() {
@@ -36,7 +37,11 @@ define(['backbone', 'backbone.nativeview', 'lib/dom'], function(Backbone, _nv, d
         this.header.classList.remove('hidden');
       }
 
-      this.header.classList.toggle('scrolled', pos > 0);
+      if (pos > 0) {
+        this.header.classList.add('scrolled');
+      } else {
+        this.header.classList.remove('scrolled');
+      }
 
       this._scrollTop = pos;
     },

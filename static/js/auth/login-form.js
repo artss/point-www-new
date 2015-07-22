@@ -1,4 +1,4 @@
-define(['form', 'underscore'], function(Form, _) {
+define(['lib/form', 'underscore'], function(Form, _) {
   var LoginModel = Form.Model.extend({
     validation: {
       login: [

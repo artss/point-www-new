@@ -48,6 +48,7 @@ function(Backbone, _, request, dom, SidebarView, PostListView) {
       Backbone.Router.prototype.initialize.apply(this, arguments);
 
       this.sidebar = new SidebarView({el: '.sidebar'});
+      this.sidebar.toggle(false);
     },
 
     loadView: function(View, url, urlPattern) {
@@ -69,7 +70,7 @@ function(Backbone, _, request, dom, SidebarView, PostListView) {
         this._request.cancel();
       }
 
-      this._request = request.getJSON(url);
+      this._request = request.get(url);
       this._request.then(function(resp) {
         if (this._currentView) {
           this._currentView.el.remove();

@@ -4,15 +4,16 @@ require.config({
   baseUrl: '/js',
 
   shim: {
-    'lib/jquery.autosize': {
+    /*'lib/jquery.autosize': {
       deps: ['jquery']
-    },
+    }*/
   },
 
   paths: {
-    'jquery': 'lib/jquery',
+    'jquery': 'lib/jquery-dummy',
     'backbone': '../bower_components/backbone/backbone',
     'backbone.nativeview': '../bower_components/backbone.nativeview/backbone.nativeview',
+    'backbone.nativeajax': '../bower_components/backbone.nativeajax/backbone.nativeajax',
     'underscore': '../bower_components/underscore/underscore',
     //'promise': '../bower_components/promise-polyfill/Promise',
     'text': 'lib/require.text',

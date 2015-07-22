@@ -52,6 +52,14 @@ define(['underscore'], function(_) {
     },
 
     /**
+     * Test whether the element matches the selector
+     */
+    matches: function(el, selector) {
+      return (_.isFunction(el.matches) && el.matches(selector)) ||
+             (_.isFunction(el.msMatchesSelector) && el.msMatchesSelector(selector));
+    },
+
+    /**
      * Add event handler.
      */
     on: function(targets, event, selector, callback) {
@@ -65,13 +73,13 @@ define(['underscore'], function(_) {
       }
 
       if (_.isString(targets)) {
-        targets = dh.select(targets);
+        targets = dom.select(targets);
       } else if (_.isUndefined(targets.length)) {
         targets = [targets];
       }
 
       function eventHandler(evt) {
-        if (!selector || evt.target.matches(selector)) {
+        if (!selector || dom.matches(evt.target, selector)) {
           callback(evt);
         }
       }
@@ -99,15 +107,16 @@ define(['underscore'], function(_) {
     },
 
     /**
-     * Get element offset.
+     * Find closest parent
      */
-    offset: function() {
-      var box = {left: 0, top: 0};
+    closest: function(el, selector) {
+      while (el) {
+        if (dom.matches(el, selector)) {
+          return el;
+        }
 
-      return {
-        top: box.top + window.pageYOffset - document.clientTop,
-        left: box.left + window.pageXOffset - document.clientLeft
-      };
+        el = el.parentNode;
+      }
     }
   };
 

@@ -1,26 +1,34 @@
-define(['auth/reg-form', 'auth/login-form', 'jquery'], function (RegForm, LoginForm, $) {
-  var wrap = $('.login-wrap');
+/* global define */
 
-  wrap.find('.reg-link').click(function (evt) {
+define(['auth/reg-form', 'auth/login-form', 'lib/dom'], function (RegForm, LoginForm, dom) {
+  'use strict';
+
+  var wrap = dom.select('.login-wrap');
+
+  if (!wrap) {
+    return;
+  }
+
+  dom.on(dom.select(wrap, '.reg-link'), 'click', function (evt) {
     evt.preventDefault();
-    wrap.removeClass('login');
+    wrap.classList.remove('login');
     setTimeout(function() {
       regForm.focus('login');
     }, 501);
   });
 
-  wrap.find('.login-link').click(function (evt) {
+  dom.on(dom.select(wrap, '.login-link'), 'click', function (evt) {
     evt.preventDefault();
-    wrap.addClass('login');
+    wrap.classList.add('login');
     setTimeout(function() {
       loginForm.focus('login');
     }, 501);
   });
 
-  var regForm = new RegForm({el: wrap.find('.reg-form')[0]});
+  var regForm = new RegForm({el: dom.select(wrap, '.reg-form')});
   regForm.render();
 
-  var loginForm = new LoginForm({el: wrap.find('.login-form')[0]});
+  var loginForm = new LoginForm({el: dom.select(wrap, '.login-form')});
   loginForm.render();
   loginForm.on('success', function() {
     window.location = window.location;

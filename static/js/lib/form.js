@@ -1,4 +1,8 @@
-define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
+/* global define */
+
+define(['backbone', 'lib/base-view', 'lib/request', 'lib/dom', 'underscore'], function(Backbone, BaseView, request, dom, _) {
+  'use strict';
+
   /**
    * RegExp validators generator.
    *
@@ -52,9 +56,9 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
           if (_.isFunction(validator)) {
             var res = validator.call(this, value);
 
-            if (res && res.promise) { // Deferred
-              res.done(chain);
-              res.fail(function(message) {
+            if (res && res.then) { // Promise
+              res.then(chain);
+              res.catch(function(message) {
                 this.trigger('validated', field, false, message);
               }.bind(this));
             } else if (res) {
@@ -93,7 +97,7 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
   /**
    * Base form view.
    */
-  var FormView = Backbone.View.extend({
+  var FormView = BaseView.extend({
     model: FormModel,
 
     events: {
@@ -114,11 +118,13 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
     },
 
     render: function() {
-      this.model.set(_.reduce(this.$el.serializeArray(), function(memo, f) {
-        memo[f.name] = f.value;
+      this.model.set(_.reduce(this.el.elements, function(memo, f) {
+        if (f.name) {
+          memo[f.name] = f.value;
+        }
         return memo;
       }, {}));
-      this.$submit = this.$('.js-submit');
+      this.submit = this.$('.js-submit')[0];
     },
 
     /**
@@ -127,8 +133,10 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
      * @param {string|jQuery} field Field name or element.
      */
     focus: function(field) {
-      var $field = _.isString(field) ? this.getField(field) : $(field);
-      $field.focus();
+      if (_.isString(field)) {
+        field = this.getField(field);
+      }
+      field.focus();
     },
 
     /**
@@ -137,7 +145,7 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
      * @param {string} name Field name.
      */
     getField: function(name) {
-      return this.$('[name="' + name + '"]');
+      return this.$('[name="' + name + '"]')[0];
     },
 
     /**
@@ -148,15 +156,15 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
      * @returns {jQuery} Field element.
      */
     setValue: function(evt) {
-      var $field = _.isString(evt) ? this.getField(evt) : $(evt.target);
+      var field = _.isString(evt) ? this.getField(evt) : evt.target;
 
       var obj = {};
-      obj[$field.attr('name')] = $field.val();
+      obj[field.getAttribute('name')] = field.value;
 
       this.model.set(obj);
       this.model.validate(obj);
 
-      return $field;
+      return field;
     },
 
     /**
@@ -172,11 +180,11 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
      * @param {bool} valid Status.
      */
     updateButton: function(valid) {
-      if (this.$submit.hasClass('loading')) { return; }
+      if (this.submit.classList.contains('loading')) { return; }
       if (typeof valid === 'undefined') {
         valid = this.model.isValid();
       }
-      this.$submit.prop('disabled', !valid);
+      this.submit.disabled = !valid;
     },
 
     /**
@@ -187,14 +195,19 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
      * @param {string} [message] Error desciption.
      */
     setValidation: function(field, valid, message) {
-      var $field = _.isString(field) ? this.getField(field) : $(field);
-      var $container = $field.closest('.js-input-container');
-      if ($container.length === 0) {
-        $container = $field;
+      if (_.isString(field)) {
+        field = this.getField(field);
+      }
+      var container = dom.closest(field, '.js-input-container');
+      if (!container) {
+        container = field;
       }
 
       if (!valid) {
-        var errdata = $field.data('error');
+        var errdata = field.getAttribute('data-error');
+        try {
+          errdata = JSON.parse(errdata);
+        } catch(e) {}
         var error;
 
         if (message) {
@@ -205,12 +218,16 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
           error = _.isObject(errdata) ? errdata['default'] : errdata;
         }
 
-        $container.find('.js-input-error-label').html(error);
+        dom.select(container, '.js-input-error-label').innerHTML = error;
 
-        $field.focus();
+        field.focus();
       }
 
-      $container.toggleClass('error', !valid);
+      if (valid) {
+        container.classList.remove('error');
+      } else {
+        container.classList.add('error');
+      }
 
       this.updateButton();
     },
@@ -228,27 +245,29 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
         return;
       }
 
-      this.$(':input').prop('disabled', true);
-      this.$submit.addClass('loading');
+      _.each(this.el.elements, function(el) {
+        el.disabled = true;
+      });
+      this.submit.classList.add('loading');
 
-      $.ajax({
-        url: this.$el.attr('action'),
-        type: this.$el.attr('method').toUpperCase(),
-        data: this.model.toJSON()
-      })
+      request(
+        (this.el.method || 'GET').toUpperCase(),
+        this.el.action,
+        this.model.toJSON()
+      )
 
-      .always(function() {
-        this.$(':input').prop('disabled', false);
-        this.$submit.removeClass('loading');
-      }.bind(this))
-
-      .success(function(data) {
+      .then(function(data) {
         this.trigger('success', data.data);
       }.bind(this))
 
-      .error(function(xhr) {
+      .catch(function(xhr) {
         this.trigger('error', xhr.responseJSON.data);
       }.bind(this));
+
+      /*.always(function() {
+        this.$(':input').prop('disabled', false);
+        this.$submit.removeClass('loading');
+      }.bind(this))*/
     },
 
     destroy: function() {
