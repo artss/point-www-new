@@ -1,7 +1,7 @@
 /* global define, require */
 
-define(['base-view', 'tpl!/pages/_posts-page.html', 'util/util', 'underscore', 'jquery'],
-function(BaseView, postsPageTemplate, util, _, $) {
+define(['base-view', 'tpl!/pages/_posts-page.html', 'lib/request', 'lib/dom', 'util/util', 'underscore', 'lib/promise'],
+function(BaseView, postsPageTemplate, request, dom, util, _, Promise) {
   'use strict';
 
   var PostListView = BaseView.extend({
@@ -14,24 +14,25 @@ function(BaseView, postsPageTemplate, util, _, $) {
       this.data = options.data;
       this.urlPattern = options.urlPattern;
 
-      this.$content = $('.content');
+      this.content = dom.select('.content');
 
-      this.$content.on('scroll.post-list', _.throttle(function() {
-        var ch = self.$content.height();
+      this._postsScrollHandler = _.throttle(function() {
+        var ch = self.content.offsetHeight;
 
-        self.$('.js-page').each(function() {
-          var $page = $(this);
-          var page = $page.data('page');
-          var pos = $page.offset().top;
+        _.each(self.$('.js-page'), function(page) {
+          var pagenum = page.dataset.page;
+          var pos = dom.offset(page).top;
           //console.log(page, pos);
 
           if (pos >= 0 && pos < ch) {
-            self.app.navigate(self.pageLink(page),
+            self.app.navigate(self.pageLink(pagenum),
                               {trigger: false, replace: true});
             return false;
           }
         });
-      }, 1000));
+      }, 1000);
+
+      dom.on(this.content, 'scroll', this._postsScrollHandler);
     },
 
     events: {
@@ -39,41 +40,43 @@ function(BaseView, postsPageTemplate, util, _, $) {
     },
 
     render: function() {
-      var dfd = $.Deferred();
+      var self = this;
 
-      require(['tpl!' + this.template], function(template) {
-        this.$el.append(template(this.data));
+      return new Promise(function(resolve, reject) {
+        require(['tpl!' + self.template], function(template) {
+          if (!self.urlPattern.test(location.pathname)) {
+            reject();
+            return;
+          }
+          dom.append(self.el, template(self.data));
 
-        this.updatePager(this.data.page, this.data.has_next);
+          self.updatePager(self.data.page, self.data.has_next);
 
-        dfd.resolve();
-      }.bind(this));
-
-      return dfd.promise();
+          resolve();
+        });
+      });
     },
 
     loadNext: function(evt) {
       evt.preventDefault();
 
-      var $pager = $(evt.target);
-      var showPager = !$pager.hasClass('hidden');
-      $pager.addClass('hidden');
+      var pager = evt.target;
+      var showPager = !pager.classList.contains('hidden');
+      pager.classList.add('hidden');
 
-      $.getJSON($pager.attr('href'))
-        .success(function(resp) {
+      request.getJSON(pager.getAttribute('href'))
+        .then(function(resp) {
           var posts = postsPageTemplate(resp.data);
 
-          this.$('.js-posts-list').append($.trim(posts));
-          this.$('.js-unread-posts').attr('data-unread', resp.data.unread_posts);
+          dom.append(this.$('.js-posts-list')[0], posts.trim());
+          this.$('.js-unread-posts')[0].setAttribute('data-unread', resp.data.unread_posts || 0);
 
           this.updatePager(resp.data.page, resp.data.has_next);
         }.bind(this))
 
-        .error(function() {
-          $pager.toggleClass('hidden', !showPager);
-        })
-
-        .always(function() {
+        .catch(function() {
+          pager.classList.toggle('hidden', !showPager);
+          console.log(arguments);
         });
     },
 
@@ -89,15 +92,15 @@ function(BaseView, postsPageTemplate, util, _, $) {
     },
 
     updatePager: function(page, has_next) {
-      var $pager = this.$('.js-more');
-      $pager.toggleClass('hidden', !has_next);
+      var pager = this.$('.js-more')[0];
+      pager.classList.toggle('hidden', !has_next);
 
-      $pager.attr('href', this.pageLink(page + 1));
+      pager.setAttribute('href', this.pageLink(page + 1));
     },
 
     destroy: function() {
       BaseView.prototype.destroy.apply(this, arguments);
-      this.$content.off('scroll.post-list');
+      dom.off(this.content, 'scroll', this._postsScrollHandler);
     }
   });
 

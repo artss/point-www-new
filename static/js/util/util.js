@@ -11,6 +11,14 @@ define(['underscore'], function(_) {
       return ['/u', user, path].join('/').replace(/\/{2,}/, '/');
     },
 
+    urlencode: function(text) {
+      return encodeURIComponent(text);
+    },
+
+    urldecode: function(text) {
+      return decodeURIComponent(text);
+    },
+
     parseUrl: function parseUrl(url) {
       var a = document.createElement('a');
       a.href = url;

@@ -10,13 +10,9 @@ define(['util/util', 'strftime'], function(util) {
       return text;
     },
 
-    urlencode: function(text) {
-      return encodeURIComponent(text);
-    },
+    urlencode: util.urlencode,
 
-    urldecode: function(text) {
-      return decodeURIComponent(text);
-    },
+    urldecode: util.urldecode,
 
     strftime: function(date, format) {
       if (!(date instanceof Date)) {

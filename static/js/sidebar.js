@@ -1,11 +1,9 @@
 /* global define */
 
-define(['base-view', 'jquery', 'auth/login-register'], function (BaseView, $) {
+define(['base-view', 'lib/dom', 'underscore', 'auth/login-register'], function (BaseView, dom, _) {
   'use strict';
 
-  var $win = $(window);
-  var $doc = $(document);
-  var $mainDiv = $('.main');
+  var mainDiv = dom.select('.main');
   var winWidth;
 
   var startX, startY, lastX, lastY, swipe;
@@ -14,35 +12,35 @@ define(['base-view', 'jquery', 'auth/login-register'], function (BaseView, $) {
     initialize: function() {
       BaseView.prototype.initialize.apply(this, arguments);
 
-      $(window).on('resize.sidebar', this._updateSize.bind(this));
+      dom.on(window, 'resize', this._updateSize.bind(this));
       this._updateSize();
 
-      $doc.on('touchstart', function (evt) {
-        var oevt = evt.originalEvent;
-
-        if (oevt.touches.length !== 1) {
+      dom.on(document, 'touchstart', function (evt) {
+        if (!evt.touches || evt.touches.length !== 1) {
           return;
         }
 
-        startX = oevt.touches[0].clientX;
-        startY = oevt.touches[0].clientY;
+        startX = evt.touches[0].clientX;
+        startY = evt.touches[0].clientY;
         lastX = startX;
         lastY = startY;
 
-        if (!$mainDiv.hasClass('sidebar-open') && startX > winWidth / 4) {
+        if (!mainDiv.classList.contains('sidebar-open') && startX > winWidth / 4) {
           this.resetSwipe();
         }
 
-        $('.screen-hint').remove();
+        var hint = dom.select('.screen-hint');
+        if (hint) {
+          hint.remove(hint);
+        }
       }.bind(this));
 
-      $doc.on('touchmove', function (evt) {
-        var oevt = evt.originalEvent;
-        if (oevt.touches.length !== 1) {
+      dom.on(document, 'touchmove', function (evt) {
+        if (!evt.touches || evt.touches.length !== 1) {
           return;
         }
-        lastX = oevt.touches[0].clientX;
-        lastY = oevt.touches[0].clientY;
+        lastX = evt.touches[0].clientX;
+        lastY = evt.touches[0].clientY;
 
         var dX = Math.abs(startX - lastX);
         var dY = Math.abs(startY - lastY);
@@ -56,7 +54,7 @@ define(['base-view', 'jquery', 'auth/login-register'], function (BaseView, $) {
         }
       }.bind(this));
 
-      $doc.on('touchend', function () {
+      dom.on(document, 'touchend', function () {
         //evt.stopPropagation();
         //evt.preventDefault();
 
@@ -67,17 +65,19 @@ define(['base-view', 'jquery', 'auth/login-register'], function (BaseView, $) {
         this.resetSwipe();
       }.bind(this));
 
-      $doc.on('touchcancel', this.resetSwipe.bind(this));
+      dom.on(document, 'touchcancel', this.resetSwipe.bind(this));
 
-      $('.sidebar-handle').on('click', this.toggle.bind(this));
+      dom.on(dom.select('.sidebar-handle'), 'click', function() {
+        this.toggle();
+      }.bind(this));
     },
 
     toggle: function(state) {
       if (typeof state === 'undefined') {
-        state = !$mainDiv.hasClass('sidebar-open');
+        state = !mainDiv.classList.contains('sidebar-open');
       }
 
-      $mainDiv.toggleClass('sidebar-open', state);
+      mainDiv.classList.toggle('sidebar-open', state);
     },
 
     checkPos: function() {
@@ -97,15 +97,14 @@ define(['base-view', 'jquery', 'auth/login-register'], function (BaseView, $) {
     },
 
     setMenu: function(id) {
-      this.$('.menu-item').each(function() {
-        var $item = $(this);
-        $item.toggleClass('active', Boolean(id && $item.hasClass(id)));
+      _.each(this.$('.menu-item'), function(item) {
+        item.classList.toggle('active', Boolean(id && item.classList.contains(id)));
       });
     },
 
     _updateSize: function() {
-      winWidth = $win.width();
-      this._width = this.$el.width();
+      winWidth = window.offsetWidth;
+      this._width = this.el.offsetWidth;
     }
   });
 

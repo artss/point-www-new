@@ -1,7 +1,7 @@
 /* global require */
 
-require(['app', 'backbone', 'underscore', 'util/util', 'util/dom-helpers'],
-function (App, Backbone, _, util, dh) {
+require(['app', 'backbone', 'underscore', 'lib/dom', 'util/util'],
+function (App, Backbone, _, dom, util) {
   'use strict';
 
   if ('ontouchstart' in document.documentElement) {
@@ -30,7 +30,7 @@ function (App, Backbone, _, util, dh) {
 
   var app = new App();
 
-  dh.on(document, 'click', '.js-navigate', function(evt) {
+  dom.on(document, 'click', '.js-navigate', function(evt) {
     var href = evt.target.getAttribute('href');
 
     var loc = util.parseUrl(href);

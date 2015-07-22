@@ -1,11 +1,11 @@
 /* global define */
 
-define(['backbone', 'jquery'], function(Backbone, $) {
+define(['backbone', 'backbone.nativeview', 'lib/dom'], function(Backbone, _nv, dom) {
   'use strict';
 
-  var BaseView = Backbone.View.extend({
+  var BaseView = Backbone.NativeView.extend({
     initialize: function(options) {
-      Backbone.View.prototype.initialize.call(this, options);
+      Backbone.NativeView.prototype.initialize.call(this, options);
 
       this.app = options.app;
 
@@ -13,41 +13,38 @@ define(['backbone', 'jquery'], function(Backbone, $) {
     },
 
     subscribeScroll: function() {
-      var $header = $('.header');
+      this.header = dom.select('.header');
 
-      if ($header.length === 0) {
+      if (this.header.length === 0) {
         return;
       }
 
-      var hh = $header.height();
+      this.content = dom.select('.content');
+      this._scrollTop = this.content.scrollTop;
 
-      this.$content = $('.content');
-      var pos = this.$content.scrollTop();
+      this._scrollHandler = this._scrollHandler.bind(this);
 
-      this.$content.on('scroll.baseview', function() {
-        var newpos = this.$content.scrollTop();
-        var ho = $header.offset();
+      dom.on(this.content, 'scroll', this._scrollHandler);
+    },
 
-        if (newpos <= pos) {
-          if (ho.top < -hh) {
-            ho.top = -hh;
-          } else if (ho.top > 0) {
-            ho.top = 0;
-          }
-          $header.offset(ho);
-        }
+    _scrollHandler: function() {
+      var pos = this.content.scrollTop;
 
-        $header.toggleClass('scrolled', newpos > 0);
+      if (pos > this._scrollTop) {
+        this.header.classList.add('hidden');
+      } else if (pos <= this._scrollTop - 3) {
+        this.header.classList.remove('hidden');
+      }
 
-        pos = newpos;
-      }.bind(this));
+      this.header.classList.toggle('scrolled', pos > 0);
+
+      this._scrollTop = pos;
     },
 
     destroy: function() {
       this.undelegateEvents();
-      this.$el.removeData().unbind();
-      this.$content.off('scroll.baseview');
-      Backbone.View.prototype.remove.call(this);
+      dom.off(this.content, 'scroll', this._scrollHandler);
+      Backbone.NativeView.prototype.remove.call(this);
     }
   });
 

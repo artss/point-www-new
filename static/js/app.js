@@ -1,12 +1,12 @@
 /* global define */
 
-define(['backbone', 'underscore', 'sidebar', 'post-list'],
-function(Backbone, _, SidebarView, PostListView) {
+define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'sidebar', 'post-list'],
+function(Backbone, _, request, dom, SidebarView, PostListView) {
   'use strict';
 
   var _initial = true;
 
-  var $content = $('.js-content');
+  var content = dom.select('.js-content');
 
   var App = Backbone.Router.extend({
     routes: {
@@ -53,49 +53,54 @@ function(Backbone, _, SidebarView, PostListView) {
     loadView: function(View, url, urlPattern) {
       this.sidebar.toggle(false);
 
-      var $el;
+      var el;
 
       if (_initial) {
-        $el = $('.js-view');
-        this._currentView = new View({el: $el[0], app: this, urlPattern: urlPattern});
+        el = dom.select('.js-view');
+        this._currentView = new View({el: el, app: this, urlPattern: urlPattern});
         _initial = false;
-        $content.append($el);
+        content.appendChild(el);
         this._currentView.trigger('rendered');
         return;
       }
 
-      if (this._xhr && this._xhr.abort) {
-        this._xhr.abort();
+      if (this._request) {
+        console.log('abort', this._request);
+        this._request.cancel();
       }
 
-      this._xhr = $.getJSON(url)
-      .success(function(resp) {
+      this._request = request.getJSON(url);
+      this._request.then(function(resp) {
         if (this._currentView) {
-          this._currentView.$el.remove();
+          this._currentView.el.remove();
           this._currentView.destroy();
         }
 
-        $el = $('<div class="js-view"></div>');
-        this._currentView = new View(_.extend(resp, {el: $el[0], app: this, urlPattern: urlPattern}));
+        el = dom.create('<div class="js-view"></div>')[0];
+        this._currentView = new View(_.extend(resp, {el: el, app: this, urlPattern: urlPattern}));
 
         if (_.isObject(resp.data) && !_.isUndefined(resp.data.menu)) {
           this.sidebar.setMenu(resp.data.menu);
-          this._currentView.$el.addClass(resp.data.menu + '-view');
+          this._currentView.el.classList.add(resp.data.menu + '-view');
         }
 
-        this._currentView.render().then(function() {
-          $content.append($el);
-          this._currentView.trigger('rendered');
+        this._currentView.render()
+        .then(
+          function() {
+            content.appendChild(el);
+            this._currentView.trigger('rendered');
 
-          this._currentView.on('navigate', function() {
-            console.log('navigate', this, arguments);
-          }, this);
-        }.bind(this));
+            this._currentView.on('navigate', function() {
+              console.log('navigate', this, arguments);
+            }, this);
+          }.bind(this),
+          function() {}
+        );
 
-        delete this._xhr;
+        delete this._request;
       }.bind(this))
-      .error(function() {
-        console.log('- loadView error', arguments);
+      .catch(function(xhr, status) {
+        console.log('catch', xhr, status);
       });
     },
 
