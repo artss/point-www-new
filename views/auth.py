@@ -179,14 +179,14 @@ def _gender(value):
 @route('/check-login')
 def check_login():
     try:
-        User('login', env.request.args('login', ''))
+        User('login', env.request.args('value', ''))
         return Response(error='inuse')
     except UserNotFound:
         return Response(ok=1)
 
 @route('/check-email')
 def check_login():
-    user = User('email', env.request.args('email', ''))
+    user = User('email', env.request.args('value', ''))
     if user.id:
         return Response(error='inuse')
     else:
