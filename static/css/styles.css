@@ -4746,53 +4746,45 @@ body {
   position: fixed;
   z-index: 0;
   left: 0;
-  top: 0;
+  top: -42pt;
+  transform: translateY(42pt);
   z-index: 2;
   width: 100%;
-  -webkit-transition: top 0.25s;
-  -moz-transition: top 0.25s;
-  -o-transition: top 0.25s;
-  transition: top 0.25s;
+  -webkit-transition: -webkit-transform 0.125s ease-in;
+  -moz-transition: -moz-transform 0.125s ease-in;
+  -o-transition: -o-transform 0.125s ease-in;
+  transition: transform 0.125s ease-in;
 }
-/* line 87, ../scss/styles.scss */
+/* line 88, ../scss/styles.scss */
 .header.hidden {
-  top: -42pt;
+  transform: translateY(0px);
 }
-/* line 91, ../scss/styles.scss */
+/* line 92, ../scss/styles.scss */
 .header .header-inner {
-  position: relative;
-  z-index: 1;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
   max-width: 1264px;
   margin: 0 auto;
-}
-/* line 99, ../scss/styles.scss */
-.header .header-inner:after {
-  content: '';
-  position: relative;
-  z-index: 0;
-  width: 100%;
-  height: 4px;
-  top: -4px;
-  margin-right: 1em;
-  display: block;
   -webkit-transition: box-shadow 0.25s, background 0.25s;
   -moz-transition: box-shadow 0.25s, background 0.25s;
   -o-transition: box-shadow 0.25s, background 0.25s;
   transition: box-shadow 0.25s, background 0.25s;
   background: transparent;
 }
+/* line 100, ../scss/styles.scss */
+.touch-device .header .header-inner {
+  background: #ffffff;
+}
 @media only screen and (min-width: 800px) {
-  /* line 91, ../scss/styles.scss */
+  /* line 92, ../scss/styles.scss */
   .header .header-inner {
     padding-left: 240px;
   }
 }
-/* line 119, ../scss/styles.scss */
-.header.scrolled .header-inner:after {
+/* line 110, ../scss/styles.scss */
+.header.scrolled .header-inner {
   -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
