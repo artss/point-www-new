@@ -13,7 +13,10 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
       this.data = options.data;
       this.urlPattern = options.urlPattern;
 
-      this.on('rendered', this.onRender);
+      this.on('rendered', function() {
+        this.subscribeScroll();
+        this.initTabs();
+      });
     },
 
     render: function() {
@@ -29,11 +32,6 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
           resolve();
         });
       });
-    },
-
-    onRender: function() {
-      this.initTabs();
-      this.subscribeScroll();
     },
 
     initTabs: function() {
@@ -101,13 +99,13 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
       this.content = dom.select('.content');
       this._scrollTop = this.content.scrollTop;
 
-      this._scrollHandler = this._scrollHandler.bind(this);
+      this._headerScrollHandler = this._headerScrollHandler.bind(this);
 
-      dom.on(this.content, 'scroll', this._scrollHandler);
-      this._scrollHandler();
+      dom.on(this.content, 'scroll', this._headerScrollHandler);
+      this._headerScrollHandler();
     },
 
-    _scrollHandler: function() {
+    _headerScrollHandler: function() {
       var pos = this.content.scrollTop;
 
       if (pos > this._scrollTop) {
@@ -127,7 +125,7 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
 
     destroy: function() {
       this.undelegateEvents();
-      dom.off(this.content, 'scroll', this._scrollHandler);
+      dom.off(this.content, 'scroll', this._headerScrollHandler);
       Backbone.NativeView.prototype.remove.call(this);
     }
   });
