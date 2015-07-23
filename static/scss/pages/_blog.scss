@@ -145,6 +145,7 @@ a.user {
         overflow: hidden;
         padding: 0;
         background: #ffffff;
+        white-space: nowrap;
 
         @include transition(max-width .5s ease, box-shadow .5s ease);
 
