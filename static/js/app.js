@@ -16,12 +16,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
 
       'u/:login/info(/)': 'pageView',
 
-      'profile(/)': 'pageView',
-      'profile/info(/)': 'pageView',
-      'profile/settings(/)': 'pageView',
-      'profile/im(/)': 'pageView',
-      'profile/www(/)': 'pageView',
-      'profile/password(/)': 'pageView',
+      'profile(/:section)(/)': 'pageView',
 
       'u/:login(/:page)(/)': function() {
         return this.postsList('/u/[a-zA-Z0-9]+');
@@ -123,6 +118,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
     },
 
     pageView: function() {
+      console.log('+ pageView');
       this.loadView(BaseView, location.href);
     }
   });
