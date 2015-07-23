@@ -7,6 +7,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
   var _initial = true;
 
   var content = dom.select('.js-content');
+  var footer = dom.select(content, '.js-footer');
 
   var App = Backbone.Router.extend({
     routes: {
@@ -92,7 +93,8 @@ function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
 
         this._currentView.render().then(
           function() {
-            content.insertAdjacentElement('afterBegin', el);
+            //content.insertAdjacentElement('afterBegin', el);
+            content.insertBefore(el, footer);
             this._currentView.trigger('rendered');
 
             this._currentView.on('navigate', function() {

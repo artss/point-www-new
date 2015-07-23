@@ -86,10 +86,17 @@ define(['underscore'], function(_) {
 
         var brk = false;
 
-        _.each(evt.path, function(el) {
+        var path = evt.path || dom.parents(evt.target);
+
+        _.each(path, function(el) {
           if (brk) {
             return;
           }
+
+          if (el === evt.target) {
+            brk = true;
+          }
+
           if (dom.matches(el, selector)) {
             callback.call(el, evt);
             brk = true;
@@ -130,6 +137,20 @@ define(['underscore'], function(_) {
 
         el = el.parentNode;
       }
+    },
+
+    /**
+     * Parents list
+     */
+    parents: function(el) {
+      var parents = [];
+
+      while (el) {
+        parents.push(el);
+        el = el.parentNode;
+      }
+
+      return parents;
     }
   };
 
