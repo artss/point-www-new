@@ -1,7 +1,7 @@
 {% extends "/pages/blog.html" %}
 
 {% block header %}
-<div class="js-tabs tabs post-list-tabs comments-tabs">
+<div class="js-tabs tabs header-tabs post-list-tabs comments-tabs">
   <div class="tabs-nav">
     <a href="/comments" class="tab comments-tab{% if not unread %} active{% endif %} js-navigate">Комментарии</a>
     <a href="/comments/unread" class="tab counter-tab{% if unread %} active{% endif %} js-unread-posts js-navigate" data-unread="{{ unread_comments or 0 }}">Непрочитанные</a>

@@ -3268,7 +3268,7 @@ dl dd {
   opacity: 1 !important;
 }
 
-/* line 9, ../scss/_sidebar.scss */
+/* line 10, ../scss/_sidebar.scss */
 .sidebar {
   position: absolute;
   z-index: 3;
@@ -3283,17 +3283,17 @@ dl dd {
   background: white;
   color: #606060;
 }
-/* line 23, ../scss/_sidebar.scss */
+/* line 24, ../scss/_sidebar.scss */
 .sidebar .logo {
   float: left;
   padding: 10px;
 }
-/* line 27, ../scss/_sidebar.scss */
+/* line 28, ../scss/_sidebar.scss */
 .sidebar .logo img {
   display: block;
   width: 40px;
 }
-/* line 33, ../scss/_sidebar.scss */
+/* line 34, ../scss/_sidebar.scss */
 .sidebar .btn-newpost {
   display: block;
   float: right;
@@ -3312,21 +3312,21 @@ dl dd {
   -o-transition: background-color, 0.25s ease;
   transition: background-color, 0.25s ease;
 }
-/* line 53, ../scss/_sidebar.scss */
+/* line 54, ../scss/_sidebar.scss */
 .sidebar .btn-newpost:hover {
   background-color: #d9d9d9;
 }
-/* line 58, ../scss/_sidebar.scss */
+/* line 59, ../scss/_sidebar.scss */
 .sidebar .menu {
   width: 100%;
   margin: 20px 0 0 0;
 }
-/* line 62, ../scss/_sidebar.scss */
+/* line 63, ../scss/_sidebar.scss */
 .sidebar .menu.profile-menu {
   position: absolute;
   bottom: 0;
 }
-/* line 67, ../scss/_sidebar.scss */
+/* line 68, ../scss/_sidebar.scss */
 .sidebar .menu a {
   display: block;
   padding: 0 10px;
@@ -3339,115 +3339,115 @@ dl dd {
   -o-transition: color 0.5s ease, background 0.5s ease;
   transition: color 0.5s ease, background 0.5s ease;
 }
-/* line 76, ../scss/_sidebar.scss */
+/* line 77, ../scss/_sidebar.scss */
 .sidebar .menu a:before {
   width: 2em;
   font-size: 1.3em;
 }
-/* line 82, ../scss/_sidebar.scss */
+/* line 83, ../scss/_sidebar.scss */
 .sidebar .menu a:hover {
   color: #35587c;
 }
-/* line 86, ../scss/_sidebar.scss */
+/* line 87, ../scss/_sidebar.scss */
 .sidebar .menu a:active, .sidebar .menu a.active {
   color: #35587c;
   background: #f0f0f0;
 }
-/* line 93, ../scss/_sidebar.scss */
+/* line 94, ../scss/_sidebar.scss */
 .sidebar .menu a.recent:hover, .sidebar .menu a.recent:active, .sidebar .menu a.recent.active {
   color: #2196f3;
 }
-/* line 99, ../scss/_sidebar.scss */
+/* line 100, ../scss/_sidebar.scss */
 .sidebar .menu a.blog:hover, .sidebar .menu a.blog:active, .sidebar .menu a.blog.active {
   color: #ff5252;
 }
-/* line 105, ../scss/_sidebar.scss */
+/* line 106, ../scss/_sidebar.scss */
 .sidebar .menu a.comments:hover, .sidebar .menu a.comments:active, .sidebar .menu a.comments.active {
   color: #00796b;
 }
-/* line 111, ../scss/_sidebar.scss */
+/* line 112, ../scss/_sidebar.scss */
 .sidebar .menu a.messages:hover, .sidebar .menu a.messages:active, .sidebar .menu a.messages.active {
   color: #3f51b5;
 }
-/* line 117, ../scss/_sidebar.scss */
+/* line 118, ../scss/_sidebar.scss */
 .sidebar .menu a.bookmarks:hover, .sidebar .menu a.bookmarks:active, .sidebar .menu a.bookmarks.active {
   color: #0097a7;
 }
-/* line 123, ../scss/_sidebar.scss */
+/* line 124, ../scss/_sidebar.scss */
 .sidebar .menu a.search:hover, .sidebar .menu a.search:active, .sidebar .menu a.search.active {
   color: #f9a825;
 }
-/* line 129, ../scss/_sidebar.scss */
+/* line 130, ../scss/_sidebar.scss */
 .sidebar .menu a.profile:hover, .sidebar .menu a.profile:active, .sidebar .menu a.profile.active {
   color: #546e7a;
 }
-/* line 135, ../scss/_sidebar.scss */
+/* line 136, ../scss/_sidebar.scss */
 .sidebar .menu a.logout {
   #margin-top: 10px;
   color: #d0d0d0;
 }
 
-/* line 143, ../scss/_sidebar.scss */
+/* line 144, ../scss/_sidebar.scss */
 .main-inner:after {
   z-index: 3;
 }
 
-/* line 148, ../scss/_sidebar.scss */
+/* line 149, ../scss/_sidebar.scss */
 .main.sidebar-open .main-inner {
   transform: translate(240px, 0px, 0px);
   transform: translate3d(240px, 0px, 0px);
 }
-/* line 152, ../scss/_sidebar.scss */
+/* line 153, ../scss/_sidebar.scss */
 .main.sidebar-open .main-inner:after {
   width: 100%;
   height: 100%;
   opacity: 1;
   transition: opacity 0.25s ease 0s;
 }
-/* line 160, ../scss/_sidebar.scss */
+/* line 161, ../scss/_sidebar.scss */
 .main.sidebar-open .sidebar {
   transition: transform 0.25s ease 0s;
   visibility: visible;
 }
 
-/* line 166, ../scss/_sidebar.scss */
+/* line 167, ../scss/_sidebar.scss */
 .content {
   padding-left: 10px;
 }
 
-/* line 170, ../scss/_sidebar.scss */
+/* line 171, ../scss/_sidebar.scss */
 .sidebar-handle {
   position: fixed;
   z-index: 4;
   left: 0;
   top: 0;
-  width: 10px;
+  width: 8pt;
   height: 100%;
   background: #f0f0f0;
   border-right: solid 1px #d6d6d6;
   cursor: pointer;
 }
 
-/* line 183, ../scss/_sidebar.scss */
+/* line 184, ../scss/_sidebar.scss */
 body.touch-device .content {
   padding-left: 0;
 }
-/* line 187, ../scss/_sidebar.scss */
+/* line 188, ../scss/_sidebar.scss */
 body.touch-device .sidebar-handle {
   display: none;
 }
 
 @media only screen and (min-width: 600pt) {
-  /* line 194, ../scss/_sidebar.scss */
+  /* line 195, ../scss/_sidebar.scss */
   .main.sidebar-open .main-inner {
     transform: none;
   }
-  /* line 197, ../scss/_sidebar.scss */
+  /* line 198, ../scss/_sidebar.scss */
   .main.sidebar-open .main-inner:after {
     opacity: 0;
   }
 
-  /* line 203, ../scss/_sidebar.scss */
+  /* line 204, ../scss/_sidebar.scss */
   .sidebar {
     left: 0;
     transform: none;
@@ -3459,24 +3459,24 @@ body.touch-device .sidebar-handle {
     }*/
   }
 
-  /* line 215, ../scss/_sidebar.scss */
+  /* line 216, ../scss/_sidebar.scss */
   .content {
     margin-left: 240px;
     padding-left: 10px;
   }
 
-  /* line 220, ../scss/_sidebar.scss */
+  /* line 221, ../scss/_sidebar.scss */
   .sidebar-handle {
     display: none;
   }
 
-  /* line 224, ../scss/_sidebar.scss */
+  /* line 225, ../scss/_sidebar.scss */
   .screen-hint {
     display: none;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 230, ../scss/_sidebar.scss */
+  /* line 231, ../scss/_sidebar.scss */
   .sidebar {
     left: 50%;
     margin-left: -640px;
@@ -4791,8 +4791,16 @@ body {
   -moz-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
 }
+/* line 129, ../scss/styles.scss */
+.header .header-tabs {
+  padding-left: 8pt;
+}
+/* line 132, ../scss/styles.scss */
+.touch-device .header .header-tabs {
+  padding-left: 0;
+}
 
-/* line 130, ../scss/styles.scss */
+/* line 138, ../scss/styles.scss */
 .screen-hint {
   display: none;
   position: fixed;
@@ -4812,7 +4820,7 @@ body {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* line 147, ../scss/styles.scss */
+/* line 155, ../scss/styles.scss */
 footer {
   clear: both;
   *zoom: 1;

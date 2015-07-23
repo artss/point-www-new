@@ -4,6 +4,7 @@
 $sidebar-width: 240px;
 $sidebar-background: #ffffff;
 $sidebar-font-color: #606060;
+$sidebar-handle-width: 8pt;
 $sidebar-handle-background: #f0f0f0;
 
 .sidebar {
@@ -172,7 +173,7 @@ $sidebar-handle-background: #f0f0f0;
   z-index: 4;
   left: 0;
   top: 0;
-  width: 10px;
+  width: $sidebar-handle-width;
   height: 100%;
   background: $sidebar-handle-background;
   border-right: solid 1px darken($sidebar-handle-background, 10%);

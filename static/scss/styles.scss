@@ -125,6 +125,14 @@ body {
       }
     }
   }
+
+  .header-tabs {
+    padding-left: $sidebar-handle-width;
+
+    .touch-device & {
+      padding-left: 0;
+    }
+  }
 }
 
 .screen-hint {
