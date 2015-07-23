@@ -1,0 +1,60 @@
+{% extends "/pages/profile/info.html" %}
+
+{% block profile_page %}
+  <div class="profile-page profile-im-page">
+    <form action="." method="post">
+      <div class="row">
+       <div class="label">Доставка сообщений</div>
+        <div class="value">
+          <label><input type="radio" name="im.off" value=""/>Включена</label>
+          <label><input type="radio" name="im.off" value="1"/>Отключена</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Формат сообщений</div>
+        <div class="value">
+          <label><input type="radio" name="im.xhtml" value="1"/>XHTML-IM</label>
+          <label><input type="radio" name="im.xhtml" value=""/>Текст</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Уведомлять меня об упоминаниях</div>
+        <div class="value">
+          <label><input type="radio" name="im.highlight" value="1"/>Да</label>
+          <label><input type="radio" name="im.highlight" value=""/>Нет</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Автоматически переключать активный JID/ресурс</div>
+        <div class="value">
+          <label><input type="radio" name="im.auto_switch" value="1"/>Да</label>
+          <label><input type="radio" name="im.auto_switch" value=""/>Нет</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Отдельные ресурсы для пользователей (только jabber)</div>
+        <div class="value">
+          <label><input type="radio" name="im.user_resource" value="1"/>Да</label>
+          <label><input type="radio" name="im.user_resource" value=""/>Нет</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Отдельные ресурсы для постов (только jabber)</div>
+        <div class="value">
+          <label><input type="radio" name="im.post_resource" value="1"/>Да</label>
+          <label><input type="radio" name="im.post_resource" value=""/>Нет</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Обрезать длинные посты до</div>
+        <div class="value">
+          <label><input type="radio" name="im.cut" value="1"/>Да</label>
+          <label><input type="radio" name="im.cut" value=""/>Нет</label>
+        </div>
+      </div>
+      <div class="row">
+        <input type="submit" class="btn" value="Сохранить"/>
+      </div>
+    </form>
+  </div>
+{% endblock %}

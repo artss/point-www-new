@@ -1,0 +1,39 @@
+{% extends "/pages/profile/info.html" %}
+
+{% block profile_page %}
+  <div class="profile-page profile-www-page">
+    <form action="." method="post">
+      <div class="row">
+        <div class="label">Комментарии</div>
+        <div class="value">
+          <label><input type="radio" name="www.tree" value="1"/>Дерево</label>
+          <label><input type="radio" name="www.tree" value=""/>Список</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Пользовательский CSS</div>
+        <div class="value">
+          <textarea id="usercss" name="www.usercss"></textarea>
+          <div class="descr">Пользовательские стили для всех страниц. Будут видны только Вам.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">CSS для блога</div>
+        <div class="value">
+          <textarea id="blogcss" name="www.blogcss"></textarea>
+          <div class="descr">Эти стили будут видеть все посетители Вашего блога.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label"></div>
+        <div class="value">
+          <input type="checkbox" id="ignorecss" name="www.ignorecss"/>
+          <label for="ignorecss">Игнорировать пользовальские стили других блогов.</label>
+        </div>
+      </div>
+      <div class="row">
+        <input type="submit" class="btn" value="Сохранить"/>
+      </div>
+    </form>
+  </div>
+{% endblock %}

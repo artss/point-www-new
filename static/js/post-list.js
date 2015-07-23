@@ -1,7 +1,7 @@
-/* global define, require */
+/* global define */
 
-define(['lib/base-view', 'tpl!/pages/_posts-page.html', 'lib/request', 'lib/dom', 'util/util', 'underscore', 'lib/promise'],
-function(BaseView, postsPageTemplate, request, dom, util, _, Promise) {
+define(['lib/base-view', 'tpl!/pages/_posts-page.html', 'lib/request', 'lib/dom', 'util/util', 'underscore'],
+function(BaseView, postsPageTemplate, request, dom, util, _) {
   'use strict';
 
   var PostListView = BaseView.extend({
@@ -9,10 +9,6 @@ function(BaseView, postsPageTemplate, request, dom, util, _, Promise) {
       var self = this;
 
       BaseView.prototype.initialize.call(this, options);
-
-      this.template = options.template;
-      this.data = options.data;
-      this.urlPattern = options.urlPattern;
 
       this.content = dom.select('.content');
 
@@ -32,28 +28,19 @@ function(BaseView, postsPageTemplate, request, dom, util, _, Promise) {
       }, 1000);
 
       dom.on(this.content, 'scroll', this._postsScrollHandler);
+
+      this.on('rendered', this.onRender);
     },
 
     events: {
       'click .js-more': 'loadNext'
     },
 
-    render: function() {
-      var self = this;
-
-      return new Promise(function(resolve, reject) {
-        require(['tpl!' + self.template], function(template) {
-          if (!self.urlPattern.test(location.pathname)) {
-            reject();
-            return;
-          }
-          dom.append(self.el, template(self.data));
-
-          self.updatePager(self.data.page, self.data.has_next);
-
-          resolve();
-        });
-      });
+    onRender: function() {
+      if (_.isEmpty(this.data)) {
+        return;
+      }
+      this.updatePager(this.data.page, this.data.has_next);
     },
 
     loadNext: function(evt) {

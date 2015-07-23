@@ -1,0 +1,66 @@
+{% extends "/base.html" %}
+
+{% block content %}
+  <div class="header">
+    <div class="header-inner">
+      <div class="js-tabs tabs header-tabs profile-tabs">
+        <div class="tabs-nav">
+          <a class="js-navigate tab profile-info-tab{% if section=='info' %} active{% endif %}" href="/profile/info">Инфо</a>
+          <a class="js-navigate tab profile-settings-tab{% if section=='settings' %} active{% endif %}" href="/profile/settings">Настройки</a>
+          <a class="js-navigate tab profile-im-tab{% if section=='im' %} active{% endif %}" href="/profile/im">IM</a>
+          <a class="js-navigate tab profile-www-tab{% if section=='www' %} active{% endif %}" href="/profile/www">Сайт</a>
+          <a class="js-navigate tab profile-password-tab{% if section=='password' %} active{% endif %}" href="/profile/password">Пароль</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% block profile_page %}
+  <div class="profile-page profile-info-page active">
+    <form action="." method="post">
+      <div class="row">
+        <label class="label" for="login-input">Ник</label>
+        <div class="value">
+          <input type="text" readonly="readonly" disabled="disabled" name="login" id="login-input" value="arts"/>
+          <div class="descr">Менять ник можно не чаще одного раза в сутки</div>
+        </div>
+      </div>
+      <div class="row">
+        <label class="label" for="name-input">Имя</label>
+        <div class="value"><input type="text" name="name" id="name-input" value="Артём Сажин"/></div>
+      </div>
+      <div class="row columns-row">
+        <div class="column">
+          <label class="label" for="birthdate-input">Дата рождения</label>
+          <div class="value">
+            <input type="date" name="birthdate" id="birthdate-input" placeholder="ДД.ММ.ГГГГ"/>
+          </div>
+        </div>
+        <div class="column">
+          <label class="label" for="">Пол</label>
+          <div class="value">
+            <label><input type="radio" name="gender" value="m" checked="checked"/>Мужской</label>
+            <label><input type="radio" name="gender" value="f"/>Женский</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <label class="label" for="location-input">Город</label>
+        <div class="value"><input type="text" name="location" id="location-input" value=""/></div>
+      </div>
+      <div class="row">
+        <label class="label" for="about-input">О себе</label>
+        <div class="value"><textarea name="about" id="about-input" maxlength="2000"></textarea></div>
+      </div>
+      <div class="row">
+        <input type="submit" class="btn" value="Сохранить"/>
+      </div>
+    </form>
+  </div>
+  {% endblock %}
+
+  
+
+
+  
+{% endblock %}

@@ -1,6 +1,7 @@
 @import "compass/css3";
 
 .tabs {
+  overflow: hidden;
   .tabs-nav {
     display: table;
     @include clearfix;
@@ -8,7 +9,8 @@
     .tab {
       display: table-cell;
       max-width: 20em;
-      padding: 1em 10pt;
+      height: $header-height;
+      padding: 1.1em 10pt 1em 10pt;
       @include box-sizing("border-box");
       vertical-align: middle;
       white-space: nowrap;
@@ -17,6 +19,12 @@
       color: #35587c;
       text-decoration: none;
       border-bottom: solid 5px transparent;
+
+      &:before {
+        @extend .fa;
+        margin-right: 0.5em;
+        font-size: 1.3em;
+      }
     }
 
     .active {
@@ -26,12 +34,15 @@
     }
   }
 
+  .scrolled & {
+    background: #ffffff;
+  }
+
   &.header-tabs,
   &.header {
     .tabs-nav {
 
       .tab {
-        padding: 0 10pt;
         text-indent: 0;
         /*text-transform: uppercase;*/
 

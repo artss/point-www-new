@@ -1,0 +1,46 @@
+{% extends "/pages/profile/info.html" %}
+
+{% block profile_page %}
+  <div class="profile-page profile-settings-page">
+    <form action="." method="post">
+      <div class="row">
+        <div class="label">Язык</div>
+        <div class="value">
+          <select name="lang">
+            <option></option>
+            <option value="en"{% if profile.lang == 'en' %} selected="selected"{% endif %}>English</option>
+            <option value="ru"{% if profile.lang == 'ru' %} selected="selected"{% endif %}>Русский</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Часовой пояс</div>
+        <div class="value">
+            <select name="tz">
+            </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Ограничения доступа</div>
+        <div class="value">
+          <div>
+            <label><input type="checkbox" name="deny_anonymous" {% if profile.deny_anonymous %} checked="checked"{% endif %}/>Только залогиненные</label>
+            <div class="descr">
+              Доступ к блогу будут иметь только аутентифицированные пользователи.<br/>
+              Это поможет, например, скрыть Ваши записи от поисковых роботов.
+            </div>
+          </div>
+          <div>
+            <label><input type="checkbox" name="private"{% if profile.private %} checked="checked"{% endif %}/>Приватный блог</label>
+            <div class="descr">
+              Доступ к блогу будут иметь только пользователи из Вашего белого списка.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <input type="submit" class="btn" value="Сохранить"/>
+      </div>
+    </form>
+  </div>
+{% endblock %}

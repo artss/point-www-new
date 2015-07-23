@@ -2,22 +2,8 @@
   height: $header-height;
   @include transition(background 0.25s);
 
-  .scrolled & {
-    background: #ffffff;
-  }
-
   .tabs-nav {
     .tab {
-      @include box-sizing("border-box");
-      height: $header-height;
-
-      &:before {
-        @extend .fa;
-        margin-right: 0.5em;
-        font-size: 1.3em;
-        #opacity: 0.5;
-      }
-
       &.active {
         background: #a0a0a0;
         color: #ffffff;

@@ -25,6 +25,16 @@ def get_posts(fn, page=1, *args, **kwargs):
 
     return plist, page, has_next
 
+@route('/u/(?P<login>[a-zA-Z0-9]+)/info/?', host=settings.domain)
+def userinfo(login):
+    env.owner = User('login', login)
+    if env.user.is_authorized() and env.user == env.owner:
+        menu = 'blog'
+    else:
+        menu = 'other-blog'
+
+    return Response(template='/pages/userinfo.html', menu=menu, owner=env.owner)
+
 @route('/recent(?P<unread>/unread)?(?:/(?P<page>\d*))?/?', host=settings.domain)
 def recent(page=1, unread=False):
     unread=bool(unread)

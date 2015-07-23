@@ -1,1 +1,1 @@
-from views import index, auth, blog, messages
+from views import index, auth, blog, messages, profile

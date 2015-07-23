@@ -1,7 +1,7 @@
 /* global define */
 
-define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'sidebar', 'post-list'],
-function(Backbone, _, request, dom, SidebarView, PostListView) {
+define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'lib/base-view', 'sidebar', 'post-list'],
+function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
   'use strict';
 
   var _initial = true;
@@ -14,7 +14,14 @@ function(Backbone, _, request, dom, SidebarView, PostListView) {
         return this.postsList('/recent(/unread)?');
       },
 
-      'u/:login/info(/)': 'userInfo',
+      'u/:login/info(/)': 'pageView',
+
+      'profile(/)': 'pageView',
+      'profile/info(/)': 'pageView',
+      'profile/settings(/)': 'pageView',
+      'profile/im(/)': 'pageView',
+      'profile/www(/)': 'pageView',
+      'profile/password(/)': 'pageView',
 
       'u/:login(/:page)(/)': function() {
         return this.postsList('/u/[a-zA-Z0-9]+');
@@ -53,6 +60,10 @@ function(Backbone, _, request, dom, SidebarView, PostListView) {
 
     loadView: function(View, url, urlPattern) {
       this.sidebar.toggle(false);
+
+      if (!urlPattern) {
+        urlPattern = /.*/;
+      }
 
       var el;
 
@@ -111,8 +122,8 @@ function(Backbone, _, request, dom, SidebarView, PostListView) {
       console.log('+ showPost');
     },
 
-    userInfo: function() {
-      console.log('+ userInfo');
+    pageView: function() {
+      this.loadView(BaseView, location.href);
     }
   });
 

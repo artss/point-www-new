@@ -1,5 +1,40 @@
-.profile-tabs .tabs-content {
-  padding: 20pt 10px 10px 10px;
+.profile-tabs {
+  .tabs-nav {
+    .tab {
+      color: $profile-color;
+
+      &.active {
+        background: lighten($profile-color, 10%);
+        color: #ffffff;
+        border-bottom-color: $profile-color;
+      }
+    }
+  }
+
+  .profile-info-tab:before { @extend .fa-info-circle; }
+  .profile-settings-tab:before { @extend .fa-sliders; }
+  .profile-im-tab:before { @extend .fa-comments; }
+  .profile-www-tab:before { @extend .fa-globe; }
+  .profile-password-tab:before { @extend .fa-asterisk; }
+
+
+  .counter-tab {
+    &:before {
+      background: lighten($profile-color, 10%);
+      color: #ffffff;
+    }
+
+    &.active {
+      &:before {
+        background: #ffffff;
+        color: $profile-color;
+      }
+    }
+  }
+}
+
+.profile-page {
+  margin: 1em 10pt;
 }
 
 .profile-info-page {

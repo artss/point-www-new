@@ -1,6 +1,6 @@
-/* global define */
+/* global define, require */
 
-define(['backbone', 'lib/dom', 'backbone.nativeview'], function(Backbone, dom) {
+define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview'], function(Backbone, _, dom, Promise) {
   'use strict';
 
   var BaseView = Backbone.NativeView.extend({
@@ -9,7 +9,86 @@ define(['backbone', 'lib/dom', 'backbone.nativeview'], function(Backbone, dom) {
 
       this.app = options.app;
 
-      this.on('rendered', this.subscribeScroll);
+      this.template = options.template;
+      this.data = options.data;
+      this.urlPattern = options.urlPattern;
+
+      this.on('rendered', this.onRender);
+    },
+
+    render: function() {
+      var self = this;
+
+      return new Promise(function(resolve, reject) {
+        require(['tpl!' + self.template], function(template) {
+          if (!self.urlPattern.test(location.pathname)) {
+            reject();
+            return;
+          }
+          dom.append(self.el, template(self.data));
+          resolve();
+        });
+      });
+    },
+
+    onRender: function() {
+      this.initTabs();
+      this.subscribeScroll();
+    },
+
+    initTabs: function() {
+      var tabs = this.$('.js-tabs');
+
+      if (!tabs) {
+        return;
+      }
+
+      _.each(tabs, function(container) {
+        var nav = dom.select(container, '.tabs-nav');
+
+        var active = dom.select(nav, '.active');
+        if (active) {
+          if (active.offsetWidth >= container.offsetWidth) {
+            container.scrollLeft = active.offsetLeft;
+          } else {
+            var right = container.scrollLeft + container.offsetWidth - active.offsetLeft - active.offsetWidth;
+            if (right < 0) {
+              container.scrollLeft = -right;
+            }
+          }
+        }
+
+        var swipe = false;
+        var startX;
+        var startScroll;
+
+        dom.on(container, 'touchstart', function(evt) {
+          if (evt.touches.length > 1) {
+            swipe = false;
+            return;
+          }
+
+          if (container.offsetWidth >= nav.offsetWidth) {
+            swipe = false;
+            return;
+          }
+
+          swipe = true;
+
+          startX = evt.touches[0].clientX;
+          startScroll = container.scrollLeft;
+        });
+
+        dom.on(container, 'touchmove', function(evt) {
+          if (!swipe) {
+            return;
+          }
+
+          evt.stopPropagation();
+
+          container.scrollLeft = startScroll + startX - evt.touches[0].clientX;
+        });
+      });
     },
 
     subscribeScroll: function() {

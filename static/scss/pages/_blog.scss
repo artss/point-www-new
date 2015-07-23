@@ -88,6 +88,14 @@ a.user {
     color: #ffffff;
     opacity: 0.75;
   }
+
+  &.user-info-header {
+    &:before {
+      @extend .fa-arrow-left;
+      right: none;
+      left: 7.5pt;
+    }
+  }
 }
 
 .other-blog-view .blog-header {

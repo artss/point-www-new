@@ -3,7 +3,7 @@
 {% block title %}Лента{% endblock %}
 
 {% block header %}
-<div class="tabs post-list-tabs recent-tabs">
+<div class="js-tabs tabs post-list-tabs recent-tabs">
   <div class="tabs-nav">
     <a href="/recent" class="tab recent-tab{% if not unread %} active{% endif %} js-navigate">Лента</a>
     <a href="/recent/unread" class="tab counter-tab {% if unread %} active{% endif %} js-unread-posts js-navigate" data-unread="{{ unread_posts or 0 }}">Непрочитанные</a>

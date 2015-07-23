@@ -33,7 +33,7 @@ function (App, Backbone, _, dom, util, nativeajax) {
   var app = new App();
 
   dom.on(document, 'click', '.js-navigate', function(evt) {
-    var href = evt.target.getAttribute('href');
+    var href = this.getAttribute('href');
 
     var loc = util.parseUrl(href);
 

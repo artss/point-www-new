@@ -79,9 +79,22 @@ define(['underscore'], function(_) {
       }
 
       function eventHandler(evt) {
-        if (!selector || dom.matches(evt.target, selector)) {
-          callback(evt);
+        if (!selector) {
+          callback.call(evt.target, evt);
+          return;
         }
+
+        var brk = false;
+
+        _.each(evt.path, function(el) {
+          if (brk) {
+            return;
+          }
+          if (dom.matches(el, selector)) {
+            callback.call(el, evt);
+            brk = true;
+          }
+        });
       }
 
       callback._handler = eventHandler;
