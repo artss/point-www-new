@@ -14,6 +14,7 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
       this.urlPattern = options.urlPattern;
 
       this.on('rendered', function() {
+        this._rendered = true;
         this.subscribeScroll();
         this.initTabs();
       });

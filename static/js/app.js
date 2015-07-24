@@ -7,6 +7,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListVi
 
   var _initial = true;
 
+  var mainDiv = dom.select('.js-main');
   var content = dom.select('.js-content');
   var footer = dom.select(content, '.js-footer');
 
@@ -40,12 +41,15 @@ function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListVi
       'messages/outgoing(/:page)(/)': function() {
         return this.postsList('/messages/outgoing');
       },
+      'bookmarks(/:page)(/)': function() {
+        return this.postsList('/bookmarks');
+      },
 
       'bookmarks/:page(/)': function() {
         return this.postsList(/\/bookmarks/);
       },
 
-      'p/:post': 'showPost'
+      'p/:post': 'postView'
     },
 
     initialize: function() {
@@ -68,10 +72,12 @@ function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListVi
         el = dom.select('.js-view');
         this._currentView = new View({el: el, app: this, urlPattern: urlPattern});
         _initial = false;
-        //content.appendChild(el);
         this._currentView.trigger('rendered');
+        mainDiv.classList.remove('loading');
         return;
       }
+
+      mainDiv.classList.add('loading');
 
       if (this._request && _.isFunction(this._request.cancel)) {
         this._request.cancel();
@@ -105,9 +111,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListVi
             content.insertBefore(el, footer);
             this._currentView.trigger('rendered');
 
-            this._currentView.on('navigate', function() {
-              console.log('navigate', this, arguments);
-            }, this);
+            mainDiv.classList.remove('loading');
           }.bind(this),
           function() {}
         );
@@ -118,6 +122,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListVi
         console.log('catch', resp, status);
 
         this.loadView(ErrorView, resp);
+        mainDiv.classList.remove('loading');
       }.bind(this));
     },
 
@@ -125,7 +130,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListVi
       this.loadView(PostListView, location.href, new RegExp('^' + urlPattern));
     },
 
-    showPost: function() {
+    postView: function() {
       this.loadView(Post.View, location.href);
     },
 

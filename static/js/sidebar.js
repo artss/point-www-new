@@ -82,8 +82,10 @@ define(['lib/base-view', 'lib/dom', 'underscore', 'auth/login-register'], functi
       }
 
       if (state) {
+        mainDiv.classList.add('locked');
         mainDiv.classList.add('sidebar-open');
       } else {
+        mainDiv.classList.remove('locked');
         mainDiv.classList.remove('sidebar-open');
       }
     },
