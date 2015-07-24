@@ -19,7 +19,8 @@
       };
 
       var settings = {
-        avatars_root: '{{ settings.avatars_root }}'
+        avatars_root: '{{ settings.avatars_root }}',
+        debug: {{ settings.debug|json }}
       };
     </script>
     <script type="text/javascript" src="/bower_components/requirejs/require.js" data-main="js/main"></script>
