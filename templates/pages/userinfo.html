@@ -1,6 +1,7 @@
 {% extends "/base.html" %}
 
 {% block content %}
+<div class="{% if owner.id != env.user.id %}other-blog{% endif %}">
   <div class="header">
     <div class="header-inner">
       {% block header %}
@@ -12,6 +13,7 @@
     </div>
   </div>
 
-  <h1>{{ owner.login }}</h1>
+  <h1 class="user">{{ owner.login }}</h1>
+</div>
 {% endblock %}
 

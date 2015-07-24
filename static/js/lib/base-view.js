@@ -4,6 +4,8 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
   'use strict';
 
   var BaseView = Backbone.NativeView.extend({
+    className: '',
+
     initialize: function(options) {
       Backbone.NativeView.prototype.initialize.call(this, options);
 
@@ -12,6 +14,13 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
       this.template = options.template;
       this.data = options.data;
       this.urlPattern = options.urlPattern;
+
+      _.each([this.className, options.className], function(cls) {
+        console.log('cls', cls);
+        if (!_.isEmpty(cls)) {
+          this.el.classList.add(cls);
+        }
+      }, this);
 
       this.on('rendered', function() {
         this._rendered = true;

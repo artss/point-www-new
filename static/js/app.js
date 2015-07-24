@@ -100,12 +100,13 @@ function(Backbone, _, request, dom, UserModel, BaseView, SidebarView, ErrorView,
         }
 
         el = dom.create('<div class="js-view"></div>')[0];
-        this._currentView = new View(_.extend(resp, {el: el, app: this, urlPattern: urlPattern}));
 
-        if (_.isObject(resp.data) && !_.isUndefined(resp.data.menu)) {
+        if (_.isObject(resp.data) && !_.isEmpty(resp.data.menu)) {
           this.sidebar.setMenu(resp.data.menu);
-          this._currentView.el.classList.add(resp.data.menu + '-view');
+          resp.className = resp.data.menu + '-view';
         }
+
+        this._currentView = new View(_.extend(resp, {el: el, app: this, urlPattern: urlPattern}));
 
         this._currentView.render().then(
           function() {

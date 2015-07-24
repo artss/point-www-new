@@ -31,7 +31,7 @@ def userinfo(login):
     if env.user.is_authorized() and env.user == env.owner:
         menu = 'blog'
     else:
-        menu = 'other-blog'
+        menu = ''
 
     return Response(template='/pages/userinfo.html', menu=menu, owner=env.owner)
 
@@ -60,7 +60,7 @@ def blog(login, page=1):
     if env.user.is_authorized() and env.user == env.owner:
         menu = 'blog'
     else:
-        menu = 'other-blog'
+        menu = ''
 
     return Response(template='/pages/blog.html', menu=menu, owner=env.owner,
                     posts=plist, page=page, has_next=has_next)

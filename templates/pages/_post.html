@@ -49,6 +49,14 @@
         {{ p.post.text|markdown|safe }}
     </div>
 
+    {% if p.rec_users|length > 0 %}
+      <div class="rec-users">
+      Рекомендуют
+      {% for u in p.rec_users %}
+      <a class="user js-navigate" href="/u/{{u.login}}">{{u.login}}</a>{% if loop.index==p.rec_users|length %}{% elif loop.index==p.rec_users|length-1 %} и {% else %}, {% endif %}
+      {% endfor %}
+    {% endif %}
+
     <div class="actions">
         <a class="reply"><i></i><span class="label">ответить</span><span class="number">{{ p.comments_count or '' }}</span></a>
       {% if p.recommended %}

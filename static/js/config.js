@@ -3,7 +3,7 @@
 require.config({
   baseUrl: '/js',
 
-  urlArgs: (settings && settings.debug) ? 'bust=' + (new Date()).getTime() : '',
+  //urlArgs: (settings && settings.debug) ? 'bust=' + (new Date()).getTime() : '',
 
   shim: {
     /*'lib/jquery.autosize': {

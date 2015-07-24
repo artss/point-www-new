@@ -1,6 +1,7 @@
 {% extends "/base.html" %}
 
 {% block content %}
+<div class="{% if owner.id != env.user.id %}other-blog{% endif %}">
   <div class="header">
     <div class="header-inner">
       {% block header %}
@@ -34,4 +35,5 @@
   <a class="more-posts js-more" href="{{ owner|userlink(page + 1) }}">Ещё</a>
   {% endif %}
   {% endblock %}
+</div>
 {% endblock %}

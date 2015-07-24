@@ -1,0 +1,22 @@
+{% extends "/base.html" %}
+
+{% block content %}
+<div class="{% if menu == 'messages' %}message-post{% elif owner.id != env.user.id %}other-blog{% endif %}">
+  <div class="header">
+    <div class="header-inner">
+      {% if menu == 'messages' %}
+      {% else %}
+      <a class="blog-header js-navigate"  href="{{ owner|userlink('info') }}">
+        <div class="avatar40"><img src="{{ settings.avatars_root }}/80/{{ owner.avatar }}" alt="{{ owner.login }}"/></div>
+        <h1>{{ owner.name }}</h1>
+        <div class="user">{{ owner.login }}</div>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="top-post">
+    {% include "/pages/_post.html" %}
+  </div>
+</div>
+{% endblock %}
