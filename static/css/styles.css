@@ -3966,7 +3966,6 @@ form .row input[type="submit"] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-top: solid 1px #51adf6;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
@@ -3983,7 +3982,7 @@ form .row input[type="submit"] {
   -o-transition: bottom 0.5s;
   transition: bottom 0.5s;
 }
-/* line 30, ../scss/_loader.scss */
+/* line 29, ../scss/_loader.scss */
 .main.loading:after {
   content: attr(data-loader);
   bottom: 0;
@@ -3995,85 +3994,85 @@ form .row input[type="submit"] {
 }
 
 @-webkit-keyframes loader-animation {
-  /* line 40, ../scss/_loader.scss */
+  /* line 39, ../scss/_loader.scss */
   0% {
     background-position: -100% 0%;
   }
 
-  /* line 43, ../scss/_loader.scss */
+  /* line 42, ../scss/_loader.scss */
   50% {
     background-position: 200% 0%;
   }
 
-  /* line 46, ../scss/_loader.scss */
+  /* line 45, ../scss/_loader.scss */
   100% {
     background-position: -100% 0%;
   }
 }
 
 @-moz-keyframes loader-animation {
-  /* line 40, ../scss/_loader.scss */
+  /* line 39, ../scss/_loader.scss */
   0% {
     background-position: -100% 0%;
   }
 
-  /* line 43, ../scss/_loader.scss */
+  /* line 42, ../scss/_loader.scss */
   50% {
     background-position: 200% 0%;
   }
 
-  /* line 46, ../scss/_loader.scss */
+  /* line 45, ../scss/_loader.scss */
   100% {
     background-position: -100% 0%;
   }
 }
 
 @-ms-keyframes loader-animation {
-  /* line 40, ../scss/_loader.scss */
+  /* line 39, ../scss/_loader.scss */
   0% {
     background-position: -100% 0%;
   }
 
-  /* line 43, ../scss/_loader.scss */
+  /* line 42, ../scss/_loader.scss */
   50% {
     background-position: 200% 0%;
   }
 
-  /* line 46, ../scss/_loader.scss */
+  /* line 45, ../scss/_loader.scss */
   100% {
     background-position: -100% 0%;
   }
 }
 
 @-o-keyframes loader-animation {
-  /* line 40, ../scss/_loader.scss */
+  /* line 39, ../scss/_loader.scss */
   0% {
     background-position: -100% 0%;
   }
 
-  /* line 43, ../scss/_loader.scss */
+  /* line 42, ../scss/_loader.scss */
   50% {
     background-position: 200% 0%;
   }
 
-  /* line 46, ../scss/_loader.scss */
+  /* line 45, ../scss/_loader.scss */
   100% {
     background-position: -100% 0%;
   }
 }
 
 @keyframes loader-animation {
-  /* line 40, ../scss/_loader.scss */
+  /* line 39, ../scss/_loader.scss */
   0% {
     background-position: -100% 0%;
   }
 
-  /* line 43, ../scss/_loader.scss */
+  /* line 42, ../scss/_loader.scss */
   50% {
     background-position: 200% 0%;
   }
 
-  /* line 46, ../scss/_loader.scss */
+  /* line 45, ../scss/_loader.scss */
   100% {
     background-position: -100% 0%;
   }
