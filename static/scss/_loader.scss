@@ -1,0 +1,49 @@
+@import "util/animation";
+
+$loader-height: 15pt;
+
+.main {
+  &:after {
+    content: '';
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    bottom: #{-$loader-height * 2};
+    width: 100%;
+    height: $loader-height;
+    line-height: $loader-height;
+    text-align: center;
+    @include box-sizing("border-box");
+    border-top: solid 1px rgb(81, 173, 246);
+    @include box-shadow(0 0 10px rgba(0,0,0,.25));
+    @include text-shadow(1px 1px 0 #ffffff);
+
+    @include background-image(linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(81, 173, 246, .5), rgba(255, 255, 255, 0)));
+    background-size: 150%;
+    background-repeat: repeat-y;
+    background-color: rgba(255, 255, 255, .75);
+
+    @include transition(bottom 0.5s);
+  }
+
+  &.loading {
+    &:after {
+      content: attr(data-loader);
+      bottom: 0;
+
+      @include animation(loader-animation 5s ease infinite);
+    }
+  }
+}
+
+@include keyframes(loader-animation){
+  0% {
+    background-position: -100% 0%;
+  }
+  50% {
+    background-position: 200% 0%;
+  }
+  100% {
+    background-position: -100% 0%
+  }
+}

@@ -3952,6 +3952,133 @@ form .row input[type="submit"] {
   display: block;
 }
 
+/* line 6, ../scss/_loader.scss */
+.main:after {
+  content: '';
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  bottom: -30pt;
+  width: 100%;
+  height: 15pt;
+  line-height: 15pt;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-top: solid 1px #51adf6;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  text-shadow: 1px 1px 0 white;
+  background-image: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(81, 173, 246, 0.5), rgba(255, 255, 255, 0));
+  background-image: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(81, 173, 246, 0.5), rgba(255, 255, 255, 0));
+  background-image: -o-linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(81, 173, 246, 0.5), rgba(255, 255, 255, 0));
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(81, 173, 246, 0.5), rgba(255, 255, 255, 0));
+  background-size: 150%;
+  background-repeat: repeat-y;
+  background-color: rgba(255, 255, 255, 0.75);
+  -webkit-transition: bottom 0.5s;
+  -moz-transition: bottom 0.5s;
+  -o-transition: bottom 0.5s;
+  transition: bottom 0.5s;
+}
+/* line 30, ../scss/_loader.scss */
+.main.loading:after {
+  content: attr(data-loader);
+  bottom: 0;
+  -webkit-animation: loader-animation 5s ease infinite;
+  -moz-animation: loader-animation 5s ease infinite;
+  -ms-animation: loader-animation 5s ease infinite;
+  -o-animation: loader-animation 5s ease infinite;
+  animation: loader-animation 5s ease infinite;
+}
+
+@-webkit-keyframes loader-animation {
+  /* line 40, ../scss/_loader.scss */
+  0% {
+    background-position: -100% 0%;
+  }
+
+  /* line 43, ../scss/_loader.scss */
+  50% {
+    background-position: 200% 0%;
+  }
+
+  /* line 46, ../scss/_loader.scss */
+  100% {
+    background-position: -100% 0%;
+  }
+}
+
+@-moz-keyframes loader-animation {
+  /* line 40, ../scss/_loader.scss */
+  0% {
+    background-position: -100% 0%;
+  }
+
+  /* line 43, ../scss/_loader.scss */
+  50% {
+    background-position: 200% 0%;
+  }
+
+  /* line 46, ../scss/_loader.scss */
+  100% {
+    background-position: -100% 0%;
+  }
+}
+
+@-ms-keyframes loader-animation {
+  /* line 40, ../scss/_loader.scss */
+  0% {
+    background-position: -100% 0%;
+  }
+
+  /* line 43, ../scss/_loader.scss */
+  50% {
+    background-position: 200% 0%;
+  }
+
+  /* line 46, ../scss/_loader.scss */
+  100% {
+    background-position: -100% 0%;
+  }
+}
+
+@-o-keyframes loader-animation {
+  /* line 40, ../scss/_loader.scss */
+  0% {
+    background-position: -100% 0%;
+  }
+
+  /* line 43, ../scss/_loader.scss */
+  50% {
+    background-position: 200% 0%;
+  }
+
+  /* line 46, ../scss/_loader.scss */
+  100% {
+    background-position: -100% 0%;
+  }
+}
+
+@keyframes loader-animation {
+  /* line 40, ../scss/_loader.scss */
+  0% {
+    background-position: -100% 0%;
+  }
+
+  /* line 43, ../scss/_loader.scss */
+  50% {
+    background-position: 200% 0%;
+  }
+
+  /* line 46, ../scss/_loader.scss */
+  100% {
+    background-position: -100% 0%;
+  }
+}
+
 /* line 1, ../scss/pages/_errors.scss */
 .error-page {
   margin: 4em 2em;
@@ -4716,33 +4843,8 @@ body {
   opacity: 1;
   transition: opacity 0.25s ease 0s;
 }
-/* line 72, ../scss/styles.scss */
-.main:after {
-  content: attr(data-loader);
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  bottom: -15pt;
-  width: 100%;
-  height: 15pt;
-  line-height: 15pt;
-  text-align: center;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  background: rgba(81, 173, 246, 0.5);
-  border-top: solid 1px #51adf6;
-  -webkit-transition: bottom 0.5s ease;
-  -moz-transition: bottom 0.5s ease;
-  -o-transition: bottom 0.5s ease;
-  transition: bottom 0.5s ease;
-}
-/* line 89, ../scss/styles.scss */
-.main.loading:after {
-  bottom: 0;
-}
 
-/* line 95, ../scss/styles.scss */
+/* line 73, ../scss/styles.scss */
 .content {
   height: 100%;
   -webkit-box-sizing: border-box;
@@ -4751,7 +4853,7 @@ body {
   overflow-y: scroll;
 }
 
-/* line 101, ../scss/styles.scss */
+/* line 79, ../scss/styles.scss */
 .content-inner {
   position: relative;
   max-width: 1024px;
@@ -4763,7 +4865,7 @@ body {
   box-sizing: border-box;
 }
 
-/* line 110, ../scss/styles.scss */
+/* line 88, ../scss/styles.scss */
 .header {
   position: fixed;
   z-index: 0;
@@ -4777,11 +4879,11 @@ body {
   -o-transition: -o-transform 0.25s;
   transition: transform 0.25s;
 }
-/* line 120, ../scss/styles.scss */
+/* line 98, ../scss/styles.scss */
 .header.hidden {
   transform: translateY(0px);
 }
-/* line 124, ../scss/styles.scss */
+/* line 102, ../scss/styles.scss */
 .header .header-inner {
   position: relative;
   z-index: 1;
@@ -4792,7 +4894,7 @@ body {
   max-width: 1264px;
   margin: 0 auto;
 }
-/* line 132, ../scss/styles.scss */
+/* line 110, ../scss/styles.scss */
 .header .header-inner:after {
   content: '';
   position: relative;
@@ -4809,27 +4911,27 @@ body {
   background: transparent;
 }
 @media only screen and (min-width: 800px) {
-  /* line 124, ../scss/styles.scss */
+  /* line 102, ../scss/styles.scss */
   .header .header-inner {
     padding-left: 240px;
   }
 }
-/* line 155, ../scss/styles.scss */
+/* line 133, ../scss/styles.scss */
 .header.scrolled .header-inner:after {
   -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
 }
-/* line 161, ../scss/styles.scss */
+/* line 139, ../scss/styles.scss */
 .header .header-tabs {
   padding-left: 8pt;
 }
-/* line 164, ../scss/styles.scss */
+/* line 142, ../scss/styles.scss */
 .touch-device .header .header-tabs {
   padding-left: 0;
 }
 
-/* line 170, ../scss/styles.scss */
+/* line 148, ../scss/styles.scss */
 .screen-hint {
   display: none;
   position: fixed;
@@ -4849,7 +4951,7 @@ body {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* line 187, ../scss/styles.scss */
+/* line 165, ../scss/styles.scss */
 footer {
   clear: both;
   *zoom: 1;

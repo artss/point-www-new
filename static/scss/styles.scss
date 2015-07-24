@@ -13,13 +13,13 @@ $header-height: 42pt;
 @import "inputs";
 @import "forms";
 @import "tabs";
+@import "loader";
 
 @import "pages";
 
 @import "footer";
 
 $max-content-width: 1024px;
-$loader-height: 15pt;
 
 html {
   height: 100%;
@@ -66,28 +66,6 @@ body {
       height: 100%;
       opacity: 1;
       transition: opacity 0.25s ease 0s;
-    }
-  }
-
-  &:after {
-    content: attr(data-loader);
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    bottom: -$loader-height;
-    width: 100%;
-    height: $loader-height;
-    line-height: $loader-height;
-    text-align: center;
-    @include box-sizing("border-box");
-    background: rgba(81, 173, 246,.5);
-    border-top: solid 1px rgb(81, 173, 246);;
-    @include transition(bottom 0.5s ease);
-  }
-
-  &.loading {
-    &:after {
-      bottom: 0;
     }
   }
 }
