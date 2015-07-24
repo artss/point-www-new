@@ -1,8 +1,8 @@
 /* global define */
 
-define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'lib/base-view', 'sidebar',
+define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'lib/user-model', 'lib/base-view', 'sidebar',
         'lib/error-view', 'post-list', 'post'],
-function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListView, Post) {
+function(Backbone, _, request, dom, UserModel, BaseView, SidebarView, ErrorView, PostListView, Post) {
   'use strict';
 
   var _initial = true;
@@ -54,6 +54,8 @@ function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListVi
 
     initialize: function() {
       Backbone.Router.prototype.initialize.apply(this, arguments);
+
+      this.user = env.user = new UserModel(env.user);
 
       this.sidebar = new SidebarView({el: '.sidebar'});
       this.sidebar.toggle(false);
