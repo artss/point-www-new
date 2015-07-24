@@ -3,6 +3,14 @@
 define(['underscore', 'util/util', 'lib/promise'], function(_, util, Promise) {
   'use strict';
 
+  function parseJson(data) {
+    try {
+      return JSON.parse(data);
+    } catch(e) {
+      return data;
+    }
+  }
+
   function request(method, url, params) {
     if (_.isObject(params)) {
       params = request.params(params);
@@ -20,22 +28,20 @@ define(['underscore', 'util/util', 'lib/promise'], function(_, util, Promise) {
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     var promise = new Promise(function(resolve, reject) {
+      function throwError() {
+        reject(parseJson(this.responseText));
+      }
+
       xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 400) {
-          try {
-            resolve(JSON.parse(xhr.responseText));
-          } catch(e) {
-            resolve(xhr.responseText);
-          }
+          resolve(parseJson(xhr.responseText));
         } else {
-          reject(xhr);
+          throwError.call(xhr, xhr.status);
         }
       };
 
-      xhr.onerror = reject;
-      xhr.onabort = function() {
-        reject();
-      };
+      xhr.onerror = throwError.bind(xhr);
+      xhr.onabort = throwError.bind(xhr);
 
       xhr.send(params);
     });

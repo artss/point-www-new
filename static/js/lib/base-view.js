@@ -22,6 +22,10 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
     render: function() {
       var self = this;
 
+      if (_.isArray(this.template)) {
+        this.template = this.template[0];
+      }
+
       return new Promise(function(resolve, reject) {
         require(['tpl!' + self.template], function(template) {
           if (!self.urlPattern.test(location.pathname)) {
@@ -92,7 +96,7 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
     subscribeScroll: function() {
       this.header = dom.select('.header');
 
-      if (this.header.length === 0) {
+      if (!this.header) {
         return;
       }
 

@@ -15,7 +15,10 @@
 
     <script type="text/javascript">
       var env = {
-        user: {{ env.user|json|safe }}
+        user: {{ env.user|json|safe }},
+        profile: {
+          tree: {{ env.user.get_profile('www.tree')|json }}
+        }
       };
 
       var settings = {

@@ -1,7 +1,8 @@
 /* global define */
 
-define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'lib/base-view', 'sidebar', 'post-list'],
-function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
+define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'lib/base-view', 'sidebar',
+        'lib/error-view', 'post-list', 'post'],
+function(Backbone, _, request, dom, BaseView, SidebarView, ErrorView, PostListView, Post) {
   'use strict';
 
   var _initial = true;
@@ -54,7 +55,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
       this.sidebar.toggle(false);
     },
 
-    loadView: function(View, url, urlPattern) {
+    loadView: function(View, data, urlPattern) {
       this.sidebar.toggle(false);
 
       if (!urlPattern) {
@@ -72,11 +73,18 @@ function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
         return;
       }
 
-      if (this._request) {
+      if (this._request && _.isFunction(this._request.cancel)) {
         this._request.cancel();
       }
 
-      this._request = request.get(url);
+      if (_.isString(data)) {
+        this._request = request.get(data);
+      } else {
+        this._request = new Promise(function(resolve) {
+          resolve(data);
+        });
+      }
+
       this._request.then(function(resp) {
         if (this._currentView) {
           this._currentView.el.remove();
@@ -106,9 +114,11 @@ function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
 
         delete this._request;
       }.bind(this))
-      .catch(function(xhr, status) {
-        console.log('catch', xhr, status);
-      });
+      .catch(function(resp, status) {
+        console.log('catch', resp, status);
+
+        this.loadView(ErrorView, resp);
+      }.bind(this));
     },
 
     postsList: function(urlPattern) {
@@ -116,7 +126,7 @@ function(Backbone, _, request, dom, BaseView, SidebarView, PostListView) {
     },
 
     showPost: function() {
-      console.log('+ showPost');
+      this.loadView(Post.View, location.href);
     },
 
     pageView: function() {
