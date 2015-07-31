@@ -1,4 +1,4 @@
-/* global define */
+/* global define, env */
 
 define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'lib/user-model', 'lib/base-view', 'sidebar',
         'lib/error-view', 'post-list', 'post'],
@@ -85,7 +85,7 @@ function(Backbone, _, request, dom, UserModel, BaseView, SidebarView, ErrorView,
         this._request.cancel();
       }
 
-      if (_.isString(data)) {
+      if (_.isString(data) && data.match(/^http|\//)) {
         this._request = request.get(data);
       } else {
         this._request = new Promise(function(resolve) {
