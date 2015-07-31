@@ -74,7 +74,7 @@ define(['underscore'], function(_) {
 
       if (_.isString(targets)) {
         targets = dom.select(targets);
-      } else if (_.isUndefined(targets.length)) {
+      } else if (_.isUndefined(targets.length) || targets instanceof window.constructor) {
         targets = [targets];
       }
 
