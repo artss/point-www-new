@@ -139,6 +139,11 @@ $sidebar-handle-background: #f0f0f0;
       }
     }
   }
+
+  .g-recaptcha {
+    @include transform(scale(0.72));
+    @include transform-origin(100%, 0);
+  }
 }
 
 .main-inner:after {
