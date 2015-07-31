@@ -7,6 +7,7 @@ try:
 except ImportError:
     import re
 
+from geweb.exceptions import GewebError
 from point.util.env import env
 
 import settings
@@ -47,6 +48,9 @@ def json_serializer(obj):
         )
         return millis
 
+    if isinstance(obj, GewebError):
+        return dict((name, getattr(obj, name)) for name in dir(obj) \
+                    if not name.startswith('__') and name != 'args')
     try:
         obj = obj.todict()
         if 'text' in obj:

@@ -1,0 +1,19 @@
+{% extends "/base.html" %}
+
+{% block content %}
+<div class="error-page error-404">
+  <img class="error-image" src="/img/ogorod.png" alt="Огород"/>
+
+  <div class="error-content">
+    {% if env.owner and not owner %}
+    {% set owner = env.owner %}
+    {% endif %}
+    <h1>{% if owner.name %}{{ owner.name }}{% else %}{{ owner.login }}{% endif %} в огороде</h1>
+
+    <p>Пользователь предпочёл скрыть свою страницу.</p>
+    {% if env.user.id %}
+    <p>Возможно, вы хотите попроситься к нему в белый список, чтобы видеть его посты?</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -16,6 +16,11 @@ class AjaxResponseMiddleware(Middleware):
                 resp = {'data': self.data}
                 if self.template:
                     resp['template'] = self.template
+                if 'error' in resp['data']:
+                    try:
+                        resp['data']['owner'] = env.owner
+                    except KeyError:
+                        pass
                 return json.dumps(resp, default=json_serializer,
                                   ensure_ascii=False)
 

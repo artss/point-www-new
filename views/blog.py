@@ -1,10 +1,15 @@
 from point.util.env import env
 from geweb.http import Response
 from geweb.route import route
+from geweb.exceptions import Forbidden
 from point.core.user import User
+from point.core.post import PostAuthorError
 from point.app import posts
 
 import settings
+
+class BlogForbidden(Forbidden):
+    pass
 
 def get_posts(fn, page=1, *args, **kwargs):
     if not isinstance(page, (int, long)):
@@ -55,7 +60,10 @@ def recent(page=1, unread=False):
 def blog(login, page=1):
     env.owner = User('login', login)
 
-    plist, page, has_next = get_posts(posts.recent_blog_posts, page, env.owner)
+    try:
+        plist, page, has_next = get_posts(posts.recent_blog_posts, page, env.owner)
+    except PostAuthorError:
+        raise BlogForbidden
 
     if env.user.is_authorized() and env.user == env.owner:
         menu = 'blog'
