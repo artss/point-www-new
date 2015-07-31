@@ -48,7 +48,7 @@ define(['swig', 'lib/tpl/filters', 'underscore'], function(swig, filters, _) {
         return data;
       }
 
-      console.err('Template request failed', request.status, request.statusText);
+      console.error('Template request failed', request.status, request.statusText);
     }
   };
 
