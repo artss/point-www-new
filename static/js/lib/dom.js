@@ -41,13 +41,17 @@ define(function(require) {
     },
 
     /**
-     * Append element or HTML
+     * Append element(s) or HTML
      */
     append: function(target, el) {
       if (_.isString(el)) {
         target.insertAdjacentHTML('beforeend', el);
       } else if (el instanceof Node) {
         target.appendChild(el);
+      } else if (el instanceof NodeList) {
+        _.each(Array.prototype.slice.apply(el), function(node) {
+          target.appendChild(node);
+        });
       } else {
         throw new Error('Invalid element type');
       }
