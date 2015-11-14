@@ -1,9 +1,18 @@
 /* global define, env */
 
-define(['backbone', 'underscore', 'lib/request', 'lib/dom', 'lib/user-model', 'lib/base-view', 'sidebar',
-        'lib/error-view', 'post-list', 'post'],
-function(Backbone, _, request, dom, UserModel, BaseView, SidebarView, ErrorView, PostListView, Post) {
+define(function(require) {
   'use strict';
+
+  var Backbone = require('backbone');
+  var _ = require('underscore');
+  var request = require('lib/request');
+  var dom = require('lib/dom');
+  var UserModel = require('lib/user-model');
+  var BaseView = require('lib/base-view');
+  var SidebarView = require('sidebar');
+  var ErrorView = require('lib/error-view');
+  var PostListView = require('post-list');
+  var Post = require('post');
 
   var _initial = true;
 
@@ -122,7 +131,7 @@ function(Backbone, _, request, dom, UserModel, BaseView, SidebarView, ErrorView,
         delete this._request;
       }.bind(this))
       .catch(function(resp, status) {
-        console.log('catch', resp, status);
+        //console.log('catch', resp, status);
 
         this.loadView(ErrorView, resp);
         mainDiv.classList.remove('loading');
@@ -138,7 +147,7 @@ function(Backbone, _, request, dom, UserModel, BaseView, SidebarView, ErrorView,
     },
 
     pageView: function() {
-      console.log('+ pageView');
+      //console.log('+ pageView');
       this.loadView(BaseView, location.href);
     }
   });

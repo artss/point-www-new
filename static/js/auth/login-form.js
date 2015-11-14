@@ -1,5 +1,12 @@
-define(['lib/form', 'underscore'], function(Form, _) {
+define(function(require) {
+  'use strict';
+
+  var _ = require('underscore');
+  var Form = require('lib/form');
+
   var LoginModel = Form.Model.extend({
+    url: '/login',
+
     validation: {
       login: [
         'required',

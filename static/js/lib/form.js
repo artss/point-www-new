@@ -1,7 +1,13 @@
 /* global define */
 
-define(['backbone', 'lib/base-view', 'lib/request', 'lib/dom', 'underscore'], function(Backbone, BaseView, request, dom, _) {
+define(function(require) {
   'use strict';
+
+  var Backbone = require('backbone');
+  var _ = require('underscore');
+  var BaseView = require('lib/base-view');
+  var dom = require('lib/dom');
+  var request = require('lib/request');
 
   /**
    * RegExp validators generator.
@@ -110,6 +116,7 @@ define(['backbone', 'lib/base-view', 'lib/request', 'lib/dom', 'underscore'], fu
       if (!options.model) {
         this.model = new this.model();
       }
+
       Backbone.View.prototype.initialize.call(this, options);
 
       this.listenTo(this.model, {
@@ -255,7 +262,7 @@ define(['backbone', 'lib/base-view', 'lib/request', 'lib/dom', 'underscore'], fu
         this.el.action,
         this.model.toJSON()
       )
-
+      //this.model.save()
       .then(function(data) {
         this.trigger('success', data.data);
       }.bind(this))

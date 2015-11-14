@@ -1,7 +1,10 @@
 /* global define, strftime */
 
-define(['util/util', 'strftime'], function(util) {
+define(function(require) {
   'use strict';
+
+  var util = require('util/util');
+  require('strftime');
 
   return {
     userlink: util.userlink,

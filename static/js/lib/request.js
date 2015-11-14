@@ -1,7 +1,11 @@
 /* global define */
 
-define(['underscore', 'util/util', 'lib/promise'], function(_, util, Promise) {
+define(function(require) {
   'use strict';
+
+  var _ = require('underscore');
+  var util = require('util/util');
+  var Promise = require('lib/promise');
 
   function parseJson(data) {
     try {

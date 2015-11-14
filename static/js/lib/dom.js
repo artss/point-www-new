@@ -1,7 +1,9 @@
 /* global define */
 
-define(['underscore'], function(_) {
+define(function(require) {
   'use strict';
+
+  var _ = require('underscore');
 
   var dom = {
     /**

@@ -1,8 +1,15 @@
 /* global define */
 
-define(['lib/base-view', 'tpl!/pages/_posts-page.html', 'lib/request', 'lib/dom', 'util/util', 'underscore'],
-function(BaseView, postsPageTemplate, request, dom, util, _) {
+define(function(require) {
   'use strict';
+
+  var _ = require('underscore');
+  var BaseView = require('lib/base-view');
+  var request = require('lib/request');
+  var dom = require('lib/dom');
+  var util = require('util/util');
+
+  var postsPageTemplate = require('tpl!/pages/_posts-page.html');
 
   var PostListView = BaseView.extend({
     initialize: function(options) {
@@ -69,7 +76,7 @@ function(BaseView, postsPageTemplate, request, dom, util, _) {
           } else {
             pager.classList.remove('hidden');
           }
-          console.log(arguments);
+          //console.log(arguments);
         });
     },
 

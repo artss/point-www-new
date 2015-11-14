@@ -1,7 +1,9 @@
 /* global define */
 
-define(['lib/base-view'], function(BaseView) {
+define(function(require) {
   'use strict';
+
+  var BaseView = require('lib/base-view');
 
   var ErrorView = BaseView.extend({});
 

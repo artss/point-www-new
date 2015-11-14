@@ -1,7 +1,9 @@
 /* global define */
 
-define(['/bower_components/promise-polyfill/Promise.js'], function() {
+define(function(require) {
   'use strict';
+
+  require('/bower_components/promise-polyfill/Promise.js');
 
   return window.Promise;
 });

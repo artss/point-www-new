@@ -7,8 +7,12 @@
  *   console.log(tpl(context));
  * });
  */
-define(['swig', 'lib/tpl/filters', 'underscore'], function(swig, filters, _) {
+define(function(require) {
   'use strict';
+
+  var swig = require('swig');
+  var filters = require('lib/tpl/filters');
+  var _ = require('underscore');
 
   /**
    * Escapes JavaScript content for proper minification.

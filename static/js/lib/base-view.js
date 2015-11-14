@@ -1,7 +1,13 @@
 /* global define, require */
 
-define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview'], function(Backbone, _, dom, Promise) {
+define(function(require) {
   'use strict';
+
+  var Backbone = require('backbone');
+  require('backbone.nativeview');
+  var _ = require('underscore');
+  var dom = require('lib/dom');
+  var Promise = require('lib/promise');
 
   var BaseView = Backbone.NativeView.extend({
     className: '',
@@ -16,7 +22,6 @@ define(['backbone', 'underscore', 'lib/dom', 'lib/promise', 'backbone.nativeview
       this.urlPattern = options.urlPattern;
 
       _.each([this.className, options.className], function(cls) {
-        console.log('cls', cls);
         if (!_.isEmpty(cls)) {
           this.el.classList.add(cls);
         }

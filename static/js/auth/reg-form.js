@@ -1,7 +1,12 @@
 /* global define */
 
-define(['lib/form', 'backbone', 'underscore', 'lib/request', 'lib/dom'], function(Form, Backbone, _, request, dom) {
+define(function(require) {
   'use strict';
+
+  var _ = require('underscore');
+  var Form = require('lib/form');
+  var dom = require('lib/dom');
+  var request = require('lib/request');
 
   var validators = {};
 
@@ -42,6 +47,8 @@ define(['lib/form', 'backbone', 'underscore', 'lib/request', 'lib/dom'], functio
    * Registration form model.
    */
   var RegModel = Form.Model.extend({
+    url: '/register',
+
     validation: {
       login: [
         'required',
@@ -78,6 +85,7 @@ define(['lib/form', 'backbone', 'underscore', 'lib/request', 'lib/dom'], functio
 
     render: function() {
       Form.View.prototype.render.call(this);
+      window._m = this.model;
 
       var recaptcha = this.$('.recaptcha')[0];
       this.recaptcha = dom.select(recaptcha, '.g-recaptcha');

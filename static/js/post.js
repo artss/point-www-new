@@ -1,7 +1,10 @@
 /* global define */
 
-define(['backbone', 'lib/base-view'], function(Backbone, BaseView) {
+define(function(require) {
   'use strict';
+
+  var Backbone = require('backbone');
+  var BaseView = require('lib/base-view');
 
   var PostModel = Backbone.Model.extend({});
 

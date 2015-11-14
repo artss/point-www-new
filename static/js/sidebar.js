@@ -1,7 +1,11 @@
 /* global define */
 
-define(['lib/base-view', 'lib/dom', 'underscore', 'auth/login-register'], function (BaseView, dom, _) {
+define(function(require) {
   'use strict';
+
+  var _ = require('underscore');
+  var BaseView = require('lib/base-view');
+  var dom = require('lib/dom');
 
   var mainDiv = dom.select('.main');
   var winWidth;
