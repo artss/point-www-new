@@ -1,13 +1,8 @@
 /* global require */
 
-require(function (require) {
+require(['app', 'backbone', 'lib/dom', 'util/util', 'backbone.nativeajax'],
+function (App, Backbone, dom, util, nativeajax) {
   'use strict';
-
-  var Backbone = require('backbone');
-  var nativeajax = require('backbone.nativeajax');
-  var dom = require('lib/dom');
-  var util = require('util/util');
-  var App = require('app');
 
   Backbone.ajax = nativeajax;
 
