@@ -8,6 +8,7 @@ define(function(require) {
   var BaseView = require('lib/base-view');
   var dom = require('lib/dom');
   var request = require('lib/request');
+  var autosize = require('util/autosize');
 
   /**
    * RegExp validators generator.
@@ -28,6 +29,8 @@ define(function(require) {
    * Base form model.
    */
   var FormModel = Backbone.Model.extend({
+    validation: {},
+
     validate: function(fields) {
       if (_.isEmpty(fields)) {
         fields = this.attributes;
@@ -39,6 +42,10 @@ define(function(require) {
 
       _.each(fields, function(value, field) {
         this._valid[field] = false;
+
+        if (!_.isArray(this.validation[field])) {
+          return;
+        }
 
         var validators = this.validation[field].slice();
 
@@ -122,6 +129,10 @@ define(function(require) {
       this.listenTo(this.model, {
         'validated': this.setValidation
       });
+
+      if (options.el) {
+        this.render();
+      }
     },
 
     render: function() {
@@ -131,13 +142,15 @@ define(function(require) {
         }
         return memo;
       }, {}));
-      this.submit = this.$('.js-submit')[0];
+      this.submit = this.$('.js-submit');
+
+      autosize(this.$('.js-autosize'));
     },
 
     /**
      * Sets focus to the passed field.
      *
-     * @param {string|jQuery} field Field name or element.
+     * @param {string|HTMLElement} field Field name or element.
      */
     focus: function(field) {
       if (_.isString(field)) {
@@ -158,9 +171,9 @@ define(function(require) {
     /**
      * Updates value in model.
      *
-     * @param {string|event} evt Field name or jQuery event object.
+     * @param {string|event} evt Field name or event object.
      *
-     * @returns {jQuery} Field element.
+     * @returns {HTMLElement} Field element.
      */
     setValue: function(evt) {
       var field = _.isString(evt) ? this.getField(evt) : evt.target;
@@ -197,7 +210,7 @@ define(function(require) {
     /**
      * Sets field valid|invalid.
      *
-     * @param {string|jQuery} field Field name or element.
+     * @param {string|HTMLElement} field Field name or element.
      * @param {bool} valid Status.
      * @param {string} [message] Error desciption.
      */
