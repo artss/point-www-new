@@ -114,6 +114,11 @@
     min-width: 3em;
     height: 3em;
     padding: 0 .5em;
+    color: #a0a0a0;
+
+    &.positive {
+      color: #35587c;
+    }
 
     &:before {
       @extend .fa;
@@ -122,7 +127,6 @@
       float: left;
       font-size: 1.5em;
       line-height: 2em;
-      color: #a0a0a0;
     }
 
     input {
@@ -138,13 +142,8 @@
 
     .number {
       font-size: 1em;
-      color: #a0a0a0;
       line-height: 3em;
       margin-left: .5em;
-
-      &.positive {
-        color: #35587c;
-      }
     }
   }
 

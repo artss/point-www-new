@@ -3678,16 +3678,20 @@ body.touch-device .sidebar-handle {
   min-width: 3em;
   height: 3em;
   padding: 0 .5em;
+  color: #a0a0a0;
 }
-/* line 118, ../scss/_newpost.scss */
+/* line 119, ../scss/_newpost.scss */
+.popup-newpost .upload.positive {
+  color: #35587c;
+}
+/* line 123, ../scss/_newpost.scss */
 .popup-newpost .upload:before {
   display: block;
   float: left;
   font-size: 1.5em;
   line-height: 2em;
-  color: #a0a0a0;
 }
-/* line 128, ../scss/_newpost.scss */
+/* line 132, ../scss/_newpost.scss */
 .popup-newpost .upload input {
   display: block;
   position: absolute;
@@ -3699,18 +3703,13 @@ body.touch-device .sidebar-handle {
   opacity: 0;
   cursor: pointer;
 }
-/* line 139, ../scss/_newpost.scss */
+/* line 143, ../scss/_newpost.scss */
 .popup-newpost .upload .number {
   font-size: 1em;
-  color: #a0a0a0;
   line-height: 3em;
   margin-left: .5em;
 }
-/* line 145, ../scss/_newpost.scss */
-.popup-newpost .upload .number.positive {
-  color: #35587c;
-}
-/* line 151, ../scss/_newpost.scss */
+/* line 150, ../scss/_newpost.scss */
 .popup-newpost .buttons {
   float: right;
 }
