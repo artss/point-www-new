@@ -1,7 +1,11 @@
 /* global define */
 
-define(['auth/reg-form', 'auth/login-form', 'lib/dom'], function (RegForm, LoginForm, dom) {
+define(function(require) {
   'use strict';
+
+  var RegForm = require('auth/reg-form');
+  var LoginForm = require('auth/login-form');
+  var dom = require('lib/dom');
 
   var wrap = dom.select('.login-wrap');
 
