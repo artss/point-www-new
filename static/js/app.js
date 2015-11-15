@@ -108,7 +108,7 @@ define(function(require) {
           this._currentView.destroy();
         }
 
-        el = dom.create('<div class="js-view"></div>')[0];
+        el = dom.create('<div class="js-view"></div>');
 
         if (_.isObject(resp.data) && !_.isEmpty(resp.data.menu)) {
           this.sidebar.setMenu(resp.data.menu);
@@ -151,6 +151,10 @@ define(function(require) {
       this.loadView(BaseView, location.href);
     }
   });
+
+  if (!env.user.id) {
+    require('auth/login-register');
+  }
 
   return App;
 });
