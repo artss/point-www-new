@@ -37,7 +37,7 @@ define(function(require) {
       var div = document.createElement('div');
       div.innerHTML = html;
 
-      return div.childNodes;
+      return div.childNodes.length === 1 ? div.childNodes[0] : div.childNodes;
     },
 
     /**
@@ -79,7 +79,7 @@ define(function(require) {
       }
 
       if (_.isString(targets)) {
-        targets = dom.select(targets);
+        targets = dom.selectAll(targets);
       } else if (_.isUndefined(targets.length) || targets instanceof window.constructor) {
         targets = [targets];
       }
@@ -113,21 +113,27 @@ define(function(require) {
       callback._handler = eventHandler;
 
       _.each(targets, function(target) {
-        target.addEventListener(event, eventHandler);
+        target.addEventListener(event, eventHandler, false);
       });
     },
 
     /**
      * Remove event handler.
      */
-    off: function(target, event, callback) {
-      if (!target) {
+    off: function(targets, event, callback) {
+      if (!targets) {
         return;
+      }
+
+      if (targets instanceof Node) {
+        targets = [targets];
       }
 
       if (callback) {
         var eventHandler = callback.hasOwnProperty('_handler') ? callback._handler : callback;
-        target.removeEventListener(event, eventHandler);
+        _.each(targets, function(target) {
+          target.removeEventListener(event, eventHandler);
+        });
         delete callback._handler;
       }
     },
