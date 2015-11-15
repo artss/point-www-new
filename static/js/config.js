@@ -1,5 +1,3 @@
-/* global require, settings */
-
 require.config({
   baseUrl: '/js',
 
@@ -9,6 +7,10 @@ require.config({
     /*'lib/jquery.autosize': {
       deps: ['jquery']
     }*/
+    'backbone-model-file-upload': {
+      deps: ['jquery', 'underscore', 'backbone'],
+      exports: 'Backbone'
+    }
   },
 
   paths: {
@@ -16,6 +18,7 @@ require.config({
     'backbone': '../bower_components/backbone/backbone',
     'backbone.nativeview': '../bower_components/backbone.nativeview/backbone.nativeview',
     'backbone.nativeajax': '../bower_components/backbone.nativeajax/backbone.nativeajax',
+    'backbone-model-file-upload': '../bower_components/backbone-model-file-upload/backbone-model-file-upload',
     'underscore': '../bower_components/underscore/underscore',
     //'promise': '../bower_components/promise-polyfill/Promise',
     'text': 'lib/require.text',

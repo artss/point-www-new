@@ -1,5 +1,3 @@
-/* global define */
-
 define(function(require) {
   'use strict';
 
@@ -15,8 +13,8 @@ define(function(require) {
     }
   }
 
-  function request(method, url, params) {
-    if (_.isObject(params)) {
+  function request(method, url, params, options) {
+    if (_.isObject(params) && !(params instanceof FormData)) {
       params = request.params(params);
     }
 
@@ -29,7 +27,14 @@ define(function(require) {
 
     var xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
+
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+    if (_.isObject(options) && _.isObject(options.headers)) {
+      _.each(options.headers, function(value, key) {
+        xhr.setRequestHeader(key, value);
+      });
+    }
 
     var promise = new Promise(function(resolve, reject) {
       function throwError() {
@@ -74,7 +79,7 @@ define(function(require) {
     }).join('&');
   };
 
-  _.each(['GET', 'POST', 'UPDATE', 'DELETE'], function(method) {
+  _.each(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], function(method) {
     request[method.toLowerCase()] = function(url, params) {
       return request(method, url, params);
     };

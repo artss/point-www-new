@@ -3,24 +3,14 @@ define(function(require) {
 
   var Backbone = require('backbone');
   var _ = require('underscore');
+  var Post = require('post');
   var Form = require('lib/form');
 
-  var PostFormModel = Form.Model.extend({
-    url: '/p',
-
-    validation: {
-      text: [
-        function(value) {
-          // TODO: validate model
-          console.log('PostFormModel.validation', this, arguments, value);
-          return 'text';
-        }
-      ]
-    }
-  });
-
   var PostFormView = Form.View.extend({
+    model: Post.Model,
+
     events: _.extend({}, Form.View.prototype.events, {
+      'input textarea': 'setValueDelayed',
       'click .btn-cancel': 'cancel',
       'change .js-file': 'updateUploads'
     }),
@@ -45,9 +35,6 @@ define(function(require) {
     }
   });
 
-  return {
-    Model: PostFormModel,
-    View: PostFormView
-  };
+  return PostFormView;
 });
 

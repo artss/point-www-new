@@ -13,6 +13,8 @@ define(function(require) {
   var ErrorView = require('lib/error-view');
   var PostListView = require('post-list');
   var Post = require('post');
+  var PostFormView = require('post-form');
+  var util = require('util/util');
 
   var _initial = true;
 
@@ -68,6 +70,38 @@ define(function(require) {
 
       this.sidebar = new SidebarView({el: '.sidebar'});
       this.sidebar.toggle(false);
+
+      if (!('ontouchstart' in document.documentElement)) {
+        document.body.classList.remove('touch-device');
+      }
+
+      dom.on(document, 'click', '.js-navigate', function(evt) {
+        var href = this.getAttribute('href');
+
+        var loc = util.parseUrl(href);
+
+        if (loc.protocol === location.protocol && loc.host === loc.host) {
+          evt.preventDefault();
+          this.navigate(href, {trigger: true});
+        } else {
+          Backbone.history.stop();
+          location.href = loc.href;
+        }
+      }.bind(this));
+
+      var newPostForm;
+
+      Backbone.on('new-post', function() {
+        if (!newPostForm) {
+          newPostForm = new PostFormView({ el: dom.select('.popup-newpost') });
+        }
+
+        mainDiv.classList.add('newpost');
+      });
+
+      Backbone.on('new-post-cancel', function() {
+        mainDiv.classList.remove('newpost');
+      });
     },
 
     loadView: function(View, data, urlPattern) {
@@ -130,7 +164,7 @@ define(function(require) {
 
         delete this._request;
       }.bind(this))
-      .catch(function(resp, status) {
+      .catch(function(resp /*, status*/) {
         //console.log('catch', resp, status);
 
         this.loadView(ErrorView, resp);

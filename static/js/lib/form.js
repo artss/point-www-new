@@ -3,8 +3,8 @@
 define(function(require) {
   'use strict';
 
-  var Backbone = require('backbone');
   var _ = require('underscore');
+  var BaseModel = require('lib/base-model');
   var BaseView = require('lib/base-view');
   var dom = require('lib/dom');
   var request = require('lib/request');
@@ -28,7 +28,7 @@ define(function(require) {
   /**
    * Base form model.
    */
-  var FormModel = Backbone.Model.extend({
+  var FormModel = BaseModel.extend({
     validation: {},
 
     validate: function(fields) {
@@ -44,6 +44,7 @@ define(function(require) {
         this._valid[field] = false;
 
         if (!_.isArray(this.validation[field])) {
+          this._valid[field] = true;
           return;
         }
 
@@ -92,6 +93,32 @@ define(function(require) {
       }
 
       return !_.some(_.values(this._valid), function(v) { return !v; });
+    },
+
+    save: function() {
+      var formData = new FormData();
+
+      _.each(this.toJSON(), function(value, key) {
+        if (_.isArray(value) || value instanceof FileList) {
+          _.each(value, function(val) {
+            formData.append(key, val);
+          });
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      var method, url;
+
+      if (this.id) {
+        method = 'PUT';
+        url = this.url + '/' + this.id;
+      } else {
+        method = 'POST';
+        url = this.url;
+      }
+
+      return request(method, url, formData);
     }
   });
 
@@ -124,7 +151,7 @@ define(function(require) {
         this.model = new this.model();
       }
 
-      Backbone.View.prototype.initialize.call(this, options);
+      BaseView.prototype.initialize.call(this, options);
 
       this.listenTo(this.model, {
         'validated': this.setValidation
@@ -142,7 +169,7 @@ define(function(require) {
         }
         return memo;
       }, {}));
-      this.submit = this.$('.js-submit');
+      this.submit = this.$('.js-submit')[0];
 
       autosize(this.$('.js-autosize'));
     },
@@ -176,10 +203,11 @@ define(function(require) {
      * @returns {HTMLElement} Field element.
      */
     setValue: function(evt) {
+      window._m = this;
       var field = _.isString(evt) ? this.getField(evt) : evt.target;
 
       var obj = {};
-      obj[field.getAttribute('name')] = field.value;
+      obj[field.getAttribute('name')] = field.files ? field.files : field.value;
 
       this.model.set(obj);
       this.model.validate(obj);
@@ -200,7 +228,10 @@ define(function(require) {
      * @param {bool} valid Status.
      */
     updateButton: function(valid) {
-      if (this.submit.classList.contains('loading')) { return; }
+      if (!this.submit || this.submit.classList.contains('loading')) {
+        return;
+      }
+
       if (typeof valid === 'undefined') {
         valid = this.model.isValid();
       }
@@ -238,7 +269,11 @@ define(function(require) {
           error = _.isObject(errdata) ? errdata['default'] : errdata;
         }
 
-        dom.select(container, '.js-input-error-label').innerHTML = error;
+        var label = dom.select(container, '.js-input-error-label');
+
+        if (label) {
+          label.innerHTML = error;
+        }
 
         field.focus();
       }
@@ -270,12 +305,12 @@ define(function(require) {
       });
       this.submit.classList.add('loading');
 
-      request(
+      /*request(
         (this.el.method || 'GET').toUpperCase(),
         this.el.action,
         this.model.toJSON()
-      )
-      //this.model.save()
+      )*/
+      this.model.save()
       .then(function(data) {
         this.trigger('success', data.data);
       }.bind(this))
@@ -295,7 +330,7 @@ define(function(require) {
       this.model.destroy();
       delete this.model;
 
-      Backbone.view.prototype.destroy.apply(this, arguments);
+      BaseView.prototype.destroy.apply(this, arguments);
     }
   });
 
