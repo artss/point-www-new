@@ -32,7 +32,7 @@
     <script type="text/javascript" src="/bower_components/requirejs/require.js" data-main="js/main"></script>
     <script type="text/javascript" src="/js/config.js"></script>
   </head>
-  <body>
+  <body class="touch-device">
     <div class="main js-main" data-loader="Загрузка...">
       {% if env.user.id %}
       <div class="popup-container">
@@ -46,10 +46,10 @@
               <h3>Новый пост</h3>
             </div>
             <div class="row tags-row">
-              <textarea id="tags-input" name="tags" placeholder="Теги"></textarea>
+              <textarea class="js-autosize" id="tags-input" name="tags" placeholder="Теги"></textarea>
             </div>
             <div class="row text-row">
-              <textarea id="text-input" name="text" placeholder="Текст"></textarea>
+              <textarea class="js-autosize" id="text-input" name="text" placeholder="Текст"></textarea>
             </div>
             <div class="row buttons-row">
               <div class="upload">

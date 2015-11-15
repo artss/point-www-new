@@ -3028,6 +3028,7 @@ textarea {
 /* line 62, ../scss/_inputs.scss */
 .btn {
   border: 0;
+  outline: 0;
   padding: 1em 2em;
   font-weight: normal;
   color: #ffffff;
@@ -3038,29 +3039,29 @@ textarea {
   transition: background-color 0.5s ease;
   cursor: pointer;
 }
-/* line 71, ../scss/_inputs.scss */
+/* line 72, ../scss/_inputs.scss */
 .btn:hover {
   background-color: #808080;
 }
-/* line 74, ../scss/_inputs.scss */
+/* line 75, ../scss/_inputs.scss */
 .btn:active {
   background-color: #404040;
 }
-/* line 78, ../scss/_inputs.scss */
+/* line 79, ../scss/_inputs.scss */
 .btn[disabled] {
   background-color: #a0a0a0;
   color: #808080;
   cursor: default;
 }
 
-/* line 85, ../scss/_inputs.scss */
+/* line 86, ../scss/_inputs.scss */
 .btn-cancel {
   padding: 1em;
   font-weight: normal;
   background: transparent;
   color: #35587c;
 }
-/* line 91, ../scss/_inputs.scss */
+/* line 92, ../scss/_inputs.scss */
 .btn-cancel:hover, .btn-cancel:active {
   background: inherit;
 }

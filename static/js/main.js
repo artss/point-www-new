@@ -1,26 +1,17 @@
 /* global require */
 
-require(['app', 'backbone', 'lib/dom', 'util/util', 'backbone.nativeajax'],
-function (App, Backbone, dom, util, nativeajax) {
+require(['app', 'backbone', 'lib/dom', 'util/util', 'backbone.nativeajax', 'post-form'],
+function (App, Backbone, dom, util, nativeajax, PostForm) {
   'use strict';
 
   Backbone.ajax = nativeajax;
 
-  if ('ontouchstart' in document.documentElement) {
-    document.body.classList.add('touch-device');
+  if (!('ontouchstart' in document.documentElement)) {
+    document.body.classList.remove('touch-device');
   }
 
   // TODO: move it to post form view
-  /*var mainDiv = document.querySelector('.main');
-
-  $('.btn-newpost').click(function () {
-    sidebar.toggle(false);
-    mainDiv.addClass('newpost');
-  });
-
-  $('.popup-newpost .btn-cancel').click(function () {
-    mainDiv.removeClass('newpost');
-  });
+  /*
 
   $('textarea').autosize();
 
@@ -31,6 +22,8 @@ function (App, Backbone, dom, util, nativeajax) {
   });*/
 
   var app = new App();
+
+  var mainDiv = dom.select('.main');
 
   dom.on(document, 'click', '.js-navigate', function(evt) {
     var href = this.getAttribute('href');
@@ -44,6 +37,20 @@ function (App, Backbone, dom, util, nativeajax) {
       Backbone.history.stop();
       location.href = loc.href;
     }
+  });
+
+  var newPostForm;
+
+  Backbone.on('new-post', function() {
+    if (!newPostForm) {
+      newPostForm = new PostForm.View({ el: dom.select('.popup-newpost') });
+    }
+
+    mainDiv.classList.add('newpost');
+  });
+
+  Backbone.on('new-post-cancel', function() {
+    mainDiv.classList.remove('newpost');
   });
 
   Backbone.history.start({pushState: true, root: '/'});

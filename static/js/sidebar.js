@@ -3,6 +3,7 @@
 define(function(require) {
   'use strict';
 
+  var Backbone = require('backbone');
   var _ = require('underscore');
   var BaseView = require('lib/base-view');
   var dom = require('lib/dom');
@@ -126,7 +127,8 @@ define(function(require) {
     },
 
     newPost: function() {
-    
+      this.toggle(false);
+      Backbone.trigger('new-post');
     }
   });
 

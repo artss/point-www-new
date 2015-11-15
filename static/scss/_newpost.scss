@@ -76,6 +76,8 @@
 
     textarea {
       width: 100%;
+      overflow: hidden;
+      padding: .5em;
     }
   }
 
@@ -92,8 +94,8 @@
     }
 
     textarea {
-      min-height: 1.5em;
-      height: 1.5em;
+      min-height: 2.5em;
+      height: 2.5em;
       padding-left: 2.5em;
     }
   }

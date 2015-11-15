@@ -2948,6 +2948,22 @@ dl dd {
   content: "\f20c";
 }
 
+/* line 1, ../scss/util/_autosize.scss */
+.autosize-textarea {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  height: auto;
+  overflow: visible;
+  white-space: pre-wrap;
+}
+/* line 9, ../scss/util/_autosize.scss */
+.autosize-textarea:after {
+  content: ' ';
+  display: inline-block;
+  height: 1em;
+}
+
 /* line 12, ../scss/util/_clearfix.scss */
 .clearfix {
   *zoom: 1;
@@ -3618,29 +3634,31 @@ body.touch-device .sidebar-handle {
 /* line 77, ../scss/_newpost.scss */
 .popup-newpost .row textarea {
   width: 100%;
+  overflow: hidden;
+  padding: .5em;
 }
-/* line 82, ../scss/_newpost.scss */
+/* line 84, ../scss/_newpost.scss */
 .popup-newpost .tags-row {
   position: relative;
 }
-/* line 85, ../scss/_newpost.scss */
+/* line 87, ../scss/_newpost.scss */
 .popup-newpost .tags-row:before {
   position: absolute;
   padding: .65em .5em;
   font-size: 1.2em;
   color: #a0a0a0;
 }
-/* line 94, ../scss/_newpost.scss */
+/* line 96, ../scss/_newpost.scss */
 .popup-newpost .tags-row textarea {
-  min-height: 1.5em;
-  height: 1.5em;
+  min-height: 2.5em;
+  height: 2.5em;
   padding-left: 2.5em;
 }
-/* line 101, ../scss/_newpost.scss */
+/* line 103, ../scss/_newpost.scss */
 .popup-newpost #text-input {
   min-height: 10em;
 }
-/* line 105, ../scss/_newpost.scss */
+/* line 107, ../scss/_newpost.scss */
 .popup-newpost .buttons-row {
   *zoom: 1;
 }
@@ -3653,7 +3671,7 @@ body.touch-device .sidebar-handle {
 .popup-newpost .buttons-row:after {
   clear: both;
 }
-/* line 109, ../scss/_newpost.scss */
+/* line 111, ../scss/_newpost.scss */
 .popup-newpost .upload {
   float: left;
   position: relative;
@@ -3661,7 +3679,7 @@ body.touch-device .sidebar-handle {
   height: 3em;
   padding: 0 .5em;
 }
-/* line 116, ../scss/_newpost.scss */
+/* line 118, ../scss/_newpost.scss */
 .popup-newpost .upload:before {
   display: block;
   float: left;
@@ -3669,7 +3687,7 @@ body.touch-device .sidebar-handle {
   line-height: 2em;
   color: #a0a0a0;
 }
-/* line 126, ../scss/_newpost.scss */
+/* line 128, ../scss/_newpost.scss */
 .popup-newpost .upload input {
   display: block;
   position: absolute;
@@ -3681,18 +3699,18 @@ body.touch-device .sidebar-handle {
   opacity: 0;
   cursor: pointer;
 }
-/* line 137, ../scss/_newpost.scss */
+/* line 139, ../scss/_newpost.scss */
 .popup-newpost .upload .number {
   font-size: 1em;
   color: #a0a0a0;
   line-height: 3em;
   margin-left: .5em;
 }
-/* line 143, ../scss/_newpost.scss */
+/* line 145, ../scss/_newpost.scss */
 .popup-newpost .upload .number.positive {
   color: #35587c;
 }
-/* line 149, ../scss/_newpost.scss */
+/* line 151, ../scss/_newpost.scss */
 .popup-newpost .buttons {
   float: right;
 }
@@ -3771,6 +3789,7 @@ textarea {
 /* line 62, ../scss/_inputs.scss */
 .btn {
   border: 0;
+  outline: 0;
   padding: 1em 2em;
   font-weight: normal;
   color: #ffffff;
@@ -3781,29 +3800,29 @@ textarea {
   transition: background-color 0.5s ease;
   cursor: pointer;
 }
-/* line 71, ../scss/_inputs.scss */
+/* line 72, ../scss/_inputs.scss */
 .btn:hover {
   background-color: #808080;
 }
-/* line 74, ../scss/_inputs.scss */
+/* line 75, ../scss/_inputs.scss */
 .btn:active {
   background-color: #404040;
 }
-/* line 78, ../scss/_inputs.scss */
+/* line 79, ../scss/_inputs.scss */
 .btn[disabled] {
   background-color: #a0a0a0;
   color: #808080;
   cursor: default;
 }
 
-/* line 85, ../scss/_inputs.scss */
+/* line 86, ../scss/_inputs.scss */
 .btn-cancel {
   padding: 1em;
   font-weight: normal;
   background: transparent;
   color: #35587c;
 }
-/* line 91, ../scss/_inputs.scss */
+/* line 92, ../scss/_inputs.scss */
 .btn-cancel:hover, .btn-cancel:active {
   background: inherit;
 }
@@ -4827,19 +4846,19 @@ footer .copyright {
   color: #a0a0a0;
 }
 
-/* line 24, ../scss/styles.scss */
+/* line 25, ../scss/styles.scss */
 html {
   height: 100%;
 }
 
-/* line 28, ../scss/styles.scss */
+/* line 29, ../scss/styles.scss */
 body {
   background: #ffffff;
   margin: 0;
   height: 100%;
 }
 
-/* line 34, ../scss/styles.scss */
+/* line 35, ../scss/styles.scss */
 .main {
   position: relative;
   overflow: hidden;
@@ -4848,7 +4867,7 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 40, ../scss/styles.scss */
+/* line 41, ../scss/styles.scss */
 .main .main-inner {
   height: 100%;
   left: 0;
@@ -4856,7 +4875,7 @@ body {
   transition: transform 0.25s ease 0s;
   z-index: 1;
 }
-/* line 47, ../scss/styles.scss */
+/* line 48, ../scss/styles.scss */
 .main .main-inner:after {
   position: absolute;
   width: 0;
@@ -4873,7 +4892,7 @@ body {
   -o-transition: opacity 0.25s ease 0s, width 0.1s ease 0.5s, height 0.1s ease 0.25s;
   transition: opacity 0.25s ease 0s, width 0.1s ease 0.5s, height 0.1s ease 0.25s;
 }
-/* line 64, ../scss/styles.scss */
+/* line 65, ../scss/styles.scss */
 .main.locked .main-inner:after {
   width: 100%;
   height: 100%;
@@ -4881,7 +4900,7 @@ body {
   transition: opacity 0.25s ease 0s;
 }
 
-/* line 73, ../scss/styles.scss */
+/* line 74, ../scss/styles.scss */
 .content {
   height: 100%;
   -webkit-box-sizing: border-box;
@@ -4890,7 +4909,7 @@ body {
   overflow-y: scroll;
 }
 
-/* line 79, ../scss/styles.scss */
+/* line 80, ../scss/styles.scss */
 .content-inner {
   position: relative;
   max-width: 1024px;
@@ -4902,7 +4921,7 @@ body {
   box-sizing: border-box;
 }
 
-/* line 88, ../scss/styles.scss */
+/* line 89, ../scss/styles.scss */
 .header {
   position: fixed;
   z-index: 0;
@@ -4916,11 +4935,11 @@ body {
   -o-transition: -o-transform 0.25s;
   transition: transform 0.25s;
 }
-/* line 98, ../scss/styles.scss */
+/* line 99, ../scss/styles.scss */
 .header.hidden {
   transform: translateY(0px);
 }
-/* line 102, ../scss/styles.scss */
+/* line 103, ../scss/styles.scss */
 .header .header-inner {
   position: relative;
   z-index: 1;
@@ -4931,7 +4950,7 @@ body {
   max-width: 1264px;
   margin: 0 auto;
 }
-/* line 110, ../scss/styles.scss */
+/* line 111, ../scss/styles.scss */
 .header .header-inner:after {
   content: '';
   position: relative;
@@ -4948,27 +4967,27 @@ body {
   background: transparent;
 }
 @media only screen and (min-width: 800px) {
-  /* line 102, ../scss/styles.scss */
+  /* line 103, ../scss/styles.scss */
   .header .header-inner {
     padding-left: 240px;
   }
 }
-/* line 133, ../scss/styles.scss */
+/* line 134, ../scss/styles.scss */
 .header.scrolled .header-inner:after {
   -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.125);
 }
-/* line 139, ../scss/styles.scss */
+/* line 140, ../scss/styles.scss */
 .header .header-tabs {
   padding-left: 8pt;
 }
-/* line 142, ../scss/styles.scss */
+/* line 143, ../scss/styles.scss */
 .touch-device .header .header-tabs {
   padding-left: 0;
 }
 
-/* line 148, ../scss/styles.scss */
+/* line 149, ../scss/styles.scss */
 .screen-hint {
   display: none;
   position: fixed;
@@ -4988,7 +5007,7 @@ body {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* line 165, ../scss/styles.scss */
+/* line 166, ../scss/styles.scss */
 footer {
   clear: both;
   *zoom: 1;
