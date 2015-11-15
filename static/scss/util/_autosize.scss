@@ -1,0 +1,14 @@
+.autosize-textarea {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  height: auto;
+  overflow: visible;
+  white-space: pre-wrap;
+
+  &:after {
+    content: ' ';
+    display: inline-block;
+    height: 1em;
+  }
+}
