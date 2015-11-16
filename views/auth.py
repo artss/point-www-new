@@ -17,7 +17,7 @@ from random import randint
 import json
 import urllib2
 from datetime import datetime, timedelta
-from recaptcha.client import captcha
+import recaptcha2
 
 from wwwutil import check_referer, referer
 from wwwutil.links import userlink
@@ -185,39 +185,50 @@ def check_login():
         return Response(ok=1)
 
 @route('/check-email')
-def check_login():
+def check_email():
     user = User('email', env.request.args('value', ''))
     if user.id:
         return Response(error='inuse')
     else:
         return Response(ok=1)
 
-def register():
-    #raise Forbidden
+@route('/register', methods=['GET'])
+def register_get():
     if env.user.id:
         raise AlreadyAuthorized
 
     sess = Session()
     info = sess['reg_info'] or {}
 
-    print 'INFO', info
+    try:
+        del info['network']
+        del info['uid']
+    except (KeyError, TypeError):
+        pass
 
-    if env.request.method == 'GET':
-        try:
-            del info['network']
-            del info['uid']
-        except (KeyError, TypeError):
-            pass
-        sess['reg_info'] = info
-        sess.save()
+    try:
+        info['birthdate'] = parse_date(info['birthdate']) \
+                            or datetime.now() - timedelta(days=365*16+4)
+    except (KeyError, TypeError):
+        info['birthdate'] = None
 
-        try:
-            info['birthdate'] = parse_date(info['birthdate']) \
-                                or datetime.now() - timedelta(days=365*16+4)
-        except (KeyError, TypeError):
-            info['birthdate'] = None
+    return render('/auth/register.html', fields=ULOGIN_FIELDS, info=info)
 
-        return render('/auth/register.html', fields=ULOGIN_FIELDS, info=info)
+@route('/register', methods=['POST'])
+def register_post():
+    if env.user.id:
+        raise AlreadyAuthorized
+
+    sess = Session()
+    info = sess['reg_info'] or {}
+
+    try:
+        del info['network']
+        del info['uid']
+    except (KeyError, TypeError):
+        pass
+    sess['reg_info'] = info
+    sess.save()
 
     try:
         network = info['network'] if 'network' in info else None
@@ -247,24 +258,17 @@ def register():
         errors.append('login-empty')
 
     password = env.request.args('password')
-    confirm = env.request.args('confirm')
     if not (network and uid):
         if not password:
             errors.append('password')
-        elif password != confirm:
-            errors.append('confirm')
 
-    info['birthdate'] = parse_date(info['birthdate']) \
-                            or datetime.now() - timedelta(days=365*16+4)
+    info['birthdate'] = parse_date(info['birthdate'])
 
     if not network and not errors:
         try:
-            text = env.request.args('recaptcha_response_field')
-            challenge = env.request.args('recaptcha_challenge_field')
-
-            resp = captcha.submit(challenge, text,
-                                  settings.recaptcha_private_key,
-                                  env.request.remote_host)
+            resp = recaptcha2.verify(env.request.args('g-recaptcha-request', ''),
+                                     settings.recaptcha_private_key,
+                                     env.request.remote_host)
 
             if not resp.is_valid:
                 errors.append('captcha')
@@ -281,7 +285,7 @@ def register():
         else:
             tmpl = '/auth/register.html'
 
-        return render(tmpl, fields=ULOGIN_FIELDS, info=info, errors=errors)
+        return Response(template=tmpl, fields=ULOGIN_FIELDS, info=info, errors=errors)
 
     users.register(login)
 
