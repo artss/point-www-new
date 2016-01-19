@@ -74,7 +74,7 @@ define(function(require) {
       if (!('ontouchstart' in document.documentElement)) {
         document.body.classList.remove('touch-device');
       } else if (!localStorage.getItem('sidebar-screen-hint')) {
-        //localStorage.setItem('sidebar-screen-hint', 1);
+        localStorage.setItem('sidebar-screen-hint', 1);
         dom.select('.screen-hint').style.display = 'block';
       }
 
