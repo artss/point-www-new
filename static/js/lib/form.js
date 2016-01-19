@@ -316,7 +316,8 @@ define(function(require) {
       }.bind(this))
 
       .catch(function(xhr) {
-        this.trigger('error', xhr.responseJSON.data);
+        var data = xhr.responseJSON && xhr.responseJSON.data ? xhr.responseJSON.data : xhr.data;
+        this.trigger('error', data);
       }.bind(this));
 
       /*.always(function() {
