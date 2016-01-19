@@ -73,10 +73,13 @@ define(function(require) {
 
       if (!('ontouchstart' in document.documentElement)) {
         document.body.classList.remove('touch-device');
+      } else if (!localStorage.getItem('sidebar-screen-hint')) {
+        //localStorage.setItem('sidebar-screen-hint', 1);
+        dom.select('.screen-hint').style.display = 'block';
       }
 
       dom.on(document, 'click', '.js-navigate', function(evt) {
-        var href = this.getAttribute('href');
+        var href = evt.target.getAttribute('href');
 
         var loc = util.parseUrl(href);
 
