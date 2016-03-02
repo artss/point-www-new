@@ -1,40 +1,38 @@
-define(function(require) {
-  'use strict';
+'use strict';
 
-  var Backbone = require('backbone');
-  var _ = require('underscore');
-  var Post = require('post');
-  var Form = require('lib/form');
+import Backbone from 'backbone';
+//import _ from 'lodash';
+//import {PostModel, PostView} from 'post';
+import Form from 'lib/form';
 
-  var PostFormView = Form.View.extend({
-    model: Post.Model,
+export default class PostFormView extends Form.View {
+    // FIXME: model
+    //model: Post.Model,
 
-    events: _.extend({}, Form.View.prototype.events, {
-      'input textarea': 'setValueDelayed',
-      'click .btn-cancel': 'cancel',
-      'change .js-file': 'updateUploads'
-    }),
+    // FIXME: events
+    /*events: _.extend({}, Form.View.prototype.events, {
+        'input textarea': 'setValueDelayed',
+        'click .btn-cancel': 'cancel',
+        'change .js-file': 'updateUploads'
+    }),*/
 
-    cancel: function() {
-      Backbone.trigger('new-post-cancel');
-    },
-
-    updateUploads: function (evt) {
-      var upload = this.$('.upload')[0];
-      var number = this.$('.upload .number')[0];
-
-      var files = evt.target.files;
-
-      if (files.length > 0) {
-        upload.classList.add('positive');
-      } else {
-        upload.classList.remove();
-      }
-
-      number.innerHTML = files.length;
+    cancel() {
+        Backbone.trigger('new-post-cancel');
     }
-  });
 
-  return PostFormView;
-});
+    updateUploads(evt) {
+        var upload = this.$('.upload')[0];
+        var number = this.$('.upload .number')[0];
+
+        var files = evt.target.files;
+
+        if (files.length > 0) {
+            upload.classList.add('positive');
+        } else {
+            upload.classList.remove();
+        }
+
+        number.innerHTML = files.length;
+    }
+}
 

@@ -1,18 +1,12 @@
-/* global define */
+'use strict';
 
-define(function(require) {
-  'use strict';
+import Backbone from 'backbone';
 
-  var Backbone = require('backbone');
-
-  var UserModel = Backbone.Model.extend({
-    initialize: function() {
-      if (this.login) {
-        this.url = '/u/' + this.login;
-      }
+export default class UserModel extends Backbone.Model {
+    initialize() {
+        if (this.login) {
+            this.url = '/u/' + this.login;
+        }
     }
-  });
-
-  return UserModel;
-});
+}
 

@@ -1,12 +1,13 @@
-require(['app', 'backbone', 'backbone.nativeajax', 'backbone-model-file-upload'],
-function (App, Backbone, nativeajax) {
-  'use strict';
+'use strict';
 
-  Backbone.ajax = nativeajax;
+import App from 'app';
+import Backbone from 'backbone';
+import nativeajax from 'backbone.nativeajax';
+import 'backbone-model-file-upload';
 
+Backbone.ajax = nativeajax;
 
-  new App();
+export default new App();
 
-  Backbone.history.start({pushState: true, root: '/'});
-});
+Backbone.history.start({pushState: true, root: '/'});
 

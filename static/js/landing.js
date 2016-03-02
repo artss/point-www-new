@@ -1,12 +1,8 @@
-/* global define */
+'use strict';
 
-define(function(require) {
-  'use strict';
+import Backbone from 'backbone';
+import nativeajax from 'backbone.nativeajax';
+import 'auth/login-register';
 
-  var Backbone = require('backbone');
-  var nativeajax = require('backbone.nativeajax');
-  require('auth/login-register');
-
-  Backbone.ajax = nativeajax;
-});
+Backbone.ajax = nativeajax;
 

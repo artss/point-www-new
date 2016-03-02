@@ -2,6 +2,5 @@
  * Dummy jQuery replacement for Backbone.
  */
 
-/* global define */
-
-define([], function() {return function() {};});
+//define([], function() {return function() {};});
+export default () => {};
