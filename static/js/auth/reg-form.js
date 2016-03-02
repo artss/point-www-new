@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('underscore');
+var _ = require('lodash');
 var Form = require('lib/form');
 var dom = require('lib/dom');
 var request = require('lib/request');

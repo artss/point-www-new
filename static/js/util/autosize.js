@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from 'underscore';
+import _ from 'lodash';
 import dom from 'lib/dom';
 
 var autosizeElem;

@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from 'underscore';
+import _ from 'lodash';
 import Form from 'lib/form';
 
 class LoginModel extends Form.Model {

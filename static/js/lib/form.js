@@ -3,7 +3,7 @@
 define(function(require) {
   'use strict';
 
-  var _ = require('underscore');
+  var _ = require('lodash');
   var BaseModel = require('lib/base-model');
   var BaseView = require('lib/base-view');
   var dom = require('lib/dom');
