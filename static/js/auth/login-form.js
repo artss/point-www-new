@@ -1,27 +1,21 @@
 'use strict';
 
 import _ from 'lodash';
-import Form from 'lib/form';
+import {FormModel, FormView} from 'lib/form';
 
-class LoginModel extends Form.Model {
-    // FIXME: url
-    // url: '/login',
+class LoginModel extends FormModel {
+    get ur() { return '/login'; }
 
-    // FIXME: validation
-    /*validation: {
-        login: [
-            'required',
-            /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i
-        ],
-        password: [
-            'required'
-        ]
-    }*/
+    get validation() {
+        return {
+            login: [ 'required', /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i ],
+            password: [ 'required' ]
+        };
+    }
 }
 
-export default class LoginForm extends Form.View {
-    // FIXME: model
-    //model: LoginModel,
+export default class LoginForm extends FormView {
+    get model() { return LoginModel; }
 
     initialize(options) {
         super.initialize(options);

@@ -1,34 +1,53 @@
+'use strict';
+
 var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
+//var sourcemaps = require('gulp-sourcemaps');
 var babelify = require('babelify');
 var browserify = require('gulp-browserify');
-var aliasify = require('aliasify');
-//var concat = require('gulp-concat');
+//var aliasify = require('aliasify');
+var twigify = require('twigify');
+var minify = require('gulp-minify');
 
 var browserifyOptions = {
-    debug: true,
+    //debug: true,
+
     paths: [
         './js',
         './node_modules'
     ],
+
+    exclude: ['jquery'],
+
+    shim: {
+        underscore: {
+            path: './node_modules/lodash',
+            exports: '_'
+        }
+    },
+
     transform: [
         babelify.configure({
             presets: ['es2015']
         }),
-        aliasify.configure({
+
+        /*aliasify.configure({
             aliases: {
-                underscore: './node_modules/lodash/dist/lodash.underscore.js',
-                jquery: './js/lib/jquery-dummy.js'
+                underscore: './node_modules/lodash/dist/lodash.underscore.js'
             }
+        }),*/
+
+        twigify.configure({
+            extension: /\.(html)$/
         })
     ]
 };
 
 gulp.task('js', function () {
-    return gulp.src(['js/main.js', 'js/landing.js'])
-        .pipe(sourcemaps.init())
+    return gulp.src(['js/main.js'])
+        //.pipe(sourcemaps.init())
         .pipe(browserify(browserifyOptions))
-        .pipe(sourcemaps.write('.'))
+        //.pipe(sourcemaps.write('.'))
+        .pipe(minify())
         .pipe(gulp.dest('dist'));
 });
 

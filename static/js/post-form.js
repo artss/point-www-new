@@ -1,20 +1,22 @@
 'use strict';
 
 import Backbone from 'backbone';
-//import _ from 'lodash';
-//import {PostModel, PostView} from 'post';
-import Form from 'lib/form';
+import _ from 'lodash';
+import {PostModel} from 'post';
+import {FormView} from 'lib/form';
 
-export default class PostFormView extends Form.View {
-    // FIXME: model
-    //model: Post.Model,
+export default class PostFormView extends FormView {
+    get model() { return PostModel; }
 
-    // FIXME: events
-    /*events: _.extend({}, Form.View.prototype.events, {
-        'input textarea': 'setValueDelayed',
-        'click .btn-cancel': 'cancel',
-        'change .js-file': 'updateUploads'
-    }),*/
+    get events() {
+        if (this._events) { return this._events; }
+
+        this._events = _.extend({}, super.events, {
+            'input textarea': 'setValueDelayed',
+            'click .btn-cancel': 'cancel',
+            'change .js-file': 'updateUploads'
+        });
+    }
 
     cancel() {
         Backbone.trigger('new-post-cancel');

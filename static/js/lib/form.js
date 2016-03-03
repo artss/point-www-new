@@ -1,199 +1,198 @@
-/* global define */
+'use strict';
 
-define(function(require) {
-  'use strict';
+import _ from'lodash';
+import BaseModel from 'lib/base-model';
+import BaseView from 'lib/base-view';
+import dom from 'lib/dom';
+import request from 'lib/request';
+import autosize from 'util/autosize';
 
-  var _ = require('lodash');
-  var BaseModel = require('lib/base-model');
-  var BaseView = require('lib/base-view');
-  var dom = require('lib/dom');
-  var request = require('lib/request');
-  var autosize = require('util/autosize');
-
-  /**
-   * RegExp validators generator.
-   *
-   * @param {string} name Validator name.
-   * @param {RegExp} re Regular expression.
-   *
-   * @return {function} Validator function
-   */
-  function matchFn(name, re) {
-    return function(value) {
-      if (!value) { return; }
-      return re.test(value) ? undefined : name;
-    };
-  }
-
-  /**
-   * Base form model.
-   */
-  var FormModel = BaseModel.extend({
-    validation: {},
-
-    validate: function(fields) {
-      if (_.isEmpty(fields)) {
-        fields = this.attributes;
-      }
-
-      if (!this._valid) {
-        this._valid = {};
-      }
-
-      _.each(fields, function(value, field) {
-        this._valid[field] = false;
-
-        if (!_.isArray(this.validation[field])) {
-          this._valid[field] = true;
-          return;
-        }
-
-        var validators = this.validation[field].slice();
-
-        var chain = function() {
-          if (_.isEmpty(validators)) {
-            // validation done; all is correct
-            this._valid[field] = true;
-            this.trigger('validated', field, true);
+/**
+ * RegExp validators generator.
+ *
+ * @param {string} name Validator name.
+ * @param {RegExp} re Regular expression.
+ *
+ * @return {function} Validator function
+ */
+function matchFn(name, re) {
+    return value => {
+        if (!value) {
             return;
-          }
-
-          var validator = validators.shift();
-
-          if (_.isString(validator)) {
-            validator = FormModel.validators[validator];
-
-          } else if (_.isRegExp(validator)) {
-            validator = matchFn('match', validator);
-          }
-
-          if (_.isFunction(validator)) {
-            var res = validator.call(this, value);
-
-            if (res && res.then) { // Promise
-              res.then(chain);
-              res.catch(function(message) {
-                this.trigger('validated', field, false, message);
-              }.bind(this));
-            } else if (res) {
-              this.trigger('validated', field, false, res);
-            } else {
-              chain();
-            }
-          }
-        }.bind(this);
-
-        chain();
-      }, this);
-    },
-
-    isValid: function() {
-      if (typeof this._valid === 'undefined') {
-        this.validate();
-      }
-
-      return !_.some(_.values(this._valid), function(v) { return !v; });
-    },
-
-    save: function() {
-      var formData = new FormData();
-
-      _.each(this.toJSON(), function(value, key) {
-        if (_.isArray(value) || value instanceof FileList) {
-          _.each(value, function(val) {
-            formData.append(key, val);
-          });
-        } else {
-          formData.append(key, value);
         }
-      });
+        return re.test(value) ? undefined : name;
+    };
+}
 
-      var method, url;
+/**
+ * Base form model.
+ */
+export class FormModel extends BaseModel {
+    get validation() { return {}; }
 
-      if (this.id) {
-        method = 'PUT';
-        url = this.url + '/' + this.id;
-      } else {
-        method = 'POST';
-        url = this.url;
-      }
+    validate(fields) {
+        if (_.isEmpty(fields)) {
+            fields = this.attributes;
+        }
 
-      return request(method, url, formData);
+        if (!this._valid) {
+            this._valid = {};
+        }
+
+        _.each(fields, (value, field) => {
+            this._valid[field] = false;
+
+            if (!_.isArray(this.validation[field])) {
+                this._valid[field] = true;
+                return;
+            }
+
+            var validators = this.validation[field].slice();
+
+            var chain = () => {
+                if (_.isEmpty(validators)) {
+                    // validation done; all is correct
+                    this._valid[field] = true;
+                    this.trigger('validated', field, true);
+                    return;
+                }
+
+                var validator = validators.shift();
+
+                if (_.isString(validator)) {
+                    validator = FormModel.validators[validator];
+                } else if (_.isRegExp(validator)) {
+                    validator = matchFn('match', validator);
+                }
+
+                if (_.isFunction(validator)) {
+                    var res = validator.call(this, value);
+
+                    if (res && res.then) { // Promise
+                        res.then(chain);
+                        res.catch(message => this.trigger('validated', field, false, message));
+                    } else if (res) {
+                        this.trigger('validated', field, false, res);
+                    } else {
+                        chain();
+                    }
+                }
+            };
+
+            chain();
+        }, this);
     }
-  });
 
-  FormModel.validators = {
-    required: function(value) {
-      if (!value) {
-        return 'required';
-      }
+    isValid() {
+        if (typeof this._valid === 'undefined') {
+            this.validate();
+        }
+
+        return !_.some(_.values(this._valid), v => !v);
+    }
+
+    save() {
+        var formData = new FormData();
+
+        _.each(this.toJSON(), (value, key) => {
+            if (_.isArray(value) || value instanceof FileList) {
+                _.each(value, val => formData.append(key, val));
+            } else {
+                formData.append(key, value);
+            }
+        });
+
+        var method, url;
+
+        if (this.id) {
+            method = 'PUT';
+            url = this.url + '/' + this.id;
+        } else {
+            method = 'POST';
+            url = this.url;
+        }
+
+        return request(method, url, formData);
+    }
+}
+
+console.log(FormModel.validators);
+FormModel.validators = {
+    required: function (value) {
+        if (!value) {
+            return 'required';
+        }
     },
 
     integer: matchFn('integer', /^\d+$/),
     email: matchFn('email', /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i),
     url: matchFn('url', /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i)
-  };
+};
 
-  /**
-   * Base form view.
-   */
-  var FormView = BaseView.extend({
-    model: FormModel,
+/**
+ * Base form view.
+ */
+export class FormView extends BaseView {
+    get model() { return FormModel; }
 
-    events: {
-      'submit': 'submit',
-      'change': 'setValue',
-      'input input': 'setValueDelayed'
-    },
+    get events() {
+        return {
+            'submit': 'submit',
+            'change': 'setValue',
+            'input input': 'setValueDelayed'
+        };
+    }
 
-    initialize: function(options) {
-      if (!options.model) {
-        this.model = new this.model();
-      }
-
-      BaseView.prototype.initialize.call(this, options);
-
-      this.listenTo(this.model, {
-        'validated': this.setValidation
-      });
-
-      if (options.el) {
-        this.render();
-      }
-    },
-
-    render: function() {
-      this.model.set(_.reduce(this.el.elements, function(memo, f) {
-        if (f.name) {
-          memo[f.name] = f.value;
+    initialize(options) {
+        if (!options.model) {
+            /* eslint-disable new-cap */
+            this.model = new this.model();
+            /* eslint-enable new-cap */
         }
-        return memo;
-      }, {}));
-      this.submit = this.$('.js-submit')[0];
 
-      autosize(this.$('.js-autosize'));
-    },
+        super.initialize(options);
+
+        this.listenTo(this.model, {
+            'validated': this.setValidation
+        });
+
+        if (options.el) {
+            this.render();
+        }
+    }
+
+    render() {
+        this.model.set(_.reduce(this.el.elements, (memo, f) => {
+            if (f.name) {
+                memo[f.name] = f.value;
+            }
+            return memo;
+        }, {}));
+        this.submit = this.$('.js-submit')[0];
+
+        autosize(this.$('.js-autosize'));
+    }
 
     /**
      * Sets focus to the passed field.
      *
      * @param {string|HTMLElement} field Field name or element.
      */
-    focus: function(field) {
-      if (_.isString(field)) {
-        field = this.getField(field);
-      }
-      field.focus();
-    },
+    focus(field) {
+        if (_.isString(field)) {
+            field = this.getField(field);
+        }
+        field.focus();
+    }
 
     /**
      * Returns form field by name.
      *
      * @param {string} name Field name.
      */
-    getField: function(name) {
-      return this.$('[name="' + name + '"]')[0];
-    },
+    getField(name) {
+        return this.$('[name="' + name + '"]')[0];
+    }
 
     /**
      * Updates value in model.
@@ -202,41 +201,41 @@ define(function(require) {
      *
      * @returns {HTMLElement} Field element.
      */
-    setValue: function(evt) {
-      window._m = this;
-      var field = _.isString(evt) ? this.getField(evt) : evt.target;
+    setValue(evt) {
+        //window._m = this;
+        var field = _.isString(evt) ? this.getField(evt) : evt.target;
 
-      var obj = {};
-      obj[field.getAttribute('name')] = field.files ? field.files : field.value;
+        var obj = {};
+        obj[field.getAttribute('name')] = field.files ? field.files : field.value;
 
-      this.model.set(obj);
-      this.model.validate(obj);
+        this.model.set(obj);
+        this.model.validate(obj);
 
-      return field;
-    },
+        return field;
+    }
 
     /**
      * Debounced setValue
      */
-    setValueDelayed: _.debounce(function() {
-      this.setValue.apply(this, arguments);
-    }, 400),
+    get setValueDelayed() {
+        return _.debounce(() => this.setValue.apply(this, arguments), 400);
+    }
 
     /**
      * Updates submit button status.
      *
      * @param {bool} valid Status.
      */
-    updateButton: function(valid) {
-      if (!this.submit || this.submit.classList.contains('loading')) {
-        return;
-      }
+    updateButton(valid) {
+        if (!this.submit || this.submit.classList.contains('loading')) {
+            return;
+        }
 
-      if (typeof valid === 'undefined') {
-        valid = this.model.isValid();
-      }
-      this.submit.disabled = !valid;
-    },
+        if (typeof valid === 'undefined') {
+            valid = this.model.isValid();
+        }
+        this.submit.disabled = !valid;
+    }
 
     /**
      * Sets field valid|invalid.
@@ -245,101 +244,89 @@ define(function(require) {
      * @param {bool} valid Status.
      * @param {string} [message] Error desciption.
      */
-    setValidation: function(field, valid, message) {
-      if (_.isString(field)) {
-        field = this.getField(field);
-      }
-      var container = dom.closest(field, '.js-input-container');
-      if (!container) {
-        container = field;
-      }
-
-      if (!valid) {
-        var errdata = field.getAttribute('data-error');
-        try {
-          errdata = JSON.parse(errdata);
-        } catch(e) {}
-        var error;
-
-        if (message) {
-          error = _.isObject(errdata) ? errdata[message] || message : message;
+    setValidation(field, valid, message) {
+        if (_.isString(field)) {
+            field = this.getField(field);
+        }
+        var container = dom.closest(field, '.js-input-container');
+        if (!container) {
+            container = field;
         }
 
-        if (!error) {
-          error = _.isObject(errdata) ? errdata['default'] : errdata;
+        if (!valid) {
+            var errdata = field.getAttribute('data-error');
+            try {
+                errdata = JSON.parse(errdata);
+            } catch (e) {}
+            var error;
+
+            if (message) {
+                error = _.isObject(errdata) ? errdata[message] || message : message;
+            }
+
+            if (!error) {
+                error = _.isObject(errdata) ? errdata['default'] : errdata;
+            }
+
+            var label = dom.select(container, '.js-input-error-label');
+
+            if (label) {
+                label.innerHTML = error;
+            }
+
+            field.focus();
         }
 
-        var label = dom.select(container, '.js-input-error-label');
-
-        if (label) {
-          label.innerHTML = error;
+        if (valid) {
+            container.classList.remove('error');
+        } else {
+            container.classList.add('error');
         }
 
-        field.focus();
-      }
-
-      if (valid) {
-        container.classList.remove('error');
-      } else {
-        container.classList.add('error');
-      }
-
-      this.updateButton();
-    },
+        this.updateButton();
+    }
 
     /**
      * Submits form.
      */
-    submit: function(evt) {
-      if (evt) {
-        evt.preventDefault();
-      }
+    submit(evt) {
+        if (evt) {
+            evt.preventDefault();
+        }
 
-      this.model.validate();
-      if (!this.model.isValid()) {
-        return;
-      }
+        this.model.validate();
+        if (!this.model.isValid()) {
+            return;
+        }
 
-      _.each(this.el.elements, function(el) {
-        el.disabled = true;
-      });
-      this.submit.classList.add('loading');
+        _.each(this.el.elements, el => el.disabled = true);
+        this.submit.classList.add('loading');
 
-      /*request(
-        (this.el.method || 'GET').toUpperCase(),
-        this.el.action,
-        this.model.toJSON()
-      )*/
-      this.model.save()
-      .then(function(data) {
-        this.trigger('success', data.data);
-      }.bind(this))
+        /*request(
+          (this.el.method || 'GET').toUpperCase(),
+          this.el.action,
+          this.model.toJSON()
+        )*/
+        this.model.save()
+            .then(data => this.trigger('success', data.data))
 
-      .catch(function(xhr) {
-        var data = xhr.responseJSON && xhr.responseJSON.data ? xhr.responseJSON.data : xhr.data;
-        this.trigger('error', data);
-      }.bind(this));
+        .catch(xhr => {
+            var data = xhr.responseJSON && xhr.responseJSON.data ? xhr.responseJSON.data : xhr.data;
+            this.trigger('error', data);
+        });
 
-      /*.always(function() {
-        this.$(':input').prop('disabled', false);
-        this.$submit.removeClass('loading');
-      }.bind(this))*/
-    },
-
-    destroy: function() {
-      this.stopListening(this.model);
-      this.model.destroy();
-      delete this.model;
-
-      BaseView.prototype.destroy.apply(this, arguments);
+        /*.always(function() {
+          this.$(':input').prop('disabled', false);
+          this.$submit.removeClass('loading');
+        }.bind(this))*/
     }
-  });
 
+    destroy() {
+        this.stopListening(this.model);
+        this.model.destroy();
+        delete this.model;
 
-
-  return {
-    Model: FormModel,
-    View: FormView
-  };
-});
+        super.destroy();
+    }
+}
 

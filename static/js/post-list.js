@@ -6,7 +6,7 @@ import request from 'lib/request';
 import dom from 'lib/dom';
 import util from 'util/util';
 
-import postsPageTemplate from 'tpl!/pages/_posts-page.html';
+import postsPageTemplate from '../../templates/pages/_posts-page.html';
 
 export default class PostListView extends BaseView {
     initialize(options) {
@@ -37,10 +37,11 @@ export default class PostListView extends BaseView {
         this.on('rendered', this.onRender);
     }
 
-    // FIXME: events
-    /*events: {
-        'click .js-more': 'loadNext'
-    },*/
+    get events() {
+        return {
+            'click .js-more': 'loadNext'
+        };
+    }
 
     onRender() {
         if (_.isEmpty(this.data)) {

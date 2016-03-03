@@ -1,36 +1,34 @@
 'use strict';
 
 import BaseView from 'lib/base-view';
-import Form from 'lib/form';
+import {FormModel} from 'lib/form';
 
-export class PostModel extends Form.Model {
-    // FIXME: defaults
-    /*defaults: {
-        tags: '',
-        text: '',
-        file: [],
-        private: false
-    },*/
+export class PostModel extends FormModel {
+    get defaults() {
+        return {
+            tags: '',
+            text: '',
+            file: [],
+            private: false
+        };
+    }
 
-    // FIXME: url
-    /*url: '/p',*/
+    get url() { return '/p'; }
 
     initialize() {
         super.initialize(arguments);
         console.log('PostModel', this, arguments);
     }
 
-    // FIXME: validation
-    /*validation: {
-        text: [
-            'required'
-        ]
-    }*/
+    get validation() {
+        return {
+            text: ['required']
+        };
+    }
 }
 
 export class PostView extends BaseView {
-    // FIXME: className
-    //className: 'post-view',
+    get className() { return 'post-view'; }
 
     initialize(options) {
         super.initialize(options);

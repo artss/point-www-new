@@ -13,7 +13,7 @@
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-    <script type="text/javascript">
+    <script>
       var env = {
         user: {
           id: {{ env.user.id|json|safe }},
@@ -29,8 +29,6 @@
         debug: {{ settings.debug|json }}
       };
     </script>
-    <script type="text/javascript" src="/bower_components/requirejs/require.js" data-main="js/main"></script>
-    <script type="text/javascript" src="/js/config.js"></script>
   </head>
   <body class="touch-device">
     <div class="main js-main" data-loader="Загрузка...">
@@ -110,7 +108,7 @@
           </div>
 
           {% set recaptcha_theme="light" %}
-          {% include "/auth/_login-form.html" with context %}
+          {% include "./auth/_login-form.html" with context %}
         </div>
         {% endif %}
 
@@ -148,6 +146,8 @@
         </div>
       </div>
     </div>
+
+    <script src="/dist/main{% if not settings.debug %}-min{% endif %}.js"></script>
   </body>
 </html>
 

@@ -72,10 +72,11 @@ export default class SidebarView extends BaseView {
         dom.on(dom.select('.sidebar-handle'), 'click', this.toggle.bind(this));
     }
 
-    // FIXME: events
-    /*events: {
-        'click .btn-newpost': 'newPost'
-    }*/
+    get events() {
+        return {
+            'click .btn-newpost': 'newPost'
+        };
+    }
 
     toggle(state) {
         if (typeof state === 'undefined') {

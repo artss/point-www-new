@@ -1,5 +1,6 @@
+{% extends "../base.html" %}
 <div class="posts-page js-page" data-page="{{ page }}">
   {% for p in posts %}
-    {% include "/pages/_post.html" %}
+    {% include "./_post.html" %}
   {% endfor %}
 </div>

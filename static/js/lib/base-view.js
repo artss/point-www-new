@@ -7,8 +7,7 @@ import dom from 'lib/dom';
 import Promise from 'lib/promise';
 
 export default class BaseView extends Backbone.NativeView {
-    // FIXME: className
-    //className: '',
+    get className() { return ''; }
 
     initialize(options) {
         //Backbone.NativeView.prototype.initialize.call(this, options);

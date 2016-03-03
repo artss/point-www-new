@@ -1,9 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
-var Form = require('lib/form');
-var dom = require('lib/dom');
-var request = require('lib/request');
+import _ from 'lodash';
+import {FormModel, FormView} from 'lib/form';
+import dom from 'lib/dom';
+import request from 'lib/request';
 
 var validators = {};
 
@@ -44,46 +44,48 @@ _.each(['login', 'email'], function (name) {
 /**
  * Registration form model.
  */
-class RegModel extends Form.Model {
-    // FIXME: url
-    //url: '/register',
+class RegModel extends FormModel {
+    get url() { return '/register'; }
 
-    // FIXME: validation
-    /*validation: {
-        login: [
-            'required',
-            /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i,
-            validators.login
-        ],
-        password: [
-            'required',
-            /^.{6,}/
-        ],
-        email: [
-            'required',
-            'email',
-            validators.email
-        ],
-        'g-recaptcha-response': [
-            'required'
-        ]
-    }*/
+    get validation() {
+        return {
+            login: [
+                'required',
+                /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i,
+                validators.login
+            ],
+            password: [
+                'required',
+                /^.{6,}/
+            ],
+            email: [
+                'required',
+                'email',
+                validators.email
+            ],
+            'g-recaptcha-response': [
+                'required'
+            ]
+        };
+    }
 }
 
 /**
  * Registration form view.
  */
-export default class RegForm extends Form.View {
-    // FIXME: model
-    //model: RegModel,
+export default class RegForm extends FormView {
+    get model() { return RegModel; }
 
-    // FIXME: events
-    /*events: _.extend({}, Form.View.prototype.events, {
-        'click .js-show-password': function (evt) {
-            console.log(dom.closest(evt.target, '.js-input-container'));
-            dom.closest(evt.target, '.js-input-container').classList.toggle('show-password');
-        }
-    }),*/
+    get events() {
+        if (this._events) { return this._events; }
+
+        this._events = _.extend({}, super.events, {
+            'click .js-show-password': evt => {
+                console.log(dom.closest(evt.target, '.js-input-container'));
+                dom.closest(evt.target, '.js-input-container').classList.toggle('show-password');
+            }
+        });
+    }
 
     render() {
         //Form.View.prototype.render.call(this);
