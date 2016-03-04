@@ -33,12 +33,12 @@ export default function request(method, url, params, options) {
         _.each(options.headers, (value, key) => xhr.setRequestHeader(key, value));
     }
 
-    var promise = new Promise(function (resolve, reject) {
+    var promise = new Promise((resolve, reject) => {
         function throwError() {
             reject(parseJson(this.responseText));
         }
 
-        xhr.onload = function () {
+        xhr.onload = () => {
             if (xhr.status >= 200 && xhr.status < 400) {
                 resolve(parseJson(xhr.responseText));
             } else {
@@ -62,7 +62,7 @@ export default function request(method, url, params, options) {
 /**
  * Serialize params
  */
-request.params = function (params) {
+request.params = (params) => {
     return params.map((value, key) => {
         if (!_.isArray(value)) {
             value = [value];

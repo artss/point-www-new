@@ -87,7 +87,6 @@ export default class RegForm extends FormView {
     }
 
     render() {
-        //Form.View.prototype.render.call(this);
         super.render();
 
         window._m = this.model;
@@ -110,7 +109,6 @@ export default class RegForm extends FormView {
     }
 
     setValue(evt) {
-        //var field = Form.View.prototype.setValue.call(this, evt);
         var field = super.setValue(evt);
 
         if (field.getAttribute('name') !== 'password') {
@@ -125,7 +123,6 @@ export default class RegForm extends FormView {
     submit(evt) {
         this.setValue('g-recaptcha-response');
 
-        //Form.View.prototype.submit.call(this, evt);
         super.submit(evt);
     }
 
@@ -133,7 +130,6 @@ export default class RegForm extends FormView {
         delete window[this.recaptcha.getAttribute('data-callback')];
         delete window[this.recaptcha.getAttribute('data-expired-callback')];
 
-        //Form.View.prototype.destroy.apply(this, arguments);
         super.destroy();
     }
 }

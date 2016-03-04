@@ -26,41 +26,27 @@ export default class App extends Backbone.Router {
         super(options);
 
         this.routes = {
-            'recent(/unread)(/:page)(/)': function () {
-                return this.postsList('/recent(/unread)?');
-            },
+            'recent(/unread)(/:page)(/)': () => this.postsList('/recent(/unread)?'),
 
             'u/:login/info(/)': 'pageView',
 
             'profile(/:section)(/)': 'pageView',
 
-            'u/:login(/:page)(/)': function () {
-                return this.postsList('/u/[a-zA-Z0-9]+');
-            },
+            'u/:login(/:page)(/)': () => this.postsList('/u/[a-zA-Z0-9]+'),
 
-            'comments(/unread)(/:page)(/)': function () {
-                return this.postsList('/comments(/unread)?');
-            },
+            'comments(/unread)(/:page)(/)': () => this.postsList('/comments(/unread)?'),
 
-            'messages(/:page)(/)': function () {
-                return this.postsList('/messages');
-            },
-            'messages/unread(/:page)(/)': function () {
-                return this.postsList('/messages/unread');
-            },
-            'messages/incoming(/:page)(/)': function () {
-                return this.postsList('/messages/incoming');
-            },
-            'messages/outgoing(/:page)(/)': function () {
-                return this.postsList('/messages/outgoing');
-            },
-            'bookmarks(/:page)(/)': function () {
-                return this.postsList('/bookmarks');
-            },
+            'messages(/:page)(/)': () => this.postsList('/messages'),
 
-            'bookmarks/:page(/)': function () {
-                return this.postsList(/\/bookmarks/);
-            },
+            'messages/unread(/:page)(/)': () => this.postsList('/messages/unread'),
+
+            'messages/incoming(/:page)(/)': () => this.postsList('/messages/incoming'),
+
+            'messages/outgoing(/:page)(/)': () => this.postsList('/messages/outgoing'),
+
+            'bookmarks(/:page)(/)': () => this.postsList('/bookmarks'),
+
+            'bookmarks/:page(/)': () => this.postsList(/\/bookmarks/),
 
             'p/:post': 'postView'
         };
@@ -148,7 +134,7 @@ export default class App extends Backbone.Router {
             this._request = new Promise(resolve => resolve(data));
         }
 
-        this._request.then(function (resp) {
+        this._request.then(resp => {
             if (this._currentView) {
                 this._currentView.el.remove();
                 this._currentView.destroy();
@@ -168,22 +154,25 @@ export default class App extends Backbone.Router {
             }));
 
             this._currentView.render().then(
-                function () {
+                () => {
                     //content.insertAdjacentElement('afterBegin', el);
                     content.insertBefore(el, footer);
                     this._currentView.trigger('rendered');
 
                     mainDiv.classList.remove('loading');
-                }.bind(this),
-                function () {}
+                },
+                () => {
+                    console.log('err', arguments);
+                }
             );
 
             delete this._request;
-        }.bind(this))
-        .catch(function (resp, status) {
-            this.loadView(ErrorView, resp);
+        })
+        .catch((resp, status) => {
+            console.log('this.loadView(ErrorView, resp)', status);
+            console.dir(resp);
             mainDiv.classList.remove('loading');
-        }.bind(this));
+        });
     }
 
     postsList(urlPattern) {

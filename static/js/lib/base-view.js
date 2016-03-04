@@ -1,16 +1,18 @@
 'use strict';
 
 import Backbone from 'backbone';
-import 'backbone.nativeview';
+import NativeView from 'backbone.nativeview';
 import _ from 'lodash';
 import dom from 'lib/dom';
 import Promise from 'lib/promise';
 
-export default class BaseView extends Backbone.NativeView {
-    get className() { return ''; }
+window.Backbone = Backbone;
+
+export default class BaseView extends NativeView {
+    get className() { return this._className || ''; }
+    set className(className) { this._className = className; }
 
     initialize(options) {
-        //Backbone.NativeView.prototype.initialize.call(this, options);
         super.initialize(options);
 
         this.app = options.app;
@@ -33,22 +35,20 @@ export default class BaseView extends Backbone.NativeView {
     }
 
     render() {
-        var self = this;
-
         if (_.isArray(this.template)) {
             this.template = this.template[0];
         }
 
         // FIXME: rewrite without requirejs!
-        return new Promise(function (resolve, reject) {
-            require(['tpl!' + self.template], function (template) {
-                if (!self.urlPattern.test(location.pathname)) {
+        return new Promise((resolve, reject) => {
+            //require(['tpl!' + self.template], function (template) {
+                if (!this.urlPattern.test(location.pathname)) {
                     reject();
                     return;
                 }
-                dom.append(self.el, template(self.data));
+                dom.append(this.el, JSON.stringify(this.data));
                 resolve();
-            });
+            //});
         });
     }
 
@@ -144,8 +144,7 @@ export default class BaseView extends Backbone.NativeView {
     destroy() {
         this.undelegateEvents();
         dom.off(this.content, 'scroll', this._headerScrollHandler);
-        //Backbone.NativeView.prototype.remove.call(this);
-        super.destroy();
+        this.remove();
     }
 };
 

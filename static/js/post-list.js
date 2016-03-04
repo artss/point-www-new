@@ -10,7 +10,6 @@ import postsPageTemplate from '../../templates/pages/_posts-page.html';
 
 export default class PostListView extends BaseView {
     initialize(options) {
-        //BaseView.prototype.initialize.call(this, options);
         super.initialize(options);
 
         this.content = dom.select('.content');
@@ -98,12 +97,6 @@ export default class PostListView extends BaseView {
         pager.classList.toggle('hidden', !has_next);
 
         pager.setAttribute('href', this.pageLink(page + 1));
-    }
-
-    destroy() {
-        //BaseView.prototype.destroy.apply(this, arguments);
-        super.destroy();
-        dom.off(this.content, 'scroll', this._postsScrollHandler);
     }
 }
 
