@@ -15,9 +15,8 @@ export class PostModel extends FormModel {
 
     get url() { return '/p'; }
 
-    initialize() {
-        super.initialize(arguments);
-        console.log('PostModel', this, arguments);
+    initialize(attributes, options) {
+        super.initialize(attributes, options);
     }
 
     get validation() {

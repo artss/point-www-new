@@ -14,7 +14,8 @@ export default class PostFormView extends FormView {
         this._events = _.extend({}, super.events, {
             'input textarea': 'setValueDelayed',
             'click .btn-cancel': 'cancel',
-            'change .js-file': 'updateUploads'
+            'change .js-file': 'updateUploads',
+            'keyup textarea': 'handleHotkeys'
         });
 
         return this._events;
@@ -22,6 +23,18 @@ export default class PostFormView extends FormView {
 
     cancel() {
         Backbone.trigger('new-post-cancel');
+    }
+
+    handleHotkeys(evt) {
+        switch (evt.keyCode) {
+            case 13:
+                if (evt.ctrlKey) { this.submit(); }
+                break;
+
+            case 27:
+                this.cancel();
+                break;
+        }
     }
 
     updateUploads(evt) {

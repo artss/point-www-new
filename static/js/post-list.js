@@ -18,9 +18,9 @@ export default class PostListView extends BaseView {
         this._postsScrollHandler = _.throttle(() => {
             var ch = this.content.offsetHeight;
 
-            _.each(this.$('.js-page'), function (page) {
+            _.each(this.$('.js-page'), page => {
                 var pagenum = parseInt(page.getAttribute('data-page'), 10) || 1;
-                var pos = page.offsetTop - self.content.scrollTop;
+                var pos = page.offsetTop - this.content.scrollTop;
 
                 if (pos >= 0 && pos < ch) {
                     this.app.navigate(this.pageLink(pagenum), {
@@ -76,7 +76,6 @@ export default class PostListView extends BaseView {
                 } else {
                     pager.classList.remove('hidden');
                 }
-                //console.log(arguments);
             });
     }
 

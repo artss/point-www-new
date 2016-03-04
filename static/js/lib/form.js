@@ -176,7 +176,7 @@ export class FormView extends BaseView {
             }
             return memo;
         }, {}));
-        this.submit = this.$('.js-submit')[0];
+        this.submitButton = this.$('.js-submit')[0];
 
         autosize(this.$('.js-autosize'));
     }
@@ -226,7 +226,7 @@ export class FormView extends BaseView {
      * Debounced setValue
      */
     get setValueDelayed() {
-        return _.debounce(() => this.setValue.apply(this, arguments), 400);
+        return _.debounce((evt) => this.setValue(evt), 400);
     }
 
     /**
@@ -235,14 +235,14 @@ export class FormView extends BaseView {
      * @param {bool} valid Status.
      */
     updateButton(valid) {
-        if (!this.submit || this.submit.classList.contains('loading')) {
+        if (!this.submitButton || this.submitButton.classList.contains('loading')) {
             return;
         }
 
         if (typeof valid === 'undefined') {
             valid = this.model.isValid();
         }
-        this.submit.disabled = !valid;
+        this.submitButton.disabled = !valid;
     }
 
     /**
@@ -308,7 +308,7 @@ export class FormView extends BaseView {
         }
 
         _.each(this.el.elements, el => { el.disabled = true; });
-        this.submit.classList.add('loading');
+        this.submitButton.classList.add('loading');
 
         /*request(
           (this.el.method || 'GET').toUpperCase(),
@@ -325,7 +325,7 @@ export class FormView extends BaseView {
 
         /*.always(function() {
           this.$(':input').prop('disabled', false);
-          this.$submit.removeClass('loading');
+          this.$submitButton.removeClass('loading');
         }.bind(this))*/
     }
 

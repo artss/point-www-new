@@ -81,7 +81,6 @@ export default class RegForm extends FormView {
 
         this._events = _.extend({}, super.events, {
             'click .js-show-password': evt => {
-                console.log(dom.closest(evt.target, '.js-input-container'));
                 dom.closest(evt.target, '.js-input-container').classList.toggle('show-password');
             }
         });

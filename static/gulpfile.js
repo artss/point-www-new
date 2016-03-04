@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var babelify = require('babelify');
 var browserify = require('gulp-browserify');
-//var aliasify = require('aliasify');
+var aliasify = require('aliasify');
 var twigify = require('twigify');
 var minify = require('gulp-minify');
 
@@ -29,14 +29,17 @@ var browserifyOptions = {
             presets: ['es2015']
         }),
 
-        /*aliasify.configure({
-            aliases: {
-                underscore: './node_modules/lodash/dist/lodash.underscore.js'
-            }
-        }),*/
-
         twigify.configure({
             extension: /\.(html)$/
+        }),
+
+        aliasify.configure({
+            aliases: {
+                //underscore: './node_modules/lodash/dist/lodash.underscore.js'
+            },
+            replacements: {
+                '\\/base\\.html': '../templates/_base.html'
+            }
         })
     ]
 };

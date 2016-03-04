@@ -181,8 +181,6 @@ export default class App extends Backbone.Router {
             delete this._request;
         }.bind(this))
         .catch(function (resp, status) {
-            //console.log('catch', resp, status);
-
             this.loadView(ErrorView, resp);
             mainDiv.classList.remove('loading');
         }.bind(this));
@@ -197,7 +195,6 @@ export default class App extends Backbone.Router {
     }
 
     pageView() {
-        //console.log('+ pageView');
         this.loadView(BaseView, location.href);
     }
 }

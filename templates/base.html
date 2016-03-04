@@ -1,153 +1,163 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Point.im</title>
 
-    <link rel="icon" href="/img/favicon.png"/>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+    <link rel="icon" href="/img/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 
-    <meta name="MobileOptimized" content="176"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="MobileOptimized" content="176" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <script>
-      var env = {
-        user: {
-          id: {{ env.user.id|json|safe }},
-          login: {{ env.user.login|json|safe }},
-          name: {{ env.user.name|json|safe }},
-          info: {{ env.user.info|json|safe }}
-        }
-      };
+        var env = {
+            user: {
+                id: {{ env.user.id | json | safe }},
+                login: {{ env.user.login | json | safe }},
+                name: {{ env.user.name | json | safe }},
+                info: {{ env.user.info | json | safe }}
+            },
+            fe: true
+        };
 
-      var settings = {
-        domain: '{{ settings.domain }}',
-        avatars_root: '{{ settings.avatars_root }}',
-        debug: {{ settings.debug|json }}
-      };
+        var settings = {
+            domain: '{{ settings.domain }}',
+            avatars_root: '{{ settings.avatars_root }}',
+            debug: {{ settings.debug | json }}
+        };
     </script>
-  </head>
-  <body class="touch-device">
+</head>
+
+<body class="touch-device">
     <div class="main js-main" data-loader="Загрузка...">
-      {% if env.user.id %}
-      <div class="popup-container">
-        <div class="popup popup-newpost">
-          <form action="/post" method="post" enctype="multipart/form-data">
-            <div class="row header-row">
-              <label class="private-label">
+        {% if env.user.id %}
+        <div class="popup-container">
+            <div class="popup popup-newpost">
+                <form action="/post" method="post" enctype="multipart/form-data">
+                    <div class="row header-row">
+                        <label class="private-label">
                 <input type="checkbox" name="private"/>
                 <div class="label"><span>Приватный<span></div>
               </label>
-              <h3>Новый пост</h3>
+                        <h3>Новый пост</h3>
+                    </div>
+                    <div class="row tags-row">
+                        <textarea class="js-autosize" id="tags-input" name="tags" placeholder="Теги"></textarea>
+                    </div>
+                    <div class="row text-row">
+                        <textarea class="js-autosize" id="text-input" name="text" placeholder="Текст"></textarea>
+                    </div>
+                    <div class="row buttons-row">
+                        <div class="upload">
+                            <input type="file" class="js-file" multiple="multiple" name="file" />
+                            <span class="number">0</span>
+                        </div>
+                        <div class="buttons">
+                            <input type="button" class="btn btn-cancel js-cancel" value="Отмена" />
+                            <input type="submit" class="btn js-submit" value="Отправить" disabled/>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="row tags-row">
-              <textarea class="js-autosize" id="tags-input" name="tags" placeholder="Теги"></textarea>
-            </div>
-            <div class="row text-row">
-              <textarea class="js-autosize" id="text-input" name="text" placeholder="Текст"></textarea>
-            </div>
-            <div class="row buttons-row">
-              <div class="upload">
-                <input type="file" class="js-file" multiple="multiple" name="file"/>
-                <span class="number">0</span>
-              </div>
-              <div class="buttons">
-                <input type="button" class="btn btn-cancel js-cancel" value="Отмена"/>
-                <input type="submit" class="btn js-submit" value="Отправить"/>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      {% endif %}
-      <div class="screen-hint">Потяните за левый край экрана, чтобы открыть меню.</div>
-      <div class="main-inner">
-
-        {% if env.user.id %}
-        <div class="sidebar">
-          <div class="clearfix">
-            <div class="logo js-navigate">
-              <!--[if IE]>
-              <img src="/img/logo.png" alt="Point.im"/>
-              <![endif]-->
-              <!--[if !IE]> -->
-              <img src="/img/logo.svg" alt="Point.im"/>
-              <!-- <![endif]-->
-            </div>
-            <a class="btn-newpost js-new-post" title="Написать"></a>
-          </div>
-
-          <div class="menu">
-            <a class="menu-item recent {% if menu == 'recent' %}active{% endif %} js-navigate" href="/recent">Лента</a>
-            <a class="menu-item blog {% if menu == 'blog' %}active{% endif %} js-navigate" href="/u/{{ env.user.login }}">Блог</a>
-            <a class="menu-item comments {% if menu == 'comments' %}active{% endif %} js-navigate" href="/comments">Комментарии</a>
-            <a class="menu-item messages {% if menu == 'messages' %}active{% endif %} js-navigate" href="/messages">Сообщения</a>
-            <a class="menu-item bookmarks {% if menu == 'bookmarks' %}active{% endif %} js-navigate" href="/bookmarks">Закладки</a>
-            <a class="menu-item search {% if menu == 'search' %}active{% endif %} js-navigate" href="/search">Поиск</a>
-          </div>
-
-          <div class="menu profile-menu">
-            <a class="profile js-navigate" href="/profile">Профиль</a>
-            <a class="logout" href="/logout">Выйти</a>
-          </div>
-        </div>
-        {% else %}
-        <div class="sidebar">
-          <div class="clearfix">
-            <a href="/" class="logo js-navigate">
-              <!--[if IE]>
-              <img src="img/logo.png" alt="Point.im"/>
-              <![endif]-->
-              <!--[if !IE]> -->
-              <img src="/img/logo.svg" alt="Point.im"/>
-              <!-- <![endif]-->
-            </a>
-          </div>
-
-          {% set recaptcha_theme="light" %}
-          {% include "./auth/_login-form.html" with context %}
         </div>
         {% endif %}
+        <div class="screen-hint">Потяните за левый край экрана, чтобы открыть меню.</div>
+        <div class="main-inner">
 
-        <div class="sidebar-handle"></div>
-        <div class="content">
-          <div class="content-inner js-content">
-            <div class="js-view {% if menu %}{{ menu }}-view{% endif %}">
-            {% block content %}{% endblock %}
+            {% if env.user.id %}
+            <div class="sidebar">
+                <div class="clearfix">
+                    <div class="logo js-navigate">
+                        <!--[if IE]>
+              <img src="/img/logo.png" alt="Point.im"/>
+              <![endif]-->
+                        <!--[if !IE]> -->
+                        <img src="/img/logo.svg" alt="Point.im" />
+                        <!-- <![endif]-->
+                    </div>
+                    <a class="btn-newpost js-new-post" title="Написать"></a>
+                </div>
+
+                <div class="menu">
+                    <a class="menu-item recent {% if menu == 'recent' %}active{% endif %} js-navigate"
+                        href="/recent">Лента</a>
+                    <a class="menu-item blog {% if menu == 'blog' %}active{% endif %} js-navigate"
+                        href="/u/{{ env.user.login }}">Блог</a>
+                    <a class="menu-item comments {% if menu == 'comments' %}active{% endif %} js-navigate"
+                        href="/comments">Комментарии</a>
+                    <a class="menu-item messages {% if menu == 'messages' %}active{% endif %} js-navigate"
+                        href="/messages">Сообщения</a>
+                    <a class="menu-item bookmarks {% if menu == 'bookmarks' %}active{% endif %} js-navigate"
+                        href="/bookmarks">Закладки</a>
+                    <a class="menu-item search {% if menu == 'search' %}active{% endif %} js-navigate"
+                        href="/search">Поиск</a>
+                </div>
+
+                <div class="menu profile-menu">
+                    <a class="profile js-navigate" href="/profile">Профиль</a>
+                    <a class="logout" href="/logout">Выйти</a>
+                </div>
             </div>
+            {% else %}
+            <div class="sidebar">
+                <div class="clearfix">
+                    <a href="/" class="logo js-navigate">
+                        <!--[if IE]>
+              <img src="img/logo.png" alt="Point.im"/>
+              <![endif]-->
+                        <!--[if !IE]> -->
+                        <img src="/img/logo.svg" alt="Point.im" />
+                        <!-- <![endif]-->
+                    </a>
+                </div>
 
-            <footer class="js-footer">
-              <div class="menu">
-                <div>
-                  <a href="/about">О проекте</a>
-                  <a href="/tos">Правила</a>
-                  <a href="/donate">Добро</a>
+                {% set recaptcha_theme="light" %} {% include "./auth/_login-form.html" with context
+                %}
+            </div>
+            {% endif %}
+
+            <div class="sidebar-handle"></div>
+            <div class="content">
+                <div class="content-inner js-content">
+                    <div class="js-view {% if menu %}{{ menu }}-view{% endif %}">
+                        {% block content %}{% endblock %}
+                    </div>
+
+                    <footer class="js-footer">
+                        <div class="menu">
+                            <div>
+                                <a href="/about">О проекте</a>
+                                <a href="/tos">Правила</a>
+                                <a href="/donate">Добро</a>
+                            </div>
+                            <div>
+                                <a href="/help/">Справка</a>
+                                <a href="/help/apps">Приложения</a>
+                                <a href="/help/commands">Команды</a>
+                                <a href="/help/api">API</a>
+                                <a href="/help/markdown">Markdown</a>
+                            </div>
+                            <div>
+                                <a href="/contacts">Контакты</a>
+                                <a href="https://bitbucket.org/arts/point-issues">Сообщить об ошибке</a>
+                            </div>
+                        </div>
+                        <div class="copyright">
+                            &copy; 2010&ndash;2015 Arts
+                        </div>
+                    </footer>
                 </div>
-                <div>
-                  <a href="/help/">Справка</a>
-                  <a href="/help/apps">Приложения</a>
-                  <a href="/help/commands">Команды</a>
-                  <a href="/help/api">API</a>
-                  <a href="/help/markdown">Markdown</a>
-                </div>
-                <div>
-                  <a href="/contacts">Контакты</a>
-                  <a href="https://bitbucket.org/arts/point-issues">Сообщить об ошибке</a>
-                </div>
-              </div>
-              <div class="copyright">
-                &copy; 2010&ndash;2015 Arts
-              </div>
-            </footer>
-          </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <script src="/dist/main{% if not settings.debug %}-min{% endif %}.js"></script>
-  </body>
-</html>
+</body>
 
+</html>

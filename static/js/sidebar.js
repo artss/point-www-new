@@ -11,8 +11,8 @@ var winWidth;
 var startX, startY, lastX, lastY, swipe;
 
 export default class SidebarView extends BaseView {
-    initialize() {
-        super.initialize(arguments);
+    initialize(options) {
+        super.initialize(options);
 
         dom.on(window, 'resize', this._updateSize.bind(this));
         this._updateSize();
