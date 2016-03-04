@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from'lodash';
+import _ from 'lodash';
 import BaseModel from 'lib/base-model';
 import BaseView from 'lib/base-view';
 import dom from 'lib/dom';
@@ -116,7 +116,6 @@ export class FormModel extends BaseModel {
     }
 }
 
-console.log(FormModel.validators);
 FormModel.validators = {
     required: function (value) {
         if (!value) {
@@ -133,7 +132,16 @@ FormModel.validators = {
  * Base form view.
  */
 export class FormView extends BaseView {
-    get model() { return FormModel; }
+    /**
+     * Form model class
+     */
+    get Model() { return FormModel; }
+
+    /**
+     * Form model instance
+     */
+    get model() { return this._model; }
+    set model(model) { this._model = model; }
 
     get events() {
         return {
@@ -143,14 +151,14 @@ export class FormView extends BaseView {
         };
     }
 
-    initialize(options) {
+    constructor(options) {
+        super(options);
+
         if (!options.model) {
             /* eslint-disable new-cap */
-            this.model = new this.model();
+            this.model = new this.Model();
             /* eslint-enable new-cap */
         }
-
-        super.initialize(options);
 
         this.listenTo(this.model, {
             'validated': this.setValidation
@@ -299,7 +307,7 @@ export class FormView extends BaseView {
             return;
         }
 
-        _.each(this.el.elements, el => el.disabled = true);
+        _.each(this.el.elements, el => { el.disabled = true; });
         this.submit.classList.add('loading');
 
         /*request(

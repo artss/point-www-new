@@ -1,4 +1,5 @@
 'use strict';
 
-export * from 'promise-polyfill/Promise';
+import Promise from 'promise-polyfill/Promise';
+export default Promise;
 

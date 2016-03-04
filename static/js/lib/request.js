@@ -33,7 +33,8 @@ export default function request(method, url, params, options) {
         _.each(options.headers, (value, key) => xhr.setRequestHeader(key, value));
     }
 
-    var promise = new Promise((resolve, reject) => {
+    console.log('Promise', Promise);
+    var promise = new Promise(function (resolve, reject) {
         function throwError() {
             reject(parseJson(this.responseText));
         }

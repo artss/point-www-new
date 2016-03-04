@@ -6,7 +6,7 @@ import {PostModel} from 'post';
 import {FormView} from 'lib/form';
 
 export default class PostFormView extends FormView {
-    get model() { return PostModel; }
+    get Model() { return PostModel; }
 
     get events() {
         if (this._events) { return this._events; }
@@ -16,6 +16,8 @@ export default class PostFormView extends FormView {
             'click .btn-cancel': 'cancel',
             'change .js-file': 'updateUploads'
         });
+
+        return this._events;
     }
 
     cancel() {

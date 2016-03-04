@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-//var sourcemaps = require('gulp-sourcemaps');
 var babelify = require('babelify');
 var browserify = require('gulp-browserify');
 //var aliasify = require('aliasify');
@@ -9,7 +8,7 @@ var twigify = require('twigify');
 var minify = require('gulp-minify');
 
 var browserifyOptions = {
-    //debug: true,
+    debug: true,
 
     paths: [
         './js',
@@ -44,9 +43,7 @@ var browserifyOptions = {
 
 gulp.task('js', function () {
     return gulp.src(['js/main.js'])
-        //.pipe(sourcemaps.init())
         .pipe(browserify(browserifyOptions))
-        //.pipe(sourcemaps.write('.'))
         .pipe(minify())
         .pipe(gulp.dest('dist'));
 });

@@ -145,9 +145,7 @@ export default class App extends Backbone.Router {
         if (_.isString(data) && data.match(/^http|\//)) {
             this._request = request.get(data);
         } else {
-            this._request = new Promise(function (resolve) {
-                resolve(data);
-            });
+            this._request = new Promise(resolve => resolve(data));
         }
 
         this._request.then(function (resp) {
