@@ -9,7 +9,7 @@ import dom from 'lib/dom';
 import UserModel from 'lib/user-model';
 import BaseView from 'lib/base-view';
 import SidebarView from 'sidebar';
-import ErrorView from 'lib/error-view';
+//import ErrorView from 'lib/error-view';
 import PostListView from 'post-list';
 import {PostView} from 'post';
 import PostFormView from 'post-form';
@@ -153,18 +153,11 @@ export default class App extends Backbone.Router {
                 urlPattern: urlPattern
             }));
 
-            this._currentView.render().then(
-                () => {
-                    //content.insertAdjacentElement('afterBegin', el);
-                    content.insertBefore(el, footer);
-                    this._currentView.trigger('rendered');
+            this._currentView.render();
+            content.insertBefore(el, footer);
+            this._currentView.trigger('rendered');
 
-                    mainDiv.classList.remove('loading');
-                },
-                () => {
-                    console.log('err', arguments);
-                }
-            );
+            mainDiv.classList.remove('loading');
 
             delete this._request;
         })

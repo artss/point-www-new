@@ -143,7 +143,7 @@ export class FormView extends BaseView {
     get model() { return this._model; }
     set model(model) { this._model = model; }
 
-    get events() {
+    events() {
         return {
             'submit': 'submit',
             'change': 'setValue',

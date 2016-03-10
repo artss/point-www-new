@@ -1,7 +1,7 @@
 {% extends "/base.html" %}
 
 {% block content %}
-<div class="{% if menu == 'messages' %}message-post{% elif owner.id != env.user.id %}other-blog{% endif %}">
+<div class="{% if menu == 'messages' %}message-post{% else %}{% if owner.id != env.user.id %}other-blog{% endif %}{% endif %}">
   <div class="header">
     <div class="header-inner">
       {% if menu == 'messages' %}

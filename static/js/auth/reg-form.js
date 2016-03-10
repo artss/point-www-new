@@ -76,10 +76,8 @@ class RegModel extends FormModel {
 export default class RegForm extends FormView {
     get model() { return RegModel; }
 
-    get events() {
-        if (this._events) { return this._events; }
-
-        this._events = _.extend({}, super.events, {
+    events() {
+        return _.extend({}, super.events, {
             'click .js-show-password': evt => {
                 dom.closest(evt.target, '.js-input-container').classList.toggle('show-password');
             }

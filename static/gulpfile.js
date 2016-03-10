@@ -7,12 +7,15 @@ var aliasify = require('aliasify');
 var twigify = require('twigify');
 var minify = require('gulp-minify');
 
+var templatesDir = '../templates';
+
 var browserifyOptions = {
-    debug: true,
+    //debug: true,
 
     paths: [
         './js',
-        './node_modules'
+        './node_modules',
+        templatesDir
     ],
 
     exclude: ['jquery'],
@@ -30,24 +33,29 @@ var browserifyOptions = {
         }),
 
         twigify.configure({
-            extension: /\.(html)$/
-        }),
+            extension: /\.(html)$/,
+            templatesDir: templatesDir
+        })
 
-        aliasify.configure({
+        /*aliasify.configure({
             aliases: {
                 //underscore: './node_modules/lodash/dist/lodash.underscore.js'
             },
             replacements: {
                 '\\/base\\.html': '../templates/_base.html'
             }
-        })
-    ]
+        })*/
+    ],
+
+    /*browser: {
+        './templates/blog.html': './templates/blog.html'
+    }*/
 };
 
 gulp.task('js', function () {
     return gulp.src(['js/main.js'])
         .pipe(browserify(browserifyOptions))
-        .pipe(minify())
+        //.pipe(minify())
         .pipe(gulp.dest('dist'));
 });
 

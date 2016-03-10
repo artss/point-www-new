@@ -8,17 +8,13 @@ import {FormView} from 'lib/form';
 export default class PostFormView extends FormView {
     get Model() { return PostModel; }
 
-    get events() {
-        if (this._events) { return this._events; }
-
-        this._events = _.extend({}, super.events, {
+    events() {
+        return _.extend({}, super.events, {
             'input textarea': 'setValueDelayed',
             'click .btn-cancel': 'cancel',
             'change .js-file': 'updateUploads',
             'keyup textarea': 'handleHotkeys'
         });
-
-        return this._events;
     }
 
     cancel() {

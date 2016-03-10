@@ -53,7 +53,8 @@
       <div class="rec-users">
       Рекомендуют
       {% for u in p.rec_users %}
-      <a class="user js-navigate" href="/u/{{u.login}}">{{u.login}}</a>{% if loop.index==p.rec_users|length %}{% elif loop.index==p.rec_users|length-1 %} и {% else %}, {% endif %}
+        <a class="user js-navigate" href="/u/{{u.login}}">{{u.login}}</a>
+        {% if loop.index == loop.length %}{% else %}{% if loop.index == loop.length-1 %} и {% else %}, {% endif %}{% endif %}
       {% endfor %}
     {% endif %}
 

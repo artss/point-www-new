@@ -5,8 +5,9 @@ import BaseView from 'lib/base-view';
 import request from 'lib/request';
 import dom from 'lib/dom';
 import util from 'util/util';
+import template from 'lib/template';
 
-import postsPageTemplate from '../../templates/pages/_posts-page.html';
+const postsPageTemplate = template('pages/_posts-page.html');
 
 export default class PostListView extends BaseView {
     initialize(options) {
@@ -32,11 +33,9 @@ export default class PostListView extends BaseView {
         }, 1000);
 
         dom.on(this.content, 'scroll', this._postsScrollHandler);
-
-        this.on('rendered', this.onRender);
     }
 
-    get events() {
+    events() {
         return {
             'click .js-more': 'loadNext'
         };
@@ -58,7 +57,7 @@ export default class PostListView extends BaseView {
 
         request.get(pager.getAttribute('href'))
             .then(resp => {
-                var posts = postsPageTemplate(resp.data);
+                var posts = postsPageTemplate.render(resp.data);
 
                 dom.append(this.$('.js-posts-list')[0], posts.trim());
                 var unread = this.$('.js-unread-posts');
