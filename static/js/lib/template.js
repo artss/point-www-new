@@ -1,7 +1,7 @@
 'use strict';
 
 import _ from 'lodash';
-import Twig from 'twig';
+import twig from 'twig';
 import util from 'util/util';
 import strftime from 'strftime';
 
@@ -20,31 +20,32 @@ const filters = {
         if (!(date instanceof Date)) {
             date = new Date(date);
         }
+
+        if (format instanceof Array) {
+            format = format[0];
+        }
+
         return strftime(format, date);
     },
 
-    length: obj => obj.length
+    safe: (str) => str + '',
+
+    json: (obj) => JSON.stringify(obj)
 };
 
-_.each(filters, (fn, name) => Twig.extendFilter(name, fn));
+_.each(filters, (fn, name) => twig.extendFilter(name, fn));
 
-Twig.extend(function (twig) {
-    twig.Template.prototype.importFile_orig = twig.Template.prototype.importFile;
+twig.extend(function (Twig) {
+    Twig.Templates.load_orig = Twig.Templates.load;
 
-    twig.Template.prototype.importFile = function (file) {
+    Twig.Templates.load = function (file) {
         file = file.replace(/^\//, '');
-        console.log('importFile', file);
-        return this.importFile_orig(file);
-    };
 
-    twig.Template.prototype.render_orig = twig.Template.prototype.render;
-
-    twig.Template.prototype.render = function () {
-        if (this.extend) {
-            this.extend = this.extend.replace(/^\//, '');
+        if (file === 'base.html') {
+            file = '_base.html';
         }
 
-        return this.render_orig.apply(this, arguments);
+        return Twig.Templates.load_orig.call(this, file);
     };
 });
 

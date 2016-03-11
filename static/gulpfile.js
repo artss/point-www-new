@@ -10,7 +10,7 @@ var minify = require('gulp-minify');
 var templatesDir = '../templates';
 
 var browserifyOptions = {
-    //debug: true,
+    debug: true,
 
     paths: [
         './js',
@@ -45,11 +45,7 @@ var browserifyOptions = {
                 '\\/base\\.html': '../templates/_base.html'
             }
         })*/
-    ],
-
-    /*browser: {
-        './templates/blog.html': './templates/blog.html'
-    }*/
+    ]
 };
 
 gulp.task('js', function () {

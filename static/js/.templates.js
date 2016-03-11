@@ -1,4 +1,5 @@
 export default {
+    'base.html': require('_base.html'),
     'pages/blog.html': require('pages/blog.html'),
     'pages/recent.html': require('pages/recent.html'),
     'pages/comments.html': require('pages/comments.html'),
