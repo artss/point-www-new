@@ -10,7 +10,7 @@ var minify = require('gulp-minify');
 var templatesDir = '../templates';
 
 var browserifyOptions = {
-    //debug: true,
+    debug: true,
 
     paths: [
         './js',
@@ -54,6 +54,13 @@ var browserifyOptions = {
 
 gulp.task('js', function () {
     return gulp.src(['js/main.js'])
+        .pipe(browserify(browserifyOptions))
+        //.pipe(minify())
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('js:landing', function () {
+    return gulp.src(['js/landing.js'])
         .pipe(browserify(browserifyOptions))
         //.pipe(minify())
         .pipe(gulp.dest('dist'));

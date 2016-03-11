@@ -15,7 +15,9 @@
     "gulp-sourcemaps": "^1.6.0",
     "lodash": "^4.6.0",
     "promise-polyfill": "^3.1.0",
-    "twig": "^0.8.8"
+    "twig": "^0.8.8",
+    "strftime": "~0.9.2",
+    "gulp-minify": "0.0.5"
   },
   "devDependencies": {
     "aliasify": "^1.9.0",

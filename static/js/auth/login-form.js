@@ -4,7 +4,7 @@ import _ from 'lodash';
 import {FormModel, FormView} from 'lib/form';
 
 class LoginModel extends FormModel {
-    get ur() { return '/login'; }
+    get url() { return '/login'; }
 
     get validation() {
         return {
@@ -15,7 +15,7 @@ class LoginModel extends FormModel {
 }
 
 export default class LoginForm extends FormView {
-    get model() { return LoginModel; }
+    get Model() { return LoginModel; }
 
     initialize(options) {
         super.initialize(options);

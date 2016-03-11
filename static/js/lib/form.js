@@ -109,7 +109,7 @@ export class FormModel extends BaseModel {
             url = this.url + '/' + this.id;
         } else {
             method = 'POST';
-            url = this.url;
+            url = typeof this.url === 'function' ? this.url() : this.url;
         }
 
         return request(method, url, formData);

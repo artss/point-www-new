@@ -74,7 +74,7 @@ class RegModel extends FormModel {
  * Registration form view.
  */
 export default class RegForm extends FormView {
-    get model() { return RegModel; }
+    get Model() { return RegModel; }
 
     events() {
         return _.extend({}, super.events, {

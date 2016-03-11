@@ -1,6 +1,6 @@
 workers = 8
 
-libs = ['/home/point/core/lib']
+libs = ['../core/lib']
 
 apps = ['views']
 
