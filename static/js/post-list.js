@@ -8,6 +8,7 @@ import util from 'util/util';
 import template from 'lib/template';
 
 const postsPageTemplate = template('pages/_posts-page.html');
+console.log('postsPageTemplate', postsPageTemplate);
 
 export default class PostListView extends BaseView {
     initialize(options) {
@@ -96,6 +97,11 @@ export default class PostListView extends BaseView {
         pager.classList.toggle('hidden', !has_next);
 
         pager.setAttribute('href', this.pageLink(page + 1));
+    }
+
+    destroy() {
+        dom.off(this.content, 'scroll', this._postsScrollHandler);
+        super.destroy();
     }
 }
 

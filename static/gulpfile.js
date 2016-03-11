@@ -48,10 +48,10 @@ var browserifyOptions = {
     ]
 };
 
-gulp.task('js', function () {
+gulp.task('js:main', function () {
     return gulp.src(['js/main.js'])
         .pipe(browserify(browserifyOptions))
-        //.pipe(minify())
+        .pipe(minify())
         .pipe(gulp.dest('dist'));
 });
 

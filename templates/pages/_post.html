@@ -1,86 +1,90 @@
 <div class="post" data-post="{{ p.post.id }}">
-  <div class="left">
-      {% if p.rec %}
-      <a class="avatar40 js-navigate" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.rec.author.avatar }}" alt="{{ p.rec.author.login }}"/></a>
-      {% else %}
-      <a class="avatar40 js-navigate" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></a>
-      {% endif %}
-    <div class="sharp">
-      <a class="js-navigate" href="/p/{{ p.post.id }}">#</a>
-      <div class="post-no"><span>{{ p.post.id }}</span></div>
-    </div>
-  </div>
-
-  <div class="right">
-    <div class="created">
-      <span>{{p.post.created|strftime("%d %b")}}</span>
-      {% if p.post.created|strftime("%Y")==__now__|strftime("%Y") %}
-      <span>{{p.post.created|strftime("%H:%M")}}</span>
-      {% else %}
-      <span>{{p.post.created|strftime("%Y")}}</span>
-      {% endif %}
+    <div class="left">
+        {% if p.rec %}
+        <a class="avatar40 js-navigate" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.rec.author.avatar }}" alt="{{ p.rec.author.login }}"/></a>
+        {% else %}
+        <a class="avatar40 js-navigate" href="/"><img src="{{ settings.avatars_root }}/40/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></a>
+        {% endif %}
+        <div class="sharp">
+            <a class="js-navigate" href="/p/{{ p.post.id }}">#</a>
+            <div class="post-no"><span>{{ p.post.id }}</span></div>
+        </div>
     </div>
 
-    {% if p.rec %}
-    <a class="user author js-navigate" href="{{ p.rec.author|userlink }}">{{ p.rec.author.login }}</a>
-    {% else %}
-    <a class="user author js-navigate" href="{{ p.post.author|userlink }}">{{ p.post.author.login }}</a>
-    {% endif %}
+    <div class="right">
+        <div class="created">
+            <span>{{p.post.created|strftime("%d %b")}}</span>
+            {% if p.post.created|strftime("%Y")==__now__|strftime("%Y") %}
+            <span>{{p.post.created|strftime("%H:%M")}}</span>
+            {% else %}
+            <span>{{p.post.created|strftime("%Y")}}</span>
+            {% endif %}
+        </div>
 
-    {% if p.rec %}
-    {% if p.rec.text %}
-    <div class="text rec">
-        {{ p.rec.text|markdown|safe }}
-    </div>
-    {% endif %}
-    <a class="user author rec js-navigate" href="{{ p.post.author|userlink }}">
-      <span class="avatar24"><img src="{{ settings.avatars_root }}/24/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></span>
-      {{ p.post.author.login }}
-    </a>
-    {% endif %}
+        {% if p.rec %}
+        <a class="user author js-navigate" href="{{ p.rec.author|userlink }}">{{ p.rec.author.login }}</a>
+        {% else %}
+        <a class="user author js-navigate" href="{{ p.post.author|userlink }}">{{ p.post.author.login }}</a>
+        {% endif %}
 
-    {% if p.post.tags|length > 0 %}
-    <div class="tags">
-      {% for t in p.post.tags %}<a class="js-navigate" href="{{ p.post.author|userlink }}?tag={{ t|urlencode }}">{{ t }}</a>{% endfor %}
-    </div>
-    {% endif %}
+        {% if p.rec %}
+            {% if p.rec.text %}
+                <div class="text rec">
+                {{ p.rec.text|markdown|safe }}
+                </div>
+            {% endif %}
+            <a class="user author rec js-navigate" href="{{ p.post.author|userlink }}">
+                <span class="avatar24"><img src="{{ settings.avatars_root }}/24/{{ p.post.author.avatar }}" alt="{{ p.post.author.login }}"/></span>
+                {{ p.post.author.login }}
+            </a>
+        {% endif %}
 
-    <div class="text">
+        {% if p.post.tags|length > 0 %}
+        <div class="tags">
+        {% for t in p.post.tags %}<a class="js-navigate" href="{{ p.post.author|userlink }}?tag={{ t|urlencode }}">{{ t }}</a>{% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="text">
         {{ p.post.text|markdown|safe }}
-    </div>
+        </div>
 
-    {% if p.rec_users|length > 0 %}
-      <div class="rec-users">
-      Рекомендуют
-      {% for u in p.rec_users %}
-        <a class="user js-navigate" href="/u/{{u.login}}">{{u.login}}</a>
-        {% if loop.index == loop.length %}{% else %}{% if loop.index == loop.length-1 %} и {% else %}, {% endif %}{% endif %}
-      {% endfor %}
-    {% endif %}
+        {% if p.rec_users|length > 0 %}
+        <div class="rec-users">
+            Рекомендуют
+            {% for u in p.rec_users %}
+            <a class="user js-navigate" href="/u/{{u.login}}">{{u.login}}</a>
+            {% if loop.index == loop.length %}{% else %}{% if loop.index == loop.length-1 %} и {% else %}, {% endif %}{% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
 
-    <div class="actions">
-        <a class="reply"><i></i><span class="label">ответить</span><span class="number">{{ p.comments_count or '' }}</span></a>
-      {% if p.recommended %}
-      <a class="recommend done"><i></i><span class="label">не рекомендовать</span><span class="number"></span></a>
-      {% else %}
-      <a class="recommend"><i></i><span class="label">рекомендовать</span><span class="number"></span></a>
-      {% endif %}
-      {% if p.bookmarked %}
-      <a class="bookmark done"><i></i><span class="label">из закладок</span></a>
-      {% else %}
-      <a class="bookmark"><i></i><span class="label">в закладки</span></a>
-      {% endif %}
-      {% if p.subscribed %}
-      <a class="subscribe done"><i></i><span class="label">отписаться</span></a>
-      {% else %}
-      <a class="subscribe"><i></i><span class="label">подписаться</span></a>
-      {% endif %}
-      {% if p.post.author.id==env.user.id %}
-      <a class="delete"><i></i><span class="label">удалить</span></a>
-      {% endif %}
-    </div>
+        <div class="actions">
+            <a class="reply"><i></i><span class="label">ответить</span><span class="number">{{ p.comments_count or '' }}</span></a>
+            {% if p.recommended %}
+            <a class="recommend done"><i></i><span class="label">не рекомендовать</span><span class="number"></span></a>
+            {% else %}
+            <a class="recommend"><i></i><span class="label">рекомендовать</span><span class="number"></span></a>
+            {% endif %}
 
-    <div class="reply-form">
+            {% if p.bookmarked %}
+            <a class="bookmark done"><i></i><span class="label">из закладок</span></a>
+            {% else %}
+            <a class="bookmark"><i></i><span class="label">в закладки</span></a>
+            {% endif %}
+
+            {% if p.subscribed %}
+            <a class="subscribe done"><i></i><span class="label">отписаться</span></a>
+            {% else %}
+            <a class="subscribe"><i></i><span class="label">подписаться</span></a>
+            {% endif %}
+
+            {% if p.post.author.id==env.user.id %}
+            <a class="delete"><i></i><span class="label">удалить</span></a>
+            {% endif %}
+        </div>
+
+        <div class="reply-form">
+        </div>
     </div>
-  </div>
 </div>
