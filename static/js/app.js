@@ -12,7 +12,7 @@ import SidebarView from 'sidebar';
 //import ErrorView from 'lib/error-view';
 import PostListView from 'post-list';
 import {PostView} from 'post';
-import PostFormView from 'post-form';
+import NewPostFormView from 'new-post-form';
 import util from 'util/util';
 
 var _initial = true;
@@ -87,12 +87,12 @@ export default class App extends Backbone.Router {
 
         Backbone.on('new-post', function () {
             if (!newPostForm) {
-                newPostForm = new PostFormView({
+                newPostForm = new NewPostFormView({
                     el: dom.select('.popup-newpost')
                 });
             }
 
-            mainDiv.classList.add('newpost');
+            newPostForm.show();
         });
 
         Backbone.on('new-post-cancel', function () {

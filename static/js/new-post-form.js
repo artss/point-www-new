@@ -2,10 +2,13 @@
 
 import Backbone from 'backbone';
 import _ from 'lodash';
+import dom from 'lib/dom';
 import {PostModel} from 'post';
 import {FormView} from 'lib/form';
 
-export default class PostFormView extends FormView {
+const mainDiv = dom.select('.js-main');
+
+export default class NewPostFormView extends FormView {
     get Model() { return PostModel; }
 
     events() {
@@ -15,6 +18,11 @@ export default class PostFormView extends FormView {
             'change .js-file': 'updateUploads',
             'keyup textarea': 'handleHotkeys'
         });
+    }
+
+    show() {
+        mainDiv.classList.add('newpost');
+        this.focus('text');
     }
 
     cancel() {
