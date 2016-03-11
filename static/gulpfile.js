@@ -45,11 +45,7 @@ var browserifyOptions = {
                 '\\/base\\.html': '../templates/_base.html'
             }
         })*/
-    ],
-
-    /*browser: {
-        './templates/blog.html': './templates/blog.html'
-    }*/
+    ]
 };
 
 gulp.task('js', function () {
