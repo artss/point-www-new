@@ -19,7 +19,7 @@ var _initial = true;
 
 const mainDiv = dom.select('.js-main');
 const content = dom.select('.js-content');
-const footer = dom.select(content, '.js-footer');
+const footer = dom.select('.js-footer');
 
 export default class App extends Backbone.Router {
     constructor(options) {
@@ -179,9 +179,5 @@ export default class App extends Backbone.Router {
     pageView() {
         this.loadView(BaseView, location.href);
     }
-}
-
-if (!env.user.id) {
-    require('auth/login-register');
 }
 

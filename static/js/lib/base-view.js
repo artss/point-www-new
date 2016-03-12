@@ -3,7 +3,6 @@
 import NativeView from 'backbone.nativeview';
 import _ from 'lodash';
 import dom from 'lib/dom';
-import template from 'lib/template';
 
 export default class BaseView extends NativeView {
     get className() { return this._className || ''; }
@@ -18,10 +17,6 @@ export default class BaseView extends NativeView {
             this.template = options.template[0];
         } else {
             this.template = options.template;
-        }
-
-        if (this.template) {
-            this.template = template(this.template);
         }
 
         this.data = options.data;
@@ -42,15 +37,7 @@ export default class BaseView extends NativeView {
     }
 
     render() {
-        //debugger;
-
-        var content = this.template
-            ? this.template.render(this.data)
-            : _.isObject(this.data)
-                ? JSON.stringify(this.data) : this.data;
-        dom.append(this.el, content);
-
-        //this.trigger('rendered');
+        this.trigger('rendered');
     }
 
     onRender() {}

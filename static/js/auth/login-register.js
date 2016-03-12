@@ -4,13 +4,9 @@ import RegForm from 'auth/reg-form';
 import LoginForm from 'auth/login-form';
 import dom from 'lib/dom';
 
-(() => {
-    const wrap = dom.select('.login-wrap');
+const wrap = dom.select('.login-wrap');
 
-    if (!wrap) {
-        return;
-    }
-
+if (wrap) {
     dom.on(dom.select(wrap, '.reg-link'), 'click', evt => {
         evt.preventDefault();
         wrap.classList.remove('login');
@@ -32,5 +28,7 @@ import dom from 'lib/dom';
         el: dom.select(wrap, '.login-form')
     });
     loginForm.render();
+
     loginForm.on('success', () => { window.location = window.location; });
-})();
+}
+

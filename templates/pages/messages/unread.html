@@ -2,11 +2,11 @@
 
 {% block header %}
 <div class="js-tabs tabs header-tabs post-list-tabs messages-tabs">
-  <div class="tabs-nav">
-    <a href="/messages" class="tab messages-unread-tab active js-unread-messages js-navigate" data-unread="{{ unread_messages or 0 }}">Новые</a>
-    <a href="/messages/incoming" class="tab messages-incoming-tab js-navigate">Входящие</a>
-    <a href="/messages/outgoing" class="tab messages-outgoing-tab js-navigate">Исходящие</a>
-  </div>
+    <div class="tabs-nav">
+        <a href="/messages" class="tab messages-unread-tab active js-unread-messages js-navigate" data-unread="{{ unread_messages or 0 }}">Новые</a>
+        <a href="/messages/incoming" class="tab messages-incoming-tab js-navigate">Входящие</a>
+        <a href="/messages/outgoing" class="tab messages-outgoing-tab js-navigate">Исходящие</a>
+    </div>
 </div>
 {% endblock %}
 

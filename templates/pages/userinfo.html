@@ -2,18 +2,18 @@
 
 {% block content %}
 <div class="{% if owner.id != env.user.id %}other-blog{% endif %}">
-  <div class="header">
-    <div class="header-inner">
-      {% block header %}
-      <a class="blog-header user-info-header js-navigate"  href="{{ owner|userlink }}">
-        <h1>{{ owner.name }}</h1>
-        <div class="user">{{ owner.login }}</div>
-      </a>
-      {% endblock %}
+    <div class="header">
+        <div class="header-inner">
+            {% block header %}
+            <a class="blog-header user-info-header js-navigate"  href="{{ owner|userlink }}">
+                <h1>{{ owner.name }}</h1>
+                <div class="user">{{ owner.login }}</div>
+            </a>
+            {% endblock %}
+        </div>
     </div>
-  </div>
 
-  <h1 class="user">{{ owner.login }}</h1>
+    <h1 class="user">{{ owner.login }}</h1>
 </div>
 {% endblock %}
 

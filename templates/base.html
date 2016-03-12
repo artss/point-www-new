@@ -22,14 +22,13 @@
                 login: {{ env.user.login | json | safe }},
                 name: {{ env.user.name | json | safe }},
                 info: {{ env.user.info | json | safe }}
-            },
-            fe: true
+            }
         };
 
         var settings = {
             domain: '{{ settings.domain }}',
-            avatars_root: '{{ settings.avatars_root }}',
-            debug: {{ settings.debug | json }}
+            avatars_root: '{{ settings.avatars_root }}'
+            {% if settings.debug %},debug: true{% endif %}
         };
     </script>
 </head>

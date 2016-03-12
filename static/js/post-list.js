@@ -1,16 +1,15 @@
 'use strict';
 
 import _ from 'lodash';
-import BaseView from 'lib/base-view';
 import request from 'lib/request';
 import dom from 'lib/dom';
 import util from 'util/util';
-import template from 'lib/template';
+import renderTemplate from 'lib/template';
+import TemplatedView from 'lib/templated-view';
 
-const postsPageTemplate = template('pages/_posts-page.html');
-console.log('postsPageTemplate', postsPageTemplate);
+const postsPageTemplate = 'pages/_posts-page.html';
 
-export default class PostListView extends BaseView {
+export default class PostListView extends TemplatedView {
     initialize(options) {
         super.initialize(options);
 
@@ -58,7 +57,7 @@ export default class PostListView extends BaseView {
 
         request.get(pager.getAttribute('href'))
             .then(resp => {
-                var posts = postsPageTemplate.render(resp.data);
+                var posts = renderTemplate(postsPageTemplate, resp.data);
 
                 dom.append(this.$('.js-posts-list')[0], posts.trim());
                 var unread = this.$('.js-unread-posts');

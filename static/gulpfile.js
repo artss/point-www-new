@@ -3,7 +3,6 @@
 var gulp = require('gulp');
 var babelify = require('babelify');
 var browserify = require('gulp-browserify');
-var aliasify = require('aliasify');
 var twigify = require('twigify');
 var minify = require('gulp-minify');
 
@@ -36,15 +35,6 @@ var browserifyOptions = {
             extension: /\.(html)$/,
             templatesDir: templatesDir
         })
-
-        /*aliasify.configure({
-            aliases: {
-                //underscore: './node_modules/lodash/dist/lodash.underscore.js'
-            },
-            replacements: {
-                '\\/base\\.html': '../templates/_base.html'
-            }
-        })*/
     ]
 };
 
@@ -58,7 +48,7 @@ gulp.task('js:main', function () {
 gulp.task('js:landing', function () {
     return gulp.src(['js/landing.js'])
         .pipe(browserify(browserifyOptions))
-        //.pipe(minify())
+        .pipe(minify())
         .pipe(gulp.dest('dist'));
 });
 

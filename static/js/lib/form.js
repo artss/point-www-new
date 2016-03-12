@@ -318,15 +318,15 @@ export class FormView extends BaseView {
         this.model.save()
             .then(data => this.trigger('success', data.data))
 
-        .catch(xhr => {
-            var data = xhr.responseJSON && xhr.responseJSON.data ? xhr.responseJSON.data : xhr.data;
-            this.trigger('error', data);
-        });
+            .catch(xhr => {
+                var data = xhr.responseJSON && xhr.responseJSON.data ? xhr.responseJSON.data : xhr.data;
+                this.trigger('error', data);
+            });
 
-        /*.always(function() {
-          this.$(':input').prop('disabled', false);
-          this.$submitButton.removeClass('loading');
-        }.bind(this))*/
+            /*.always(function() {
+              this.$(':input').prop('disabled', false);
+              this.$submitButton.removeClass('loading');
+            }.bind(this))*/
     }
 
     destroy() {

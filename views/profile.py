@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from point.util.env import env
 from geweb.route import route
 from geweb.http import Response
@@ -11,7 +13,14 @@ def profile_info():
 
 @route('/profile/settings/?', host=settings.domain)
 def profile_settings():
-    return Response(template='/pages/profile/settings.html', section='settings',profile={})
+    languages = [
+        [u'ru', u'Русский'],
+        [u'en', u'English'],
+        [u'uk', u'Українська'],
+        [u'by', u'Беларуская']
+    ]
+    return Response(template='/pages/profile/settings.html', section='settings',
+                    profile={}, languages=languages)
 
 @route('/profile/im/?', host=settings.domain)
 def profile_im():

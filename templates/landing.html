@@ -1,118 +1,140 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Point.im: имеешь мнение — скажи</title>
 
-    <link rel="icon" href="img/favicon.png"/>
-    <link rel="stylesheet" type="text/css" href="css/landing.css"/>
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/landing.css" />
 
-    <meta name="MobileOptimized" content="176"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="MobileOptimized" content="176" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <script type="text/javascript" src="/dist/landing.js"></script>
-  </head>
-  <body>
+    <script>
+        var env = {
+            user: {
+                id: {{ env.user.id | json | safe }},
+                login: {{ env.user.login | json | safe }},
+                name: {{ env.user.name | json | safe }},
+                info: {{ env.user.info | json | safe }}
+            }
+        };
+
+        var settings = {
+            domain: '{{ settings.domain }}'
+            {% if settings.debug %},debug: true{% endif %}
+        };
+    </script>
+</head>
+
+<body>
     <header>
-      <a class="logo" href="/">
-        <!--[if IE]>
-        <img src="img/logo.png" alt="Point.im"/>
-        <![endif]-->
-        <!--[if !IE]> -->
-        <img src="img/logo.svg" alt="Point.im"/>
-        <!-- <![endif]-->
-      </a>
-      <div class="slogan"><div class="slogan-inner"><a href="/">oint<span>Имеешь мнение&nbsp;&mdash; скажи</span></a></div></div>
+        <a class="logo" href="/">
+            <!--[if IE]>
+            <img src="img/logo.png" alt="Point.im"/>
+            <![endif]-->
+            <!--[if !IE]> -->
+            <img src="img/logo.svg" alt="Point.im" />
+            <!-- <![endif]-->
+        </a>
+        <div class="slogan">
+            <div class="slogan-inner"><a href="/">oint<span>Имеешь мнение&nbsp;&mdash; скажи</span></a></div>
+        </div>
     </header>
 
     <content>
-      <div class="wrap">
-        <div class="about">
-          <p>
-            Point.im&nbsp;&mdash; это саморегулируемая система инстант-блогов.
-            &laquo;Саморегулируемая&raquo; означает, что никакой централизованной модерации здесь нет,
-            вы сами можете фильтровать поступающий к вам контент: подписываться
-            на интересные вам блоги и сообщения из общего потока с определенным тегом,
-            точно так же вы можете исключить из своей ленты подписок посты на темы, которые вам неинтересны,
-            а также запрещать тем или иным пользователям оставлять комментарии в вашем блоге.
-          </p>
-        </div>
+        <div class="wrap">
+            <div class="about">
+                <p>
+                    Point.im&nbsp;&mdash; это саморегулируемая система инстант-блогов. &laquo;Саморегулируемая&raquo;
+                    означает, что никакой централизованной модерации здесь нет,
+                    вы сами можете фильтровать поступающий к вам контент: подписываться
+                    на интересные вам блоги и сообщения из общего потока с определенным
+                    тегом, точно так же вы можете исключить из своей ленты подписок
+                    посты на темы, которые вам неинтересны, а также запрещать тем
+                    или иным пользователям оставлять комментарии в вашем блоге.
+                </p>
+            </div>
 
-        <div class="devices">
-          <div class="browser">
-            <div class="inner">
-              <!--[if IE]>
+            <div class="devices">
+                <div class="browser">
+                    <div class="inner">
+                        <!--[if IE]>
               <img src="img/landing/browser.png" alt="Браузер"/>
               <![endif]-->
-              <img src="img/landing/browser.svg" alt="Браузер"/>
-              <!-- <![endif]-->
-              <h2>Браузер</h2>
-              <div class="descr">
-                В любом современном браузере, на любом устройстве, без дополнительного ПО.
-              </div>
-            </div>
-          </div>
+                        <img src="img/landing/browser.svg" alt="Браузер" />
+                        <!-- <![endif]-->
+                        <h2>Браузер</h2>
+                        <div class="descr">
+                            В любом современном браузере, на любом устройстве, без дополнительного ПО.
+                        </div>
+                    </div>
+                </div>
 
-          <div class="im">
-            <div class="inner">
-              <!--[if IE]>
+                <div class="im">
+                    <div class="inner">
+                        <!--[if IE]>
               <img src="img/landing/im.png" alt="Jabber"/>
               <![endif]-->
-              <img src="img/landing/im.svg" alt="Jabber"/>
-              <!-- <![endif]-->
-              <h2>Jabber</h2>
-              <div class="descr">
-                В Вашем любимом Jabber-клиенте.
-              </div>
-            </div>
-          </div>
+                        <img src="img/landing/im.svg" alt="Jabber" />
+                        <!-- <![endif]-->
+                        <h2>Jabber</h2>
+                        <div class="descr">
+                            В Вашем любимом Jabber-клиенте.
+                        </div>
+                    </div>
+                </div>
 
-          <div class="mobile">
-            <div class="inner">
-              <!--[if IE]>
+                <div class="mobile">
+                    <div class="inner">
+                        <!--[if IE]>
               <img src="img/landing/mobile.png" alt="Телефон"/>
               <![endif]-->
-              <img src="img/landing/mobile.svg" alt="Телефон"/>
-              <!-- <![endif]-->
-              <h2>Телефон</h2>
-              <div class="descr">
-                Всегда с собой на телефоне или планшете.
-              </div>
+                        <img src="img/landing/mobile.svg" alt="Телефон" />
+                        <!-- <![endif]-->
+                        <h2>Телефон</h2>
+                        <div class="descr">
+                            Всегда с собой на телефоне или планшете.
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
 
-      {% set recaptcha_theme="dark" %}
-      {% include "/auth/_login-form.html" with context %}
+        {% set recaptcha_theme="dark" %} {% include "/auth/_login-form.html" with context
+        %}
     </content>
 
-    <footer>
-      <div class="menu">
-        <div>
-          <a href="/about">О проекте</a>
-          <a href="/tos">Правила</a>
-          <a href="/donate">Добро</a>
+    <footer class="js-footer">
+        <div class="menu">
+            <div>
+                <a href="/about">О проекте</a>
+                <a href="/tos">Правила</a>
+                <a href="/donate">Добро</a>
+            </div>
+            <div>
+                <a href="/help/">Справка</a>
+                <a href="/help/apps">Приложения</a>
+                <a href="/help/commands">Команды</a>
+                <a href="/help/api">API</a>
+                <a href="/help/markdown">Markdown</a>
+            </div>
+            <div>
+                <a href="/contacts">Контакты</a>
+                <a href="https://bitbucket.org/arts/point-issues">Сообщить об ошибке</a>
+            </div>
         </div>
-        <div>
-          <a href="/help/">Справка</a>
-          <a href="/help/apps">Приложения</a>
-          <a href="/help/commands">Команды</a>
-          <a href="/help/api">API</a>
-          <a href="/help/markdown">Markdown</a>
+        <div class="copyright">
+            &copy; 2010&ndash;2015 Arts
         </div>
-        <div>
-          <a href="/contacts">Контакты</a>
-          <a href="https://bitbucket.org/arts/point-issues">Сообщить об ошибке</a>
-        </div>
-      </div>
-      <div class="copyright">
-        &copy; 2010&ndash;2015 Arts
-      </div>
     </footer>
-  </body>
-</html>
 
+    <script src="/dist/landing{% if not settings.debug %}-min{% endif %}.js"></script>
+</body>
+
+</html>

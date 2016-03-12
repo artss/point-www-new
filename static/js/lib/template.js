@@ -49,5 +49,5 @@ twig.extend(function (Twig) {
     };
 });
 
-export default name => templates[name.replace(/^\//, '')];
+export default (name, data) => templates[name.replace(/^\//, '')].render(_.extend({settings: window.settings, env: window.env}, data));
 
