@@ -45,20 +45,20 @@ timezone = 'Europe/Moscow'
 template_path = '/home/point/www/templates'
 
 avatars_path = '/home/point/img/a'
-avatars_root = '://i.point.im/a'
+avatars_root = '//i.point.im/a'
 
 thumbnail_path = '/home/point/img/t'
-thumbnail_root = '://i.point.im/t'
+thumbnail_root = '//i.point.im/t'
 thumbnail_size = [400, 300]
 
 media_path = '/home/point/img/m'
-media_root = '://i.point.im/m'
+media_root = '//i.point.im/m'
 
 blogcss_path = '/home/point/www/static/css/blogcss'
-blogcss_root = '://point.im/blogcss'
+blogcss_root = '//point.im/blogcss'
 
 usercss_path = '/home/point/www/static/css/usercss'
-usercss_root = '://point.im/usercss'
+usercss_root = '//point.im/usercss'
 
 imgproc_sock = '/tmp/imgproc.sock'
 upload_dir = '/home/point/upload'
