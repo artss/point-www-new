@@ -1,198 +1,183 @@
-/* global define, env */
+/* global env */
 
-define(function(require) {
-  'use strict';
+'use strict';
 
-  var Backbone = require('backbone');
-  var _ = require('underscore');
-  var request = require('lib/request');
-  var dom = require('lib/dom');
-  var UserModel = require('lib/user-model');
-  var BaseView = require('lib/base-view');
-  var SidebarView = require('sidebar');
-  var ErrorView = require('lib/error-view');
-  var PostListView = require('post-list');
-  var Post = require('post');
-  var PostFormView = require('post-form');
-  var util = require('util/util');
+import Backbone from 'backbone';
+import _ from 'lodash';
+import request from 'lib/request';
+import dom from 'lib/dom';
+import UserModel from 'lib/user-model';
+import BaseView from 'lib/base-view';
+import SidebarView from 'sidebar';
+//import ErrorView from 'lib/error-view';
+import PostListView from 'post-list';
+import {PostView} from 'post';
+import NewPostFormView from 'new-post-form';
+import util from 'util/util';
 
-  var _initial = true;
+var _initial = true;
 
-  var mainDiv = dom.select('.js-main');
-  var content = dom.select('.js-content');
-  var footer = dom.select(content, '.js-footer');
+const mainDiv = dom.select('.js-main');
+const content = dom.select('.js-content');
+const footer = dom.select('.js-footer');
 
-  var App = Backbone.Router.extend({
-    routes: {
-      'recent(/unread)(/:page)(/)': function() {
-        return this.postsList('/recent(/unread)?');
-      },
+export default class App extends Backbone.Router {
+    constructor(options) {
+        super(options);
 
-      'u/:login/info(/)': 'pageView',
+        this.routes = {
+            'recent(/unread)(/:page)(/)': () => this.postsList('/recent(/unread)?'),
 
-      'profile(/:section)(/)': 'pageView',
+            'u/:login/info(/)': 'pageView',
 
-      'u/:login(/:page)(/)': function() {
-        return this.postsList('/u/[a-zA-Z0-9]+');
-      },
+            'profile(/:section)(/)': 'pageView',
 
-      'comments(/unread)(/:page)(/)': function() {
-        return this.postsList('/comments(/unread)?');
-      },
+            'u/:login(/:page)(/)': () => this.postsList('/u/[a-zA-Z0-9]+'),
 
-      'messages(/:page)(/)': function() {
-        return this.postsList('/messages');
-      },
-      'messages/unread(/:page)(/)': function() {
-        return this.postsList('/messages/unread');
-      },
-      'messages/incoming(/:page)(/)': function() {
-        return this.postsList('/messages/incoming');
-      },
-      'messages/outgoing(/:page)(/)': function() {
-        return this.postsList('/messages/outgoing');
-      },
-      'bookmarks(/:page)(/)': function() {
-        return this.postsList('/bookmarks');
-      },
+            'comments(/unread)(/:page)(/)': () => this.postsList('/comments(/unread)?'),
 
-      'bookmarks/:page(/)': function() {
-        return this.postsList(/\/bookmarks/);
-      },
+            'messages(/:page)(/)': () => this.postsList('/messages'),
 
-      'p/:post': 'postView'
-    },
+            'messages/unread(/:page)(/)': () => this.postsList('/messages/unread'),
 
-    initialize: function() {
-      Backbone.Router.prototype.initialize.apply(this, arguments);
+            'messages/incoming(/:page)(/)': () => this.postsList('/messages/incoming'),
 
-      this.user = env.user = new UserModel(env.user);
+            'messages/outgoing(/:page)(/)': () => this.postsList('/messages/outgoing'),
 
-      this.sidebar = new SidebarView({el: '.sidebar'});
-      this.sidebar.toggle(false);
+            'bookmarks(/:page)(/)': () => this.postsList('/bookmarks'),
 
-      if (!('ontouchstart' in document.documentElement)) {
-        document.body.classList.remove('touch-device');
-      } else if (!localStorage.getItem('sidebar-screen-hint')) {
-        localStorage.setItem('sidebar-screen-hint', 1);
-        dom.select('.screen-hint').style.display = 'block';
-      }
+            'bookmarks/:page(/)': () => this.postsList(/\/bookmarks/),
 
-      dom.on(document, 'click', '.js-navigate', function(evt) {
-        var href = evt.target.getAttribute('href');
+            'p/:post': 'postView'
+        };
 
-        var loc = util.parseUrl(href);
+        this._bindRoutes();
 
-        if (loc.protocol === location.protocol && loc.host === loc.host) {
-          evt.preventDefault();
-          this.navigate(href, {trigger: true});
-        } else {
-          Backbone.history.stop();
-          location.href = loc.href;
-        }
-      }.bind(this));
+        this.user = env.user = new UserModel(env.user);
 
-      var newPostForm;
-
-      Backbone.on('new-post', function() {
-        if (!newPostForm) {
-          newPostForm = new PostFormView({ el: dom.select('.popup-newpost') });
-        }
-
-        mainDiv.classList.add('newpost');
-      });
-
-      Backbone.on('new-post-cancel', function() {
-        mainDiv.classList.remove('newpost');
-      });
-    },
-
-    loadView: function(View, data, urlPattern) {
-      this.sidebar.toggle(false);
-
-      if (!urlPattern) {
-        urlPattern = /.*/;
-      }
-
-      var el;
-
-      if (_initial) {
-        el = dom.select('.js-view');
-        this._currentView = new View({el: el, app: this, urlPattern: urlPattern});
-        _initial = false;
-        this._currentView.trigger('rendered');
-        mainDiv.classList.remove('loading');
-        return;
-      }
-
-      mainDiv.classList.add('loading');
-
-      if (this._request && _.isFunction(this._request.cancel)) {
-        this._request.cancel();
-      }
-
-      if (_.isString(data) && data.match(/^http|\//)) {
-        this._request = request.get(data);
-      } else {
-        this._request = new Promise(function(resolve) {
-          resolve(data);
+        this.sidebar = new SidebarView({
+            el: '.sidebar'
         });
-      }
+        this.sidebar.toggle(false);
 
-      this._request.then(function(resp) {
-        if (this._currentView) {
-          this._currentView.el.remove();
-          this._currentView.destroy();
+        if (!('ontouchstart' in document.documentElement)) {
+            document.body.classList.remove('touch-device');
+        } else if (!localStorage.getItem('sidebar-screen-hint')) {
+            localStorage.setItem('sidebar-screen-hint', 1);
+            dom.select('.screen-hint').style.display = 'block';
         }
 
-        el = dom.create('<div class="js-view"></div>');
+        dom.on(document, 'click', '.js-navigate', function (evt) {
+            var href = evt.target.getAttribute('href');
 
-        if (_.isObject(resp.data) && !_.isEmpty(resp.data.menu)) {
-          this.sidebar.setMenu(resp.data.menu);
-          resp.className = resp.data.menu + '-view';
+            var loc = util.parseUrl(href);
+
+            if (loc.protocol === location.protocol && loc.host === loc.host) {
+                evt.preventDefault();
+                this.navigate(href, {
+                    trigger: true
+                });
+            } else {
+                Backbone.history.stop();
+                location.href = loc.href;
+            }
+        }.bind(this));
+
+        var newPostForm;
+
+        Backbone.on('new-post', function () {
+            if (!newPostForm) {
+                newPostForm = new NewPostFormView({
+                    el: dom.select('.popup-newpost')
+                });
+            }
+
+            newPostForm.show();
+        });
+
+        Backbone.on('new-post-cancel', function () {
+            mainDiv.classList.remove('newpost');
+        });
+    }
+
+    loadView(View, data, urlPattern) {
+        this.sidebar.toggle(false);
+
+        if (!urlPattern) {
+            urlPattern = /.*/;
         }
 
-        this._currentView = new View(_.extend(resp, {el: el, app: this, urlPattern: urlPattern}));
+        var el;
 
-        this._currentView.render().then(
-          function() {
-            //content.insertAdjacentElement('afterBegin', el);
+        if (_initial) {
+            el = dom.select('.js-view');
+            this._currentView = new View({
+                el: el,
+                app: this,
+                urlPattern: urlPattern
+            });
+            _initial = false;
+            this._currentView.trigger('rendered');
+            mainDiv.classList.remove('loading');
+            return;
+        }
+
+        mainDiv.classList.add('loading');
+
+        if (this._request && _.isFunction(this._request.cancel)) {
+            this._request.cancel();
+        }
+
+        if (_.isString(data) && data.match(/^http|\//)) {
+            this._request = request.get(data);
+        } else {
+            this._request = new Promise(resolve => resolve(data));
+        }
+
+        this._request.then(resp => {
+            if (this._currentView) {
+                this._currentView.el.remove();
+                this._currentView.destroy();
+            }
+
+            el = dom.create('<div class="js-view"></div>');
+
+            if (_.isObject(resp.data) && !_.isEmpty(resp.data.menu)) {
+                this.sidebar.setMenu(resp.data.menu);
+                resp.className = resp.data.menu + '-view';
+            }
+
+            this._currentView = new View(_.extend(resp, {
+                el: el,
+                app: this,
+                urlPattern: urlPattern
+            }));
+
+            this._currentView.render();
             content.insertBefore(el, footer);
             this._currentView.trigger('rendered');
 
             mainDiv.classList.remove('loading');
-          }.bind(this),
-          function() {}
-        );
 
-        delete this._request;
-      }.bind(this))
-      .catch(function(resp /*, status*/) {
-        //console.log('catch', resp, status);
-
-        this.loadView(ErrorView, resp);
-        mainDiv.classList.remove('loading');
-      }.bind(this));
-    },
-
-    postsList: function(urlPattern) {
-      this.loadView(PostListView, location.href, new RegExp('^' + urlPattern));
-    },
-
-    postView: function() {
-      this.loadView(Post.View, location.href);
-    },
-
-    pageView: function() {
-      //console.log('+ pageView');
-      this.loadView(BaseView, location.href);
+            delete this._request;
+        })
+        .catch((resp, status) => {
+            console.log('this.loadView(ErrorView, resp)', status);
+            console.dir(resp);
+            mainDiv.classList.remove('loading');
+        });
     }
-  });
 
-  if (!env.user.id) {
-    require('auth/login-register');
-  }
+    postsList(urlPattern) {
+        this.loadView(PostListView, location.href, new RegExp('^' + urlPattern));
+    }
 
-  return App;
-});
+    postView() {
+        this.loadView(PostView, location.href);
+    }
+
+    pageView() {
+        this.loadView(BaseView, location.href);
+    }
+}
 

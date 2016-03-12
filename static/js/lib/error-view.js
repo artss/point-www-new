@@ -1,12 +1,8 @@
-/* global define */
+'use strict';
 
-define(function(require) {
-  'use strict';
+import BaseView from 'lib/templated-view';
 
-  var BaseView = require('lib/base-view');
+export default class ErrorView extends TemplatedView {
 
-  var ErrorView = BaseView.extend({});
-
-  return ErrorView;
-});
+}
 

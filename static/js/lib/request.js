@@ -1,28 +1,27 @@
-define(function(require) {
-  'use strict';
+'use strict';
 
-  var _ = require('underscore');
-  var util = require('util/util');
-  var Promise = require('lib/promise');
+import _ from 'lodash';
+import util from 'util/util';
+import Promise from 'lib/promise';
 
-  function parseJson(data) {
+function parseJson(data) {
     try {
-      return JSON.parse(data);
-    } catch(e) {
-      return data;
+        return JSON.parse(data);
+    } catch (e) {
+        return data;
     }
-  }
+}
 
-  function request(method, url, params, options) {
+export default function request(method, url, params, options) {
     if (_.isObject(params) && !(params instanceof FormData)) {
-      params = request.params(params);
+        params = request.params(params);
     }
 
     if (method.toUpperCase() === 'GET') {
-      if (params) {
-        url += (url.indexOf('?') > -1 ? '&' : '?') + params;
-      }
-      params = null;
+        if (params) {
+            url += (url.indexOf('?') > -1 ? '&' : '?') + params;
+        }
+        params = null;
     }
 
     var xhr = new XMLHttpRequest();
@@ -31,60 +30,49 @@ define(function(require) {
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     if (_.isObject(options) && _.isObject(options.headers)) {
-      _.each(options.headers, function(value, key) {
-        xhr.setRequestHeader(key, value);
-      });
+        _.each(options.headers, (value, key) => xhr.setRequestHeader(key, value));
     }
 
-    var promise = new Promise(function(resolve, reject) {
-      function throwError() {
-        reject(parseJson(this.responseText));
-      }
-
-      xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 400) {
-          resolve(parseJson(xhr.responseText));
-        } else {
-          throwError.call(xhr, xhr.status);
+    var promise = new Promise((resolve, reject) => {
+        function throwError() {
+            reject(parseJson(this.responseText));
         }
-      };
 
-      xhr.onerror = throwError.bind(xhr);
-      xhr.onabort = throwError.bind(xhr);
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 400) {
+                resolve(parseJson(xhr.responseText));
+            } else {
+                throwError.call(xhr, xhr.status);
+            }
+        };
 
-      xhr.send(params);
+        xhr.onerror = throwError.bind(xhr);
+        xhr.onabort = throwError.bind(xhr);
+
+        xhr.send(params);
     });
 
     promise.url = url;
 
-    promise.cancel = function() {
-      xhr.abort();
-    };
+    promise.cancel = () => xhr.abort();
 
     return promise;
-  }
+}
 
-  /**
-   * Serialize params
-   */
-  request.params = function(params) {
-    return _.map(params, function(value, key) {
-      if (!_.isArray(value)) {
-        value = [value];
-      }
+/**
+ * Serialize params
+ */
+request.params = (params) => {
+    return params.map((value, key) => {
+        if (!_.isArray(value)) {
+            value = [value];
+        }
 
-      return _.map(value, function(v) {
-        return util.urlencode(key) + '=' + util.urlencode(v);
-      }).join('&');
+        return value.map(v => util.urlencode(key) + '=' + util.urlencode(v)).join('&');
     }).join('&');
-  };
+};
 
-  _.each(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], function(method) {
-    request[method.toLowerCase()] = function(url, params) {
-      return request(method, url, params);
-    };
-  });
-
-  return request;
+['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].forEach(method => {
+    request[method.toLowerCase()] = (url, params) => request(method, url, params);
 });
 

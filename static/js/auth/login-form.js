@@ -1,37 +1,31 @@
-define(function(require) {
-  'use strict';
+'use strict';
 
-  var _ = require('underscore');
-  var Form = require('lib/form');
+import _ from 'lodash';
+import {FormModel, FormView} from 'lib/form';
 
-  var LoginModel = Form.Model.extend({
-    url: '/login',
+class LoginModel extends FormModel {
+    get url() { return '/login'; }
 
-    validation: {
-      login: [
-        'required',
-        /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i
-      ],
-      password: [
-        'required'
-      ]
+    get validation() {
+        return {
+            login: [ 'required', /^[a-z0-9][a-z0-9-]*[a-z0-9]$/i ],
+            password: [ 'required' ]
+        };
     }
-  });
-  var LoginForm = Form.View.extend({
-    model: LoginModel,
+}
 
-    initialize: function(options) {
-      Form.View.prototype.initialize.call(this, options);
+export default class LoginForm extends FormView {
+    get Model() { return LoginModel; }
 
-      this.on('error', function(data) {
-        _.each(data.errors, function(message, field) {
-          this.setValidation(field, false, message);
-          this.focus('password');
-        }, this);
-      });
+    initialize(options) {
+        super.initialize(options);
+
+        this.on('error', data => {
+            _.each(data.errors, (message, field) => {
+                this.setValidation(field, false, message);
+                this.focus('password');
+            }, this);
+        });
     }
-  });
-
-  return LoginForm;
-});
+}
 

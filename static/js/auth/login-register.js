@@ -1,41 +1,34 @@
-/* global define */
+'use strict';
 
-define(function(require) {
-  'use strict';
+import RegForm from 'auth/reg-form';
+import LoginForm from 'auth/login-form';
+import dom from 'lib/dom';
 
-  var RegForm = require('auth/reg-form');
-  var LoginForm = require('auth/login-form');
-  var dom = require('lib/dom');
+const wrap = dom.select('.login-wrap');
 
-  var wrap = dom.select('.login-wrap');
+if (wrap) {
+    dom.on(dom.select(wrap, '.reg-link'), 'click', evt => {
+        evt.preventDefault();
+        wrap.classList.remove('login');
+        setTimeout(() => regForm.focus('login'), 501);
+    });
 
-  if (!wrap) {
-    return;
-  }
+    dom.on(dom.select(wrap, '.login-link'), 'click', evt => {
+        evt.preventDefault();
+        wrap.classList.add('login');
+        setTimeout(() => loginForm.focus('login'), 501);
+    });
 
-  dom.on(dom.select(wrap, '.reg-link'), 'click', function (evt) {
-    evt.preventDefault();
-    wrap.classList.remove('login');
-    setTimeout(function() {
-      regForm.focus('login');
-    }, 501);
-  });
+    var regForm = new RegForm({
+        el: dom.select(wrap, '.reg-form')
+    });
+    regForm.render();
 
-  dom.on(dom.select(wrap, '.login-link'), 'click', function (evt) {
-    evt.preventDefault();
-    wrap.classList.add('login');
-    setTimeout(function() {
-      loginForm.focus('login');
-    }, 501);
-  });
+    var loginForm = new LoginForm({
+        el: dom.select(wrap, '.login-form')
+    });
+    loginForm.render();
 
-  var regForm = new RegForm({el: dom.select(wrap, '.reg-form')});
-  regForm.render();
-
-  var loginForm = new LoginForm({el: dom.select(wrap, '.login-form')});
-  loginForm.render();
-  loginForm.on('success', function() {
-    window.location = window.location;
-  });
-});
+    loginForm.on('success', () => { window.location = window.location; });
+}
 

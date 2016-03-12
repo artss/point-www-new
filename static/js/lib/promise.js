@@ -1,10 +1,5 @@
-/* global define */
+'use strict';
 
-define(function(require) {
-  'use strict';
-
-  require('/bower_components/promise-polyfill/Promise.js');
-
-  return window.Promise;
-});
+import Promise from 'promise-polyfill/Promise';
+export default Promise;
 

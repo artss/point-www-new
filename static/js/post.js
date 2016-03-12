@@ -1,42 +1,36 @@
-define(function(require) {
-  'use strict';
+'use strict';
 
-  var BaseView = require('lib/base-view');
-  var Form = require('lib/form');
+import BaseView from 'lib/base-view';
+import {FormModel} from 'lib/form';
 
-  var PostModel = Form.Model.extend({
-    defaults: {
-      tags: '',
-      text: '',
-      file: [],
-      private: false
-    },
-
-    url: '/p',
-
-    initialize: function() {
-      Form.Model.prototype.initialize.apply(this, arguments);
-      console.log('PostModel', this, arguments);
-    },
-
-    validation: {
-      text: [
-        'required'
-      ]
+export class PostModel extends FormModel {
+    get defaults() {
+        return {
+            tags: '',
+            text: '',
+            file: [],
+            private: false
+        };
     }
-  });
 
-  var PostView = BaseView.extend({
-    className: 'post-view',
+    get url() { return '/p'; }
 
-    initialize: function(options) {
-      BaseView.prototype.initialize.call(this, options);
+    initialize(attributes, options) {
+        super.initialize(attributes, options);
     }
-  });
 
-  return {
-    Model: PostModel,
-    View: PostView
-  };
-});
+    get validation() {
+        return {
+            text: ['required']
+        };
+    }
+}
+
+export class PostView extends BaseView {
+    get className() { return 'post-view'; }
+
+    initialize(options) {
+        super.initialize(options);
+    }
+}
 
