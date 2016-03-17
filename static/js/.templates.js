@@ -1,6 +1,7 @@
 export default {
     'base.html': require('_base.html'),
 
+    'pages/post.html': require('pages/post.html'),
     'pages/_posts-page.html': require('pages/_posts-page.html'),
     'pages/blog.html': require('pages/blog.html'),
     'pages/recent.html': require('pages/recent.html'),

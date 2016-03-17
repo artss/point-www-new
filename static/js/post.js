@@ -1,6 +1,6 @@
 'use strict';
 
-import BaseView from 'lib/base-view';
+import TemplatedView from 'lib/templated-view';
 import {FormModel} from 'lib/form';
 
 export class PostModel extends FormModel {
@@ -26,11 +26,10 @@ export class PostModel extends FormModel {
     }
 }
 
-export class PostView extends BaseView {
+export class PostView extends TemplatedView {
     get className() { return 'post-view'; }
 
     initialize(options) {
         super.initialize(options);
     }
 }
-
