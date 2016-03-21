@@ -9,18 +9,24 @@ import settings
 
 @route('/profile(?:/info)?/?', host=settings.domain)
 def profile_info():
-    return Response(template='/pages/profile/info.html', section='info', profile={})
+    return Response(template='/pages/profile/info.html', section='info',
+                    login=env.user.login, info=env.user.get_info())
 
 @route('/profile/settings/?', host=settings.domain)
 def profile_settings():
     languages = [
-        [u'ru', u'Русский'],
-        [u'en', u'English'],
-        [u'uk', u'Українська'],
-        [u'by', u'Беларуская']
+        {'value': u'ru', 'title': u'Русский'},
+        {'value': u'en', 'title': u'English'},
+        {'value': u'uk', 'title': u'Українська'},
+        {'value': u'by', 'title': u'Беларуская'}
     ]
     return Response(template='/pages/profile/settings.html', section='settings',
-                    profile={}, languages=languages)
+        languages=languages, profile={
+            'lang': env.user.get_profile('lang'),
+            'tz': env.user.get_profile('tz'),
+            'deny_anonymous': env.user.get_profile('deny_anonymous'),
+            'private': env.user.get_profile('private')
+        })
 
 @route('/profile/im/?', host=settings.domain)
 def profile_im():

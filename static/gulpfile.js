@@ -1,12 +1,13 @@
 'use strict';
 
 var gulp = require('gulp');
-var babelify = require('babelify');
-var browserify = require('gulp-browserify');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
 var twigify = require('twigify');
 var minify = require('gulp-minify');
 
 var templatesDir = '../templates';
+var buildDir = './dist';
 
 var browserifyOptions = {
     debug: true,
@@ -17,38 +18,21 @@ var browserifyOptions = {
         templatesDir
     ],
 
-    exclude: ['jquery'],
-
-    shim: {
-        underscore: {
-            path: './node_modules/lodash',
-            exports: '_'
-        }
-    },
-
-    transform: [
-        babelify.configure({
-            presets: ['es2015']
-        }),
-
-        twigify.configure({
-            extension: /\.(html)$/,
-            templatesDir: templatesDir
-        })
-    ]
+    exclude: ['jquery']
 };
 
-gulp.task('js:main', function () {
-    return gulp.src(['js/main.js'])
-        .pipe(browserify(browserifyOptions))
-        .pipe(minify())
-        .pipe(gulp.dest('dist'));
+['main', 'landing'].forEach(function (entry) {
+    gulp.task('js:' + entry, function () {
+        return browserify('./js/' + entry + '.js', browserifyOptions)
+            .transform('babelify', {presets: ['es2015']})
+            .transform('aliasify', {aliases: {underscore: 'lodash'}})
+            .transform('twigify', {
+                extension: /\.(html)$/,
+                templatesDir: templatesDir
+            })
+            .bundle()
+            .pipe(source(entry + '.js'))
+            .pipe(minify())
+            .pipe(gulp.dest(buildDir));
+    });
 });
-
-gulp.task('js:landing', function () {
-    return gulp.src(['js/landing.js'])
-        .pipe(browserify(browserifyOptions))
-        .pipe(minify())
-        .pipe(gulp.dest('dist'));
-});
-

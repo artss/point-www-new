@@ -19,39 +19,39 @@
         <div class="row">
             <label class="label" for="login-input">Ник</label>
             <div class="value">
-                <input type="text" readonly="readonly" disabled="disabled" name="login" id="login-input"/>
+                <input type="text" readonly="readonly" disabled="disabled" name="login" id="login-input" value="{{ login }}"/>
                 <div class="descr">Менять ник можно не чаще одного раза в сутки</div>
             </div>
         </div>
 
         <div class="row">
             <label class="label" for="name-input">Имя</label>
-            <div class="value"><input type="text" name="name" id="name-input" value=""/></div>
+            <div class="value"><input type="text" name="name" id="name-input" value="{{ info.name }}"/></div>
         </div>
 
         <div class="row">
             <label class="label" for="birthdate-input">Дата рождения</label>
             <div class="value">
-                <input type="date" name="birthdate" id="birthdate-input" placeholder="ДД.ММ.ГГГГ"/>
+                <input type="date" name="birthdate" id="birthdate-input" placeholder="ДД.ММ.ГГГГ" value="{{ info.birthdate }}"/>
             </div>
         </div>
 
         <div class="row">
             <label class="label" for="">Пол</label>
             <div class="value">
-                <label><input type="radio" name="gender" value="m"/>Мужской</label>
-                <label><input type="radio" name="gender" value="f"/>Женский</label>
+                <label><input type="radio" name="gender" value="m" {% if info.gender == true %}checked{% endif %}/>Мужской</label>
+                <label><input type="radio" name="gender" value="f" {% if info.gender == false %}checked{% endif %}/>Женский</label>
             </div>
         </div>
 
         <div class="row">
             <label class="label" for="location-input">Город</label>
-            <div class="value"><input type="text" name="location" id="location-input" value=""/></div>
+            <div class="value"><input type="text" name="location" id="location-input" value="{{ info.location }}"/></div>
         </div>
 
         <div class="row">
             <label class="label" for="about-input">О себе</label>
-            <div class="value"><textarea name="about" id="about-input" maxlength="2000"></textarea></div>
+            <div class="value"><textarea name="about" id="about-input" maxlength="2000">{{ info.about }}</textarea></div>
         </div>
 
         <div class="row">

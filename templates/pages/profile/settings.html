@@ -8,7 +8,7 @@
             <div class="value">
                 <select name="lang">
                     {% for lang in languages %}
-                    <option value="{{ lang[0] }}"{% if profile.lang == lang[0] %} selected{% endif %}>{{ lang[1] }}</option>
+                    <option value="{{ lang.value }}"{% if profile.lang == lang.value %} selected{% endif %}>{{ lang.title }}</option>
                     {% endfor %}
                 </select>
             </div>

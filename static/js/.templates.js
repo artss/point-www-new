@@ -11,7 +11,7 @@ export default {
     'pages/messages/outgoing.html': require('pages/messages/outgoing.html'),
 
     'pages/profile/info.html': require('pages/profile/info.html'),
-    //'pages/profile/settings.html': require('pages/profile/settings.html'),
+    'pages/profile/settings.html': require('pages/profile/settings.html'),
     'pages/profile/im.html': require('pages/profile/im.html'),
     'pages/profile/www.html': require('pages/profile/www.html'),
     'pages/profile/password.html': require('pages/profile/password.html'),
